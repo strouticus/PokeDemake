@@ -1,0 +1,97 @@
+@import "modules";
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	color: white;
+	font-family: Arial, sans-serif;
+	font-size: 20px;
+}
+
+.battle_scene { 
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 200px;
+	right: 0;
+	@include flex();
+	@include row();
+
+	.battle_side { 
+		position: relative;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 20px;
+		@include grow(1);
+
+		.pokemon_name { 
+			position: relative;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.pokemon_hp_bar_container { 
+			position: relative;
+			width: 100%;
+			height: 30px;
+			background-color: #333333;
+			margin-bottom: 10px;
+
+			.pokemon_hp_inner { 
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: green;
+				@include origin(left center);
+				@include transtrans("");
+			}
+		}
+
+		.pokemon_hp_num {
+			position: relative;
+			margin-bottom: 20px;
+		}
+
+		.pokemon_stats { 
+			position: relative;
+			margin-bottom: 40px;
+
+			.stat { 
+
+			}
+		}
+
+		.pokemon_moves { 
+			position: relative;
+
+			.pokemon_move_button { 
+				position: relative;
+				width: 100%;
+				height: 70px;
+				box-sizing: border-box;
+				background-color: #aaaaaa;
+				@include flex();
+				margin-bottom: 5px;
+
+				.pokemon_move_name_text { 
+
+				}
+
+				.pokemon_move_description_text { 
+
+				}
+			}
+		}
+	}
+}
+
+.text_scene { 
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 200px;
+	right: 0;
+}

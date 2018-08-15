@@ -1,0 +1,232 @@
+@mixin transition($trans) {
+	-webkit-transition:$trans;
+	-moz-transition:$trans;
+	transition:$trans;
+}
+
+@mixin transform($trans) {
+	-webkit-transform:$trans;
+	-moz-transform:$trans;
+	transform:$trans;
+}
+
+@mixin transforce($trans) {
+	-webkit-transform:$trans !important;
+	-moz-transform:$trans !important;
+	transform:$trans !important;  
+}
+
+@mixin transop() {
+	-webkit-transition:0.5s opacity ease;
+	-moz-transition:0.5s opacity ease;
+	transition:0.5s opacity ease;	
+}
+
+@mixin full() {
+	position:absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+}
+
+@mixin fullscreen() {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+@mixin cover() {
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+@mixin contain() {
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+@mixin transtrans($trans) {
+	-webkit-transition:0.5s -webkit-transform ease #{$trans};
+	-moz-transition:0.5s -moz-transform ease #{$trans};
+	transition:0.5s transform ease #{$trans};
+}
+
+@mixin transfast($trans) {
+	-webkit-transition:0.01s -webkit-transform ease #{$trans};
+	-moz-transition:0.01s -moz-transform ease #{$trans};
+	transition:0.01s transform ease #{$trans};
+}
+
+@mixin transout() {
+	-webkit-transition:0.01s -webkit-transform ease 0.5s, 0.01s opacity ease 0.5s;
+	-moz-transition:0.01s -moz-transform ease 0.5s, 0.01s opacity ease 0.5s;
+	transition:0.01s transform ease 0.5s, 0.01s opacity ease 0.5s;
+}
+
+@mixin fadeout() {
+	-webkit-transition:0.01s -webkit-transform ease 0.5s, 0.5s opacity ease;
+	-moz-transition:0.01s -moz-transform ease 0.5s, 0.5s opacity ease;
+	transition:0.01s transform ease 0.5s, 0.5s opacity ease;
+}
+
+@mixin transtrans2($trans) {
+	-webkit-transition:1s -webkit-transform ease #{$trans};
+	-moz-transition:1s -moz-transform ease #{$trans};
+	transition:1s transform ease #{$trans};
+}
+
+@mixin transdur($dur) {
+	-webkit-transition-duration:$dur;
+	-moz-transition-duration:$dur;
+	transition-duration:$dur;
+}
+
+@mixin delay($delay) {
+	-webkit-transition-delay:$delay;
+	-moz-transition-delay:$delay;
+	transition-delay:$delay;
+}
+
+
+
+@mixin origin($origin) {
+	-webkit-transform-origin:$origin;
+	-moz-transform-origin:$origin;
+	transform-origin:$origin;
+}
+
+@mixin center() {
+	position:absolute;
+	top:50%;
+	left:50%;
+	@include transform(translate(-50%, -50%))
+}
+
+@mixin flex() {
+	display:-webkit-flex;
+	-webkit-flex-direction:column;
+	-webkit-justify-content: center;
+	-webkit-align-items:center;
+	display:-moz-flex;
+	-moz-flex-direction:column;
+	-moz-justify-content: center;
+	-moz-align-items:center;
+	display:-ms-flex;
+	-ms-flex-direction:column;
+	-ms-justify-content: center;
+	-ms-align-items:center;
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items:center;
+}
+
+@mixin flexgrow($grow) {
+	-webkit-flex-grow:$grow;
+	-moz-flex-grow:$grow;
+	-ms-flex-grow:$grow;
+	flex-grow:$grow;
+}
+
+@mixin justify($val) {
+	-webkit-justify-content: $val;
+	-moz-justify-content: $val;
+	-ms-justify-content: $val;
+	justify-content: $val;
+}
+
+@mixin align($val) {
+	-webkit-align-items: $val;
+	-moz-align-items: $val;
+	-ms-align-items: $val;
+	align-items: $val;
+}
+
+@mixin column() {
+	-webkit-flex-direction:column;
+	-moz-flex-direction:column;
+	-ms-flex-direction:column;
+	flex-direction:column;
+}
+
+@mixin row() {
+	-webkit-flex-direction:row;
+	-moz-flex-direction:row;
+	-ms-flex-direction:row;
+	flex-direction:row;
+}
+
+@mixin rowreverse() {
+	-webkit-flex-direction:row-reverse;
+	-moz-flex-direction:row-reverse;
+	-ms-flex-direction:row-reverse;
+	flex-direction:row-reverse;
+}
+
+@mixin colreverse() {
+	-webkit-flex-direction:column-reverse;
+	-moz-flex-direction:column-reverse;
+	-ms-flex-direction:column-reverse;
+	flex-direction:column-reverse;
+}
+
+@mixin grow($val) {
+	-webkit-flex-grow: $val;
+	-moz-flex-grow: $val;
+	-ms-flex-grow: $val;
+	flex-grow: $val;
+}
+
+@mixin shrink($val) {
+	-webkit-flex-shrink: $val;
+	-moz-flex-shrink: $val;
+	-ms-flex-shrink: $val;
+	flex-shrink: $val;
+}
+
+@mixin animate($name) {
+	-webkit-animation-name:$name;
+	-moz-animation-name:$name;
+	animation-name:$name;
+}
+@mixin duration($duration) {
+	-webkit-animation-duration:$duration;
+	-moz-animation-duration:$duration;
+	animation-duration:$duration;
+}
+@mixin infinite(){
+	-webkit-animation-iteration-count:infinite;
+	-moz-animation-iteration-count:infinite;
+	animation-iteration-count:infinite;
+}
+@mixin iteration($count){
+	-webkit-animation-iteration-count:$count;
+	-moz-animation-iteration-count:$count;
+	animation-iteration-count:$count;
+}
+@mixin linear(){
+	-webkit-animation-timing-function:linear;
+	-moz-animation-timing-function:linear;
+	animation-timing-function:linear;
+}
+@mixin fillforwards(){
+	-webkit-animation-fill-mode:forwards;
+	-moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+}
+
+@mixin animdelay($delay) {
+	-webkit-animation-delay:$delay;
+	-moz-animation-delay:$delay;
+	animation-delay:$delay;
+}
+
+
+
+

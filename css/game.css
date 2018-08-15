@@ -1,0 +1,128 @@
+/* line 3, ../scss/game.scss */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
+
+/* line 12, ../scss/game.scss */
+.battle_scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 200px;
+  right: 0;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+/* line 21, ../scss/game.scss */
+.battle_scene .battle_side {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+}
+/* line 28, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_name {
+  position: relative;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* line 34, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_hp_bar_container {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  background-color: #333333;
+  margin-bottom: 10px;
+}
+/* line 41, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_hp_bar_container .pokemon_hp_inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: 0.5s -webkit-transform ease ;
+  -moz-transition: 0.5s -moz-transform ease ;
+  transition: 0.5s transform ease ;
+}
+/* line 53, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_hp_num {
+  position: relative;
+  margin-bottom: 20px;
+}
+/* line 58, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_stats {
+  position: relative;
+  margin-bottom: 40px;
+}
+/* line 67, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_moves {
+  position: relative;
+}
+/* line 70, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_moves .pokemon_move_button {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  box-sizing: border-box;
+  background-color: #aaaaaa;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+/* line 91, ../scss/game.scss */
+.text_scene {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 200px;
+  right: 0;
+}
+
+/*# sourceMappingURL=game.css.map */
