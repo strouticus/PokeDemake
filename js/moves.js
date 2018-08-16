@@ -38,4 +38,12 @@ var moveInfo = {
 			attacker.adjustStats({atk: 2});
 		}
 	},
+	"def_boost": {
+		displayName: "Defense Boost",
+		moveType: "support",
+
+		moveFunc: function (attacker, defender) {
+			attacker.adjustStats({def: 2});
+		}
+	},
 }
