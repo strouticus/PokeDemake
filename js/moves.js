@@ -1,7 +1,7 @@
 var moveInfo = {
 	"strong_atk_A": {
 		displayName: "Strong Attack A",
-		type: "A",
+		type: TYPE_WATER,
 		moveType: "attack",
 		bp: 3,
 
@@ -11,7 +11,7 @@ var moveInfo = {
 	},
 	"strong_atk_B": {
 		displayName: "Strong Attack B",
-		type: "B",
+		type: TYPE_VOID,
 		moveType: "attack",
 		bp: 3,
 
@@ -21,7 +21,7 @@ var moveInfo = {
 	},
 	"big_strong_atk_A": {
 		displayName: "Exhausting Attack A",
-		type: "A",
+		type: TYPE_WATER,
 		moveType: "attack",
 		bp: 5,
 

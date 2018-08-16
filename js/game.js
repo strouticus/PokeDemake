@@ -13,14 +13,33 @@ var curOpponent;
 var animationQueue = [];
 
 function dealDamage (attacker, defender, type, bp) {
-	var damage = -1 * ((attacker.stats.atk + bp) - defender.stats.def);
-	defender.adjustHP(damage);
+	var isStab = (attacker.info.type === type);
+	var moveEffectiveness = (typeInfo[type][defender.info.type]);
+	var damage = (attacker.stats.atk + bp + (isStab ? 2 : 0)) - defender.stats.def;
+	if (moveEffectiveness === EFFECTIVE_SUPER) {
+		damage *= 2;
+	} else if (moveEffectiveness === EFFECTIVE_WEAK) {
+		damage *= 0.5;
+	}
+	damage = Math.ceil(damage);
+	damage = Math.max(1, damage);
+	defender.adjustHP(-1 * damage);
+
+	if (LOGGING >= 3) {
+		if (moveEffectiveness === EFFECTIVE_SUPER) {
+			console.info("It's super effective!");
+		} else if (moveEffectiveness === EFFECTIVE_WEAK) {
+			console.info("It's not very effective...");
+		}
+	}
 }
 
 function Pokemon (species, specialization, moves, nickname) {
 	this.species = species;
 	this.info = pokemonInfo[this.species];
 	this.nickname = nickname || this.info.displayName;
+
+	this.alive = true;
 
 	this.stats = {
 		hp: this.info.stats.hp,
@@ -42,9 +61,11 @@ function Pokemon (species, specialization, moves, nickname) {
 }
 
 Pokemon.prototype.adjustHP = function (hpDiff) {
-	this.curHP += Math.floor(hpDiff);
-	if (this.curHP < 0) {
+	this.curHP += Math.ceil(hpDiff);
+	if (this.curHP <= 0) {
 		this.curHP = 0;
+		this.alive = false;
+		return;
 	}
 	if (this.curHP > this.stats.hp) {
 		this.curHP = this.stats.hp;
@@ -61,16 +82,28 @@ Pokemon.prototype.adjustStats = function (statAdj) {
 }
 
 Pokemon.prototype.useMove = function (moveID, defender) {
+	if (!this.alive) {
+		return;
+	}
+
 	if (LOGGING >= 3) {
 		console.info("" + this.nickname + " used " + moveInfo[moveID].displayName + "!");
 	}
-	return moveInfo[moveID].moveFunc(this, defender);
+	moveInfo[moveID].moveFunc(this, defender);
 }
 
 Pokemon.prototype.handleTurnEnd = function () {
-	if (this.effects.indexOf("toxic") >= 0) {
-		this.adjustHP(-1 * this.toxicCounter);
-		this.toxicCounter += 1;
+	if (this.alive) {
+		if (this.effects.indexOf("toxic") >= 0) {
+			this.adjustHP(-1 * this.toxicCounter);
+			this.toxicCounter += 1;
+		}
+	}
+
+	if (!this.alive) {
+		if (LOGGING >= 3) {
+			console.info("" + this.nickname + " has fainted!");
+		}
 	}
 }
 
@@ -82,6 +115,8 @@ function Trainer (pokemonArray, userControl) {
 	this.activePokemon = undefined;
 	this.chosenAction = undefined;
 
+	this.mustSwitch = false;
+
 	this.sideState = "normal";
 
 	this.controlled = userControl;
@@ -90,12 +125,38 @@ function Trainer (pokemonArray, userControl) {
 }
 
 Trainer.prototype.switchPokemon = function (newPokemonID) {
+	var prevNickname;
+	if (this.activePokemon) {
+		prevNickname = this.activePokemon.nickname;
+	}
+
 	this.activePokemonIndex = newPokemonID;
 	this.activePokemon = this.pokemon[newPokemonID];
+
+	if (LOGGING >= 3) {
+		if (prevNickname) {
+			console.info("" + prevNickname + " was swapped out for " + this.activePokemon.nickname + "!");
+		} else {
+			console.info("Go! " + this.activePokemon.nickname + "!");
+		}
+	}
 }
 
 Trainer.prototype.chooseAction = function (actionType, actionInfo) {
 	this.chosenAction = new Action(actionType, actionInfo, this.trainerID);
+
+	// If this trainer needs to switch, and other trainer either: (doesn't need to switch) or (needs to switch and has chosen pokemon to switch to): Do mini switch turn
+	if (this.mustSwitch) {
+		if (actionType === SWITCH_ACTION) {
+			var otherTrainerObj = curBattleState.getOtherTrainer(this);
+			if (!otherTrainerObj.mustSwitch || otherTrainerObj.chosenAction.actionType === SWITCH_ACTION) {
+				curBattleState.handlePokemonSwitch();
+			}
+		} else {
+			this.chosenAction = undefined;
+		}
+		return;
+	}
 
 	if (curBattleState.trainerA.chosenAction && curBattleState.trainerB.chosenAction) {
 		curBattleState.handleTurnStart();
@@ -117,8 +178,6 @@ function BattleState (trainerA, trainerB) {
 	this.trainerB.id = "trainerB";
 
 	this.fieldState = "normal";
-
-	this.currentPhase = "";
 
 	this.speedTieWinner = (Math.random() > 0.5) ? "trainerA" : "trainerB";
 };
@@ -214,15 +273,38 @@ BattleState.prototype.handleAction = function (actionToHandle, trainerID) {
 }
 
 BattleState.prototype.handleTurnEnd = function () {
-	if (LOGGING >= 3) {
-		console.info("---TURN END---");
-	}
-
 	this.trainerA.activePokemon.handleTurnEnd();
 	this.trainerB.activePokemon.handleTurnEnd();
 
 	this.trainerA.chosenAction = undefined;
 	this.trainerB.chosenAction = undefined;
+
+	if (!this.trainerA.activePokemon.alive) {
+		this.trainerA.mustSwitch = true;
+	}
+	if (!this.trainerB.activePokemon.alive) {
+		this.trainerB.mustSwitch = true;
+	}
+
+	if (LOGGING >= 3) {
+		console.info("---TURN END---");
+	}
+}
+
+BattleState.prototype.handlePokemonSwitch = function () {
+	if (this.trainerA.mustSwitch) {
+		this.handleAction(this.trainerA.chosenAction, "trainerA");
+		this.trainerA.mustSwitch = false;
+	}
+	if (this.trainerB.mustSwitch) {
+		this.handleAction(this.trainerB.chosenAction, "trainerB");
+		this.trainerB.mustSwitch = false;
+	}
+
+	this.trainerA.chosenAction = undefined;
+	this.trainerB.chosenAction = undefined;
+
+	updateUI(this);
 }
 
 
@@ -237,8 +319,11 @@ function main () {
 	var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
 	var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
 
-	var testTrainerA = new Trainer([testPokemon1], true);
-	var testTrainerB = new Trainer([testPokemon2], false);
+	var testPokemon3 = new Pokemon("testA", {spd: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu C");
+	var testPokemon4 = new Pokemon("testA", {def: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu D");
+
+	var testTrainerA = new Trainer([testPokemon1, testPokemon3], true);
+	var testTrainerB = new Trainer([testPokemon2, testPokemon4], false);
 
 	curBattleState = new BattleState(testTrainerA, testTrainerB);
 

@@ -4,6 +4,15 @@ function initUI () {
 		var buttonMoveID = $(this).data("move-id");
 		curBattleState[buttonTrainer].chooseAction(MOVE_ACTION, {moveID: buttonMoveID});
 	})
+
+	$("body").on("click", ".pokemon_switch_button", function (e) {
+		var buttonTrainer = $(this).closest("[data-trainer]").data("trainer");
+		var buttonTrainerObj = curBattleState[buttonTrainer];
+		var newPokemonIndex = $(this).data("switch-index") * 1;
+		if (newPokemonIndex !== buttonTrainerObj.activePokemonIndex && buttonTrainerObj.pokemon[newPokemonIndex].alive) {
+			buttonTrainerObj.chooseAction(SWITCH_ACTION, {newPokemonIndex: newPokemonIndex});
+		}
+	})
 }
 
 function updateUI (battleState) {
@@ -30,6 +39,17 @@ function updateTrainerSideUI (trainerID, trainerObj) {
 		var moveButtonEl = moveButtons.eq(i);
 		moveButtonEl.data("move-id", trainerPokemon.moves[i]);
 		moveButtonEl.find(".pokemon_move_name_text").empty().append(moveInfo[trainerPokemon.moves[i]].displayName);
+	}
+
+	var pokemonButtons = trainerSideEl.find(".pokemon_switch_button");
+	for (var i = 0; i < trainerObj.pokemon.length; i++) {
+		var pokemonButtonEl = pokemonButtons.eq(i);
+		pokemonButtonEl.find(".switch_text").empty().append(trainerObj.pokemon[i].nickname);
+		if (trainerObj.pokemon[i].alive) {
+			pokemonButtonEl.removeClass("disabled");
+		} else {
+			pokemonButtonEl.addClass("disabled");
+		}
 	}
 
 }

@@ -66,6 +66,7 @@ body {
 
 		.pokemon_moves { 
 			position: relative;
+			margin-bottom: 30px;
 
 			.pokemon_move_button { 
 				position: relative;
@@ -85,6 +86,27 @@ body {
 				}
 			}
 		}
+
+		.pokemon_switch_buttons {
+
+			.pokemon_switch_button {
+				position: relative;
+				width: 100%;
+				height: 50px;
+				box-sizing: border-box;
+				background-color: #aaaaaa;
+				@include flex();
+				margin-bottom: 5px;
+
+				&.disabled {
+					opacity: 0.5;
+				}
+
+				.switch_text {
+
+				}
+			}
+		}
 	}
 }
 
@@ -94,4 +116,6 @@ body {
 	bottom: 0;
 	height: 200px;
 	right: 0;
+	box-sizing: border-box;
+	padding: 30px;
 }
