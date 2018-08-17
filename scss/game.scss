@@ -1,121 +1,524 @@
 @import "modules";
 
+[data-view] {
+	pointer-events: none;
+	opacity: 0;
+	@include transtrans(", opacity 0.5s ease");
+
+	&:not(.draw) {
+		display: none !important;
+	}
+
+	&.transition-in {
+		opacity: 0;
+		@include transition(none);
+	}
+
+	&.show {
+		opacity: 1;
+		pointer-events: auto;
+		@include transform(none);
+	}
+}
+
+@font-face  {
+	font-family: AppFont;
+	src: url(../fonts/Titillium_Web/TitilliumWeb-Regular.ttf);
+}
+@font-face  {
+	font-family: AppFont;
+	font-weight: bold;
+	src: url(../fonts/Titillium_Web/TitilliumWeb-Bold.ttf);
+}
+
 body {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 	margin: 0;
 	padding: 0;
 	background-color: black;
 	color: white;
-	font-family: Arial, sans-serif;
-	font-size: 20px;
+	// font-family: Arial, sans-serif;
+	font-family: AppFont;
+	line-height: 1.1;
+
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+
+	-webkit-tap-highlight-color: transparent;
+
+}
+
+svg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.view_container {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+
+	&.seq-before {
+		@include transform(translateX(-100%));
+	}
+	&.seq-after {
+		@include transform(translateX(100%));
+	}
 }
 
 .battle_scene { 
 	position: absolute;
 	left: 0;
 	top: 0;
-	bottom: 200px;
 	right: 0;
-	@include flex();
-	@include row();
+	bottom: 50%;
 
 	.battle_side { 
-		position: relative;
-		height: 100%;
-		box-sizing: border-box;
-		padding: 20px;
-		@include grow(1);
+		position: absolute;
 
-		.pokemon_name { 
-			position: relative;
-			font-weight: bold;
-			margin-bottom: 10px;
+		&.close_side {
+			left: 0.2rem;
+			bottom: 0.2rem;
+
+			.pokemon_info_box_container {
+				left: 0;
+				bottom: 0;
+
+				&.show_slideout {
+					.stat_slideout {
+						@include transform(translateX(100%) translateX(-0.5rem));
+					}
+				}
+			}
 		}
 
-		.pokemon_hp_bar_container { 
-			position: relative;
-			width: 100%;
-			height: 30px;
-			background-color: #333333;
-			margin-bottom: 10px;
+		&.far_side {
+			right: 0.2rem;
+			top: 0.2rem;
 
-			.pokemon_hp_inner { 
+			.pokemon_info_box_container {
+				right: 0;
+				top: 0;
+
+				&.show_slideout {
+					.stat_slideout {
+						@include transform(translateX(-100%) translateX(0.5rem));
+					}
+				}
+			}
+		}
+
+		.pokemon_info_box_container { 
+			position: absolute;
+			width: 5.2rem;
+			height: 2rem;
+
+			&.show_slideout {
+				.stat_slideout {
+					.slideout_toggle {
+						.icon {
+							@include transform(scaleX(-1));
+						}
+					}
+				}
+			}
+
+			.pokemon_info_box { 
 				position: absolute;
 				left: 0;
 				top: 0;
 				width: 100%;
 				height: 100%;
-				background-color: green;
-				@include origin(left center);
-				@include transtrans("");
-			}
-		}
-
-		.pokemon_hp_num {
-			position: relative;
-			margin-bottom: 20px;
-		}
-
-		.pokemon_stats { 
-			position: relative;
-			margin-bottom: 40px;
-
-			.stat { 
-
-			}
-		}
-
-		.pokemon_moves { 
-			position: relative;
-			margin-bottom: 30px;
-
-			.pokemon_move_button { 
-				position: relative;
-				width: 100%;
-				height: 70px;
+				background-color: rgb(32, 32, 32);
 				box-sizing: border-box;
-				background-color: #aaaaaa;
+				padding: 0.2rem;
 				@include flex();
-				margin-bottom: 5px;
+				@include align(flex-start);
+				z-index: 10;
 
-				.pokemon_move_name_text { 
-
+				.pokemon_name { 
+					position: relative;
+					font-size: 0.4rem;
+					font-weight: bold;
+					margin-bottom: 0.1rem;
 				}
 
-				.pokemon_move_description_text { 
+				.pokemon_hp_bar_container { 
+					position: relative;
+					width: 100%;
+					height: 0.5rem;
+					background-color: rgb(16, 16, 16);
+					margin-bottom: 0.1rem;
 
+					.pokemon_hp_inner { 
+						position: absolute;
+						left: 0;
+						top: 0;
+						width: 100%;
+						height: 100%;
+						background-color: green;
+						@include origin(left center);
+						@include transtrans("");
+					}
+				}
+
+				.pokemon_hp_num { 
+					position: relative;
+					font-size: 0.4rem;
 				}
 			}
-		}
 
-		.pokemon_switch_buttons {
-
-			.pokemon_switch_button {
-				position: relative;
-				width: 100%;
-				height: 50px;
-				box-sizing: border-box;
-				background-color: #aaaaaa;
+			.stat_slideout { 
+				position: absolute;
+				width: auto;
+				height: 100%;
 				@include flex();
-				margin-bottom: 5px;
+				@include row();
+				background-color: rgb(64, 64, 64);
+				z-index: 5;
+				@include transquick("");
 
-				&.disabled {
-					opacity: 0.5;
+				&.right {
+					right: -0.5rem;
+					flex-direction: row;
+
+					.pokemon_stats {
+						.stat_row {
+							.stat_name {
+								margin-right: 0.15rem;
+							}
+							.stat_bar {
+								margin-right: 0.15rem;
+							}
+						}
+					}
+
+					.slideout_toggle {
+						.icon {
+							border-top: 0.15rem solid transparent;
+							border-left: 0.2rem solid white;
+							border-bottom: 0.15rem solid transparent;
+						}
+					}
 				}
 
-				.switch_text {
+				&.left {
+					left: -0.5rem;
+					flex-direction: row-reverse;
 
+					.pokemon_stats {
+						@include align(flex-end);
+
+						.stat_row {
+							flex-direction: row-reverse;
+
+							.stat_name {
+								margin-left: 0.15rem;
+							}
+							.stat_bar {
+								margin-left: 0.15rem;
+							}
+						}
+					}
+
+					.slideout_toggle {
+						.icon {
+							border-top: 0.15rem solid transparent;
+							border-right: 0.2rem solid white;
+							border-bottom: 0.15rem solid transparent;
+						}
+					}
+				}
+
+				.pokemon_stats {
+					position: relative;
+					width: 3rem;
+					height: 100%;
+					box-sizing: border-box;
+					padding: 0.2rem;
+					@include flex();
+					@include align(flex-start);
+
+					.stat_row { 
+						position: relative;
+						@include flex();
+						@include row();
+						margin-bottom: 0.2rem;
+						font-size: 0.3rem;
+
+						&:last-child {
+							margin-bottom: 0;
+						}
+
+						.stat_name { 
+							position: relative;
+						}
+
+						.stat_bar { 
+							position: relative;
+							height: 0.2rem;
+							background-color: yellow;
+						}
+
+						.stat_num { 
+							position: relative;
+
+						}
+					}
+				}
+
+				.slideout_toggle {
+					position: relative;
+					@include shrink(0);
+					width: 0.5rem;
+					height: 100%;
+					@include flex();
+
+					.icon {
+						position: relative;
+						width: 0;
+						height: 0;
+						@include transquick("");
+					}
 				}
 			}
 		}
 	}
 }
 
-.text_scene { 
+.ui_scene {
 	position: absolute;
 	left: 0;
-	bottom: 0;
-	height: 200px;
+	top: 50%;
 	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
+.text_box_outer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 	box-sizing: border-box;
-	padding: 30px;
+	padding: 0.2rem;
+	@include flex();
+
+	.text_box_inner {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+		border: 0.2rem solid rgb(64, 64, 64);
+		background-color: rgb(32, 32, 32);
+		padding: 0.4rem;
+
+		.text_box_text_area {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			color: white;
+			font-size: 0.5rem;
+			line-height: 1.4;
+		}
+	}
+}
+
+.buttons_container {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 0.2rem;
+	@include flex();
+	@include row();
+	flex-wrap: wrap;
+	@include justify(space-between);
+	align-content: space-between;
+
+	&.pokemon_move_buttons {
+		width: calc(100% - 1.2rem);
+		left: auto;
+		right: 0;
+	}
+	&.pokemon_switch_buttons {
+		width: calc(100% - 1.2rem);
+		left: auto;
+		right: 0;
+	}
+
+	.category_button {
+		position: relative;
+		height: 100%;
+		background-color: rgb(32, 32, 32);
+		flex-basis: 0;
+		@include flex();
+
+		&.fight {
+			@include grow(2);
+			margin-right: 0.1rem;
+		}
+		&.switch {
+			@include grow(1);
+			margin-left: 0.1rem;
+		}
+
+		.button_text {
+			position: relative;
+			font-weight: bold;
+			font-size: 1rem;
+		}
+	}
+
+	.pokemon_move_button {
+		position: relative;
+		height: calc(50% - 0.1rem);
+		width: calc(50% - 0.1rem);
+		background-color: rgb(32, 32, 32);
+		box-sizing: border-box;
+		padding: 0.3rem;
+		@include flex();
+		// @include justify(flex-start);
+		@include align(flex-start);
+
+		.pokemon_move_name_text {
+			position: relative;
+			font-size: 0.4rem;
+			font-weight: bold;
+		}
+	}
+
+	.pokemon_switch_button {
+		position: relative;
+		height: calc(50% - 0.1rem);
+		width: calc(33% - 0.1rem);
+		background-color: rgb(32, 32, 32);
+		box-sizing: border-box;
+		padding: 0.3rem;
+		@include flex();
+		@include row();
+
+		&.disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
+		.pokemon_switch_name_text {
+			position: relative;
+			font-size: 0.4rem;
+			font-weight: bold;
+		}
+	}
+}
+
+.menu_back {
+	position: absolute;
+	left: 0.2rem;
+	top: 0.2rem;
+	width: 1rem;
+	height: calc(100% - 0.4rem);
+	background-color: rgb(32, 32, 32);
+	@include flex();
+
+	.icon {
+		position: relative;
+		width: 0;
+		height: 0;
+		border-top: 0.225rem solid transparent;
+		border-right: 0.3rem solid white;
+		border-bottom: 0.225rem solid transparent;
+	}
+}
+
+
+
+
+.touchable {
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.touchable:not(.no_before):after,
+.touchable.no_before .touchable_circle {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 2rem;
+	height: 2rem;
+	opacity: 0;
+	background-color: white;
+	border-radius: 50%;
+	pointer-events: none;
+	display: none;
+}
+.touchable.small:not(.no_before):after, 
+.touchable.small.no_before .touchable_circle {
+	width: 1rem;
+	height: 1rem;
+}
+
+.touchable.large:not(.no_before):after,
+.touchable.large.no_before .touchable_circle {
+	width: 3rem;
+	height: 3rem;
+}
+
+.touchable.huge:not(.no_before):after,
+.touchable.huge.no_before .touchable_circle {
+	width: 5rem;
+	height: 5rem;
+}
+
+.touchable.invert:not(.no_before):after, 
+.touchable.invert.no_before .touchable_circle {
+	background-color: black;
+}
+
+.touchable.touched:not(.no_before):after,
+.touchable.touched.no_before .touchable_circle {
+	display: block;
+	-webkit-animation: touch_bubble 0.5s ease;
+	animation: touch_bubble 0.5s ease;
+}
+
+@keyframes touch_bubble {
+	0% {
+		transform:translate(-50%, -50%) scale(0.2);
+		opacity: 0;
+	}
+	10% {        
+		opacity: 0.5;
+	}
+	100% {
+		transform:translate(-50%, -50%) scale(1.2);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes touch_bubble {
+	0% {
+		-webkit-transform:translate(-50%, -50%) scale(0.2);
+		opacity: 0;
+	}
+	10% {
+		opacity: 0.5;
+	}
+	100% {
+		-webkit-transform:translate(-50%, -50%) scale(1.2);
+		opacity: 0;
+	}
 }

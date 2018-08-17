@@ -57,6 +57,12 @@
 	transition:0.5s transform ease #{$trans};
 }
 
+@mixin transquick($trans) {
+	-webkit-transition:0.25s -webkit-transform ease #{$trans};
+	-moz-transition:0.25s -moz-transform ease #{$trans};
+	transition:0.25s transform ease #{$trans};
+}
+
 @mixin transfast($trans) {
 	-webkit-transition:0.01s -webkit-transform ease #{$trans};
 	-moz-transition:0.01s -moz-transform ease #{$trans};

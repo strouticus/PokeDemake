@@ -120,8 +120,6 @@ function Trainer (pokemonArray, userControl) {
 	this.sideState = "normal";
 
 	this.controlled = userControl;
-
-	this.switchPokemon(0);
 }
 
 Trainer.prototype.switchPokemon = function (newPokemonID) {
@@ -132,6 +130,8 @@ Trainer.prototype.switchPokemon = function (newPokemonID) {
 
 	this.activePokemonIndex = newPokemonID;
 	this.activePokemon = this.pokemon[newPokemonID];
+
+	updatePokemonUI(this);
 
 	if (LOGGING >= 3) {
 		if (prevNickname) {
@@ -180,7 +180,20 @@ function BattleState (trainerA, trainerB) {
 	this.fieldState = "normal";
 
 	this.speedTieWinner = (Math.random() > 0.5) ? "trainerA" : "trainerB";
+
+	this.trainerA.switchPokemon(0);
+	this.trainerB.switchPokemon(0);
+
+	populatePokemonSwitchUI(this.getControlledTrainer());
 };
+
+BattleState.prototype.getControlledTrainer = function () {
+	if (this.trainerA.controlled) {
+		return this.trainerA;
+	} else if (this.trainerB.controlled) {
+		return this.trainerB;
+	}
+}
 
 BattleState.prototype.getOtherTrainer = function (trainerIdentifier) {
 	if (typeof trainerIdentifier === "string") {
@@ -260,7 +273,7 @@ BattleState.prototype.handleTurnStart = function () {
 	}
 
 	this.handleTurnEnd();
-	updateUI(this);
+	// updateUI(this);
 }
 
 BattleState.prototype.handleAction = function (actionToHandle, trainerID) {
@@ -304,7 +317,7 @@ BattleState.prototype.handlePokemonSwitch = function () {
 	this.trainerA.chosenAction = undefined;
 	this.trainerB.chosenAction = undefined;
 
-	updateUI(this);
+	// updateUI(this);
 }
 
 
@@ -332,7 +345,7 @@ function main () {
 
 	// testBattleState.handleTurnStart();
 
-	updateUI(curBattleState);
+	// updateUI(curBattleState);
 
 }
 

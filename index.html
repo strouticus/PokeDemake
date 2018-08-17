@@ -5,114 +5,208 @@
 		<title>PokeDemake</title>
 		<link type="text/css" rel="stylesheet" href="css/game.css"/>
 		<script src="js/zepto.min.js"></script>
+		<script src="js/nav.js"></script>
 		<script src="js/pokemon.js"></script>
 		<script src="js/moves.js"></script>
 		<script src="js/ui.js"></script>
 		<script src="js/game.js"></script>
 	</head>
-	<body>
-		<div class="battle_scene">
-			<div class="battle_side" data-trainer="trainerA">
-				<div class="pokemon_name"></div>
-				<div class="pokemon_hp_bar_container">
-					<div class="pokemon_hp_inner"></div>
+	<body id="body">
+		<div class="view_container" data-view="battle_view">
+			<div class="battle_scene">
+				<div class="battle_side close_side" data-trainer="trainerA">
+					<div class="pokemon_info_box_container">
+						<div class="pokemon_info_box">
+							<div class="pokemon_name"></div>
+							<div class="pokemon_hp_bar_container">
+								<div class="pokemon_hp_inner"></div>
+							</div>
+							<div class="pokemon_hp_num"></div>
+						</div>
+						<div class="stat_slideout right">
+							<div class="pokemon_stats">
+								<div class="stat_row pokemon_atk">
+									<div class="stat_name">ATK</div>
+									<div class="stat_bar"></div>
+									<div class="stat_bar_extra"></div>
+									<div class="stat_num"></div>
+								</div>
+								<div class="stat_row pokemon_def">
+									<div class="stat_name">DEF</div>
+									<div class="stat_bar"></div>
+									<div class="stat_bar_extra"></div>
+									<div class="stat_num"></div>
+								</div>
+								<div class="stat_row pokemon_spd">
+									<div class="stat_name">SPD</div>
+									<div class="stat_bar"></div>
+									<div class="stat_bar_extra"></div>
+									<div class="stat_num"></div>
+								</div>
+							</div>
+							<div class="slideout_toggle touchable">
+								<div class="icon"></div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="pokemon_hp_num"></div>
-				<div class="pokemon_stats">
-					<div class="stat pokemon_atk"></div>
-					<div class="stat pokemon_def"></div>
-					<div class="stat pokemon_spd"></div>
-				</div>
-				<div class="pokemon_moves">
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-				</div>
-				<div class="pokemon_switch_buttons">
-					<div class="pokemon_switch_button" data-switch-index="0">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="1">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="2">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="3">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="4">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="5">
-						<div class="switch_text"></div>
+				<div class="battle_side far_side" data-trainer="trainerB">
+					<div class="pokemon_info_box_container">
+						<div class="pokemon_info_box">
+							<div class="pokemon_name"></div>
+							<div class="pokemon_hp_bar_container">
+								<div class="pokemon_hp_inner"></div>
+							</div>
+							<div class="pokemon_hp_num"></div>
+						</div>
+						<div class="stat_slideout left">
+							<div class="pokemon_stats">
+								<div class="stat_row pokemon_atk">
+									<div class="stat_name">ATK</div>
+									<div class="stat_bar"></div>
+									<div class="stat_bar_extra"></div>
+									<div class="stat_num"></div>
+								</div>
+								<div class="stat_row pokemon_def">
+									<div class="stat_name">DEF</div>
+									<div class="stat_bar"></div>
+									<div class="stat_bar_extra"></div>
+									<div class="stat_num"></div>
+								</div>
+								<div class="stat_row pokemon_spd">
+									<div class="stat_name">SPD</div>
+									<div class="stat_bar"></div>
+									<div class="stat_bar_extra"></div>
+									<div class="stat_num"></div>
+								</div>
+							</div>
+							<div class="slideout_toggle touchable">
+								<div class="icon"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="battle_side" data-trainer="trainerB">
-				<div class="pokemon_name"></div>
-				<div class="pokemon_hp_bar_container">
-					<div class="pokemon_hp_inner"></div>
+			<div class="ui_scene" data-nav-context="battle_ui">
+				<div class="view_container" data-view="choose_action" data-auto-view="choose_category">
+					<div class="view_container" data-view="choose_category" data-seq-num="1">
+						<div class="buttons_container">
+							<div class="category_button touchable huge fight" data-js-nav="choose_action choose_move">
+								<div class="button_text">FIGHT</div>
+							</div>
+							<div class="category_button touchable huge switch" data-js-nav="choose_action choose_pokemon">
+								<div class="button_text">SWITCH</div>
+							</div>
+						</div>
+					</div>
+					<div class="view_container" data-view="choose_move" data-seq-num="2">
+						<div class="menu_back touchable large" data-js-nav="choose_action choose_category">
+							<div class="icon"></div>
+						</div>
+						<div class="buttons_container pokemon_move_buttons">
+							<div class="pokemon_move_button touchable large">
+								<div class="pokemon_move_name_text"></div>
+								<div class="pokemon_move_description"></div>
+							</div>
+							<div class="pokemon_move_button touchable large">
+								<div class="pokemon_move_name_text"></div>
+								<div class="pokemon_move_description"></div>
+							</div>
+							<div class="pokemon_move_button touchable large">
+								<div class="pokemon_move_name_text"></div>
+								<div class="pokemon_move_description"></div>
+							</div>
+							<div class="pokemon_move_button touchable large">
+								<div class="pokemon_move_name_text"></div>
+								<div class="pokemon_move_description"></div>
+							</div>
+						</div>
+					</div>
+					<div class="view_container" data-view="choose_pokemon" data-seq-num="2">
+						<div class="menu_back touchable large" data-js-nav="choose_action choose_category">
+							<div class="icon"></div>
+						</div>
+						<div class="buttons_container pokemon_switch_buttons">
+							<div class="pokemon_switch_button touchable large" data-switch-index="0">
+								<div class="pokemon_switch_name_text"></div>
+							</div>
+							<div class="pokemon_switch_button touchable large" data-switch-index="1">
+								<div class="pokemon_switch_name_text"></div>
+							</div>
+							<div class="pokemon_switch_button touchable large" data-switch-index="2">
+								<div class="pokemon_switch_name_text"></div>
+							</div>
+							<div class="pokemon_switch_button touchable large" data-switch-index="3">
+								<div class="pokemon_switch_name_text"></div>
+							</div>
+							<div class="pokemon_switch_button touchable large" data-switch-index="4">
+								<div class="pokemon_switch_name_text"></div>
+							</div>
+							<div class="pokemon_switch_button touchable large" data-switch-index="5">
+								<div class="pokemon_switch_name_text"></div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="pokemon_hp_num"></div>
-				<div class="pokemon_stats">
-					<div class="stat pokemon_atk"></div>
-					<div class="stat pokemon_def"></div>
-					<div class="stat pokemon_spd"></div>
-				</div>
-				<div class="pokemon_moves">
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-					<div class="pokemon_move_button">
-						<div class="pokemon_move_name_text"></div>
-						<div class="pokemon_move_description_text"></div>
-					</div>
-				</div>
-				<div class="pokemon_switch_buttons">
-					<div class="pokemon_switch_button" data-switch-index="0">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="1">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="2">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="3">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="4">
-						<div class="switch_text"></div>
-					</div>
-					<div class="pokemon_switch_button" data-switch-index="5">
-						<div class="switch_text"></div>
+				<div class="view_container" data-view="text_box">
+					<div class="text_box_outer">
+						<div class="text_box_inner">
+							<div class="text_box_text_area">It's super effective!</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- <div class="text_scene"></div> -->
+		<!-- <div class="battle_side" data-trainer="trainerB">
+					<div class="pokemon_name"></div>
+					<div class="pokemon_hp_bar_container">
+						<div class="pokemon_hp_inner"></div>
+					</div>
+					<div class="pokemon_hp_num"></div>
+					<div class="pokemon_stats">
+						<div class="stat pokemon_atk"></div>
+						<div class="stat pokemon_def"></div>
+						<div class="stat pokemon_spd"></div>
+					</div>
+					<div class="pokemon_moves">
+						<div class="pokemon_move_button">
+							<div class="pokemon_move_name_text"></div>
+							<div class="pokemon_move_description_text"></div>
+						</div>
+						<div class="pokemon_move_button">
+							<div class="pokemon_move_name_text"></div>
+							<div class="pokemon_move_description_text"></div>
+						</div>
+						<div class="pokemon_move_button">
+							<div class="pokemon_move_name_text"></div>
+							<div class="pokemon_move_description_text"></div>
+						</div>
+						<div class="pokemon_move_button">
+							<div class="pokemon_move_name_text"></div>
+							<div class="pokemon_move_description_text"></div>
+						</div>
+					</div>
+					<div class="pokemon_switch_buttons">
+						<div class="pokemon_switch_button" data-switch-index="0">
+							<div class="switch_text"></div>
+						</div>
+						<div class="pokemon_switch_button" data-switch-index="1">
+							<div class="switch_text"></div>
+						</div>
+						<div class="pokemon_switch_button" data-switch-index="2">
+							<div class="switch_text"></div>
+						</div>
+						<div class="pokemon_switch_button" data-switch-index="3">
+							<div class="switch_text"></div>
+						</div>
+						<div class="pokemon_switch_button" data-switch-index="4">
+							<div class="switch_text"></div>
+						</div>
+						<div class="pokemon_switch_button" data-switch-index="5">
+							<div class="switch_text"></div>
+						</div>
+					</div>
+				</div> -->
 	</body>
 </html>

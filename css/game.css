@@ -1,20 +1,597 @@
 /* line 3, ../scss/game.scss */
+[data-view] {
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: 0.5s -webkit-transform ease , opacity 0.5s ease;
+  -moz-transition: 0.5s -moz-transform ease , opacity 0.5s ease;
+  transition: 0.5s transform ease , opacity 0.5s ease;
+}
+/* line 8, ../scss/game.scss */
+[data-view]:not(.draw) {
+  display: none !important;
+}
+/* line 12, ../scss/game.scss */
+[data-view].transition-in {
+  opacity: 0;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+}
+/* line 17, ../scss/game.scss */
+[data-view].show {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: none;
+  -moz-transform: none;
+  transform: none;
+}
+
+@font-face {
+  font-family: AppFont;
+  src: url(../fonts/Titillium_Web/TitilliumWeb-Regular.ttf);
+}
+@font-face {
+  font-family: AppFont;
+  font-weight: bold;
+  src: url(../fonts/Titillium_Web/TitilliumWeb-Bold.ttf);
+}
+/* line 34, ../scss/game.scss */
 body {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   background-color: black;
   color: white;
-  font-family: Arial, sans-serif;
-  font-size: 20px;
+  font-family: AppFont;
+  line-height: 1.1;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* line 12, ../scss/game.scss */
+/* line 57, ../scss/game.scss */
+svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 65, ../scss/game.scss */
+.view_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+/* line 72, ../scss/game.scss */
+.view_container.seq-before {
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+/* line 75, ../scss/game.scss */
+.view_container.seq-after {
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+/* line 80, ../scss/game.scss */
 .battle_scene {
   position: absolute;
   left: 0;
   top: 0;
-  bottom: 200px;
   right: 0;
+  bottom: 50%;
+}
+/* line 87, ../scss/game.scss */
+.battle_scene .battle_side {
+  position: absolute;
+}
+/* line 90, ../scss/game.scss */
+.battle_scene .battle_side.close_side {
+  left: 0.2rem;
+  bottom: 0.2rem;
+}
+/* line 94, ../scss/game.scss */
+.battle_scene .battle_side.close_side .pokemon_info_box_container {
+  left: 0;
+  bottom: 0;
+}
+/* line 99, ../scss/game.scss */
+.battle_scene .battle_side.close_side .pokemon_info_box_container.show_slideout .stat_slideout {
+  -webkit-transform: translateX(100%) translateX(-0.5rem);
+  -moz-transform: translateX(100%) translateX(-0.5rem);
+  transform: translateX(100%) translateX(-0.5rem);
+}
+/* line 106, ../scss/game.scss */
+.battle_scene .battle_side.far_side {
+  right: 0.2rem;
+  top: 0.2rem;
+}
+/* line 110, ../scss/game.scss */
+.battle_scene .battle_side.far_side .pokemon_info_box_container {
+  right: 0;
+  top: 0;
+}
+/* line 115, ../scss/game.scss */
+.battle_scene .battle_side.far_side .pokemon_info_box_container.show_slideout .stat_slideout {
+  -webkit-transform: translateX(-100%) translateX(0.5rem);
+  -moz-transform: translateX(-100%) translateX(0.5rem);
+  transform: translateX(-100%) translateX(0.5rem);
+}
+/* line 122, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container {
+  position: absolute;
+  width: 5.2rem;
+  height: 2rem;
+}
+/* line 130, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container.show_slideout .stat_slideout .slideout_toggle .icon {
+  -webkit-transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+/* line 137, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .pokemon_info_box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #202020;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -ms-align-items: flex-start;
+  align-items: flex-start;
+  z-index: 10;
+}
+/* line 150, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .pokemon_info_box .pokemon_name {
+  position: relative;
+  font-size: 0.4rem;
+  font-weight: bold;
+  margin-bottom: 0.1rem;
+}
+/* line 157, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .pokemon_info_box .pokemon_hp_bar_container {
+  position: relative;
+  width: 100%;
+  height: 0.5rem;
+  background-color: #101010;
+  margin-bottom: 0.1rem;
+}
+/* line 164, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .pokemon_info_box .pokemon_hp_bar_container .pokemon_hp_inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: 0.5s -webkit-transform ease ;
+  -moz-transition: 0.5s -moz-transform ease ;
+  transition: 0.5s transform ease ;
+}
+/* line 176, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .pokemon_info_box .pokemon_hp_num {
+  position: relative;
+  font-size: 0.4rem;
+}
+/* line 182, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout {
+  position: absolute;
+  width: auto;
+  height: 100%;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  background-color: #404040;
+  z-index: 5;
+  -webkit-transition: 0.25s -webkit-transform ease ;
+  -moz-transition: 0.25s -moz-transform ease ;
+  transition: 0.25s transform ease ;
+}
+/* line 192, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.right {
+  right: -0.5rem;
+  flex-direction: row;
+}
+/* line 198, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.right .pokemon_stats .stat_row .stat_name {
+  margin-right: 0.15rem;
+}
+/* line 201, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.right .pokemon_stats .stat_row .stat_bar {
+  margin-right: 0.15rem;
+}
+/* line 208, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.right .slideout_toggle .icon {
+  border-top: 0.15rem solid transparent;
+  border-left: 0.2rem solid white;
+  border-bottom: 0.15rem solid transparent;
+}
+/* line 216, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.left {
+  left: -0.5rem;
+  flex-direction: row-reverse;
+}
+/* line 220, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.left .pokemon_stats {
+  -webkit-align-items: flex-end;
+  -moz-align-items: flex-end;
+  -ms-align-items: flex-end;
+  align-items: flex-end;
+}
+/* line 223, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.left .pokemon_stats .stat_row {
+  flex-direction: row-reverse;
+}
+/* line 226, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.left .pokemon_stats .stat_row .stat_name {
+  margin-left: 0.15rem;
+}
+/* line 229, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.left .pokemon_stats .stat_row .stat_bar {
+  margin-left: 0.15rem;
+}
+/* line 236, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout.left .slideout_toggle .icon {
+  border-top: 0.15rem solid transparent;
+  border-right: 0.2rem solid white;
+  border-bottom: 0.15rem solid transparent;
+}
+/* line 244, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .pokemon_stats {
+  position: relative;
+  width: 3rem;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -ms-align-items: flex-start;
+  align-items: flex-start;
+}
+/* line 253, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .pokemon_stats .stat_row {
+  position: relative;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-bottom: 0.2rem;
+  font-size: 0.3rem;
+}
+/* line 260, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .pokemon_stats .stat_row:last-child {
+  margin-bottom: 0;
+}
+/* line 264, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .pokemon_stats .stat_row .stat_name {
+  position: relative;
+}
+/* line 268, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .pokemon_stats .stat_row .stat_bar {
+  position: relative;
+  height: 0.2rem;
+  background-color: yellow;
+}
+/* line 274, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .pokemon_stats .stat_row .stat_num {
+  position: relative;
+}
+/* line 281, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .slideout_toggle {
+  position: relative;
+  -webkit-flex-shrink: 0;
+  -moz-flex-shrink: 0;
+  -ms-flex-shrink: 0;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 100%;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 288, ../scss/game.scss */
+.battle_scene .battle_side .pokemon_info_box_container .stat_slideout .slideout_toggle .icon {
+  position: relative;
+  width: 0;
+  height: 0;
+  -webkit-transition: 0.25s -webkit-transform ease ;
+  -moz-transition: 0.25s -moz-transform ease ;
+  transition: 0.25s transform ease ;
+}
+
+/* line 300, ../scss/game.scss */
+.ui_scene {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+/* line 309, ../scss/game.scss */
+.text_box_outer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 319, ../scss/game.scss */
+.text_box_outer .text_box_inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 0.2rem solid #404040;
+  background-color: #202020;
+  padding: 0.4rem;
+}
+/* line 328, ../scss/game.scss */
+.text_box_outer .text_box_inner .text_box_text_area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 0.5rem;
+  line-height: 1.4;
+}
+
+/* line 339, ../scss/game.scss */
+.buttons_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  align-content: space-between;
+}
+/* line 353, ../scss/game.scss */
+.buttons_container.pokemon_move_buttons {
+  width: calc(100% - 1.2rem);
+  left: auto;
+  right: 0;
+}
+/* line 358, ../scss/game.scss */
+.buttons_container.pokemon_switch_buttons {
+  width: calc(100% - 1.2rem);
+  left: auto;
+  right: 0;
+}
+/* line 364, ../scss/game.scss */
+.buttons_container .category_button {
+  position: relative;
+  height: 100%;
+  background-color: #202020;
+  flex-basis: 0;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 371, ../scss/game.scss */
+.buttons_container .category_button.fight {
+  -webkit-flex-grow: 2;
+  -moz-flex-grow: 2;
+  -ms-flex-grow: 2;
+  flex-grow: 2;
+  margin-right: 0.1rem;
+}
+/* line 375, ../scss/game.scss */
+.buttons_container .category_button.switch {
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+  margin-left: 0.1rem;
+}
+/* line 380, ../scss/game.scss */
+.buttons_container .category_button .button_text {
+  position: relative;
+  font-weight: bold;
+  font-size: 1rem;
+}
+/* line 387, ../scss/game.scss */
+.buttons_container .pokemon_move_button {
+  position: relative;
+  height: calc(50% - 0.1rem);
+  width: calc(50% - 0.1rem);
+  background-color: #202020;
+  box-sizing: border-box;
+  padding: 0.3rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -ms-align-items: flex-start;
+  align-items: flex-start;
+}
+/* line 398, ../scss/game.scss */
+.buttons_container .pokemon_move_button .pokemon_move_name_text {
+  position: relative;
+  font-size: 0.4rem;
+  font-weight: bold;
+}
+/* line 405, ../scss/game.scss */
+.buttons_container .pokemon_switch_button {
+  position: relative;
+  height: calc(50% - 0.1rem);
+  width: calc(33% - 0.1rem);
+  background-color: #202020;
+  box-sizing: border-box;
+  padding: 0.3rem;
   display: -webkit-flex;
   -webkit-flex-direction: column;
   -webkit-justify-content: center;
@@ -36,125 +613,135 @@ body {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 21, ../scss/game.scss */
-.battle_scene .battle_side {
-  position: relative;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 20px;
-  -webkit-flex-grow: 1;
-  -moz-flex-grow: 1;
-  -ms-flex-grow: 1;
-  flex-grow: 1;
-}
-/* line 28, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_name {
-  position: relative;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-/* line 34, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_hp_bar_container {
-  position: relative;
-  width: 100%;
-  height: 30px;
-  background-color: #333333;
-  margin-bottom: 10px;
-}
-/* line 41, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_hp_bar_container .pokemon_hp_inner {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: green;
-  -webkit-transform-origin: left center;
-  -moz-transform-origin: left center;
-  transform-origin: left center;
-  -webkit-transition: 0.5s -webkit-transform ease ;
-  -moz-transition: 0.5s -moz-transform ease ;
-  transition: 0.5s transform ease ;
-}
-/* line 53, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_hp_num {
-  position: relative;
-  margin-bottom: 20px;
-}
-/* line 58, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_stats {
-  position: relative;
-  margin-bottom: 40px;
-}
-/* line 67, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_moves {
-  position: relative;
-  margin-bottom: 30px;
-}
-/* line 71, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_moves .pokemon_move_button {
-  position: relative;
-  width: 100%;
-  height: 70px;
-  box-sizing: border-box;
-  background-color: #aaaaaa;
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  -webkit-justify-content: center;
-  -webkit-align-items: center;
-  display: -moz-flex;
-  -moz-flex-direction: column;
-  -moz-justify-content: center;
-  -moz-align-items: center;
-  display: -ms-flex;
-  -ms-flex-direction: column;
-  -ms-justify-content: center;
-  -ms-align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5px;
-}
-/* line 92, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_switch_buttons .pokemon_switch_button {
-  position: relative;
-  width: 100%;
-  height: 50px;
-  box-sizing: border-box;
-  background-color: #aaaaaa;
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  -webkit-justify-content: center;
-  -webkit-align-items: center;
-  display: -moz-flex;
-  -moz-flex-direction: column;
-  -moz-justify-content: center;
-  -moz-align-items: center;
-  display: -ms-flex;
-  -ms-flex-direction: column;
-  -ms-justify-content: center;
-  -ms-align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5px;
-}
-/* line 101, ../scss/game.scss */
-.battle_scene .battle_side .pokemon_switch_buttons .pokemon_switch_button.disabled {
+/* line 415, ../scss/game.scss */
+.buttons_container .pokemon_switch_button.disabled {
   opacity: 0.5;
+  pointer-events: none;
+}
+/* line 420, ../scss/game.scss */
+.buttons_container .pokemon_switch_button .pokemon_switch_name_text {
+  position: relative;
+  font-size: 0.4rem;
+  font-weight: bold;
 }
 
-/* line 113, ../scss/game.scss */
-.text_scene {
+/* line 428, ../scss/game.scss */
+.menu_back {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 200px;
-  right: 0;
-  box-sizing: border-box;
-  padding: 30px;
+  left: 0.2rem;
+  top: 0.2rem;
+  width: 1rem;
+  height: calc(100% - 0.4rem);
+  background-color: #202020;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 437, ../scss/game.scss */
+.menu_back .icon {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 0.225rem solid transparent;
+  border-right: 0.3rem solid white;
+  border-bottom: 0.225rem solid transparent;
+}
+
+/* line 450, ../scss/game.scss */
+.touchable {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* line 455, ../scss/game.scss */
+.touchable:not(.no_before):after,
+.touchable.no_before .touchable_circle {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  opacity: 0;
+  background-color: white;
+  border-radius: 50%;
+  pointer-events: none;
+  display: none;
+}
+
+/* line 469, ../scss/game.scss */
+.touchable.small:not(.no_before):after,
+.touchable.small.no_before .touchable_circle {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* line 475, ../scss/game.scss */
+.touchable.large:not(.no_before):after,
+.touchable.large.no_before .touchable_circle {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* line 481, ../scss/game.scss */
+.touchable.huge:not(.no_before):after,
+.touchable.huge.no_before .touchable_circle {
+  width: 5rem;
+  height: 5rem;
+}
+
+/* line 487, ../scss/game.scss */
+.touchable.invert:not(.no_before):after,
+.touchable.invert.no_before .touchable_circle {
+  background-color: black;
+}
+
+/* line 492, ../scss/game.scss */
+.touchable.touched:not(.no_before):after,
+.touchable.touched.no_before .touchable_circle {
+  display: block;
+  -webkit-animation: touch_bubble 0.5s ease;
+  animation: touch_bubble 0.5s ease;
+}
+
+@keyframes touch_bubble {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes touch_bubble {
+  0% {
+    -webkit-transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=game.css.map */
