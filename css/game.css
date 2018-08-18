@@ -732,13 +732,140 @@ svg {
   border-bottom: 0.225rem solid transparent;
 }
 
-/* line 489, ../scss/game.scss */
+/* line 486, ../scss/game.scss */
+.waiting_text_view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 497, ../scss/game.scss */
+.waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot {
+  animation: dot_fade 2s ease infinite;
+}
+/* line 500, ../scss/game.scss */
+.waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot.one {
+  -webkit-animation-delay: 0.25s;
+  -moz-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+}
+/* line 503, ../scss/game.scss */
+.waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot.two {
+  -webkit-animation-delay: 0.5s;
+  -moz-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+/* line 506, ../scss/game.scss */
+.waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot.three {
+  -webkit-animation-delay: 0.75s;
+  -moz-animation-delay: 0.75s;
+  animation-delay: 0.75s;
+}
+
+/* line 515, ../scss/game.scss */
+.waiting_text_container {
+  position: relative;
+  height: 2rem;
+  padding: 0 0.6rem;
+  background-color: #404040;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 522, ../scss/game.scss */
+.waiting_text_container .waiting_text {
+  position: relative;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  font-size: 0.4rem;
+}
+/* line 528, ../scss/game.scss */
+.waiting_text_container .waiting_text .waiting_text_part {
+  position: relative;
+  margin-right: 0.15rem;
+}
+/* line 532, ../scss/game.scss */
+.waiting_text_container .waiting_text .waiting_text_part:last-child {
+  margin-right: 0;
+}
+/* line 537, ../scss/game.scss */
+.waiting_text_container .waiting_text .waiting_text_dot {
+  position: relative;
+  opacity: 0;
+}
+
+@keyframes dot_fade {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* line 565, ../scss/game.scss */
 .touchable {
   overflow: hidden;
   cursor: pointer;
 }
 
-/* line 494, ../scss/game.scss */
+/* line 570, ../scss/game.scss */
 .touchable:not(.no_before):after,
 .touchable.no_before .touchable_circle {
   content: "";
@@ -754,34 +881,34 @@ svg {
   display: none;
 }
 
-/* line 508, ../scss/game.scss */
+/* line 584, ../scss/game.scss */
 .touchable.small:not(.no_before):after,
 .touchable.small.no_before .touchable_circle {
   width: 1rem;
   height: 1rem;
 }
 
-/* line 514, ../scss/game.scss */
+/* line 590, ../scss/game.scss */
 .touchable.large:not(.no_before):after,
 .touchable.large.no_before .touchable_circle {
   width: 3rem;
   height: 3rem;
 }
 
-/* line 520, ../scss/game.scss */
+/* line 596, ../scss/game.scss */
 .touchable.huge:not(.no_before):after,
 .touchable.huge.no_before .touchable_circle {
   width: 5rem;
   height: 5rem;
 }
 
-/* line 526, ../scss/game.scss */
+/* line 602, ../scss/game.scss */
 .touchable.invert:not(.no_before):after,
 .touchable.invert.no_before .touchable_circle {
   background-color: black;
 }
 
-/* line 531, ../scss/game.scss */
+/* line 607, ../scss/game.scss */
 .touchable.touched:not(.no_before):after,
 .touchable.touched.no_before .touchable_circle {
   display: block;

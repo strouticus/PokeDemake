@@ -148,6 +148,10 @@ Trainer.prototype.switchPokemon = function (newPokemonID) {
 Trainer.prototype.chooseAction = function (actionType, actionInfo) {
 	this.chosenAction = new Action(actionType, actionInfo, this.trainerID);
 
+	if (this.controlled) {
+		nav.go(["wait_for_opponent"], "battle_ui");
+	}
+
 	// If this trainer needs to switch, and other trainer either: (doesn't need to switch) or (needs to switch and has chosen pokemon to switch to): Do mini switch turn
 	if (this.mustSwitch) {
 		if (actionType === SWITCH_ACTION) {
@@ -158,12 +162,12 @@ Trainer.prototype.chooseAction = function (actionType, actionInfo) {
 		} else {
 			this.chosenAction = undefined;
 		}
-		return;
+	} else {
+		if (curBattleState.trainerA.chosenAction && curBattleState.trainerB.chosenAction) {
+			curBattleState.handleTurnStart();
+		}
 	}
 
-	if (curBattleState.trainerA.chosenAction && curBattleState.trainerB.chosenAction) {
-		curBattleState.handleTurnStart();
-	}
 }
 
 

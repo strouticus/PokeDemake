@@ -483,6 +483,82 @@ svg {
 	}
 }
 
+.waiting_text_view {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	@include flex();
+
+	&.draw {
+		.waiting_text_container {
+			.waiting_text {
+				.waiting_text_dot {
+					animation: dot_fade 2s ease infinite;
+
+					&.one {
+						@include animdelay(0.25s);
+					}
+					&.two {
+						@include animdelay(0.5s);
+					}
+					&.three {
+						@include animdelay(0.75s);
+					}
+				}
+			}
+		}
+	}
+}
+
+.waiting_text_container { 
+	position: relative;
+	height: 2rem;
+	padding: 0 0.6rem;
+	background-color: rgb(64, 64, 64);
+	@include flex();
+
+	.waiting_text { 
+		position: relative;
+		@include flex();
+		@include row();
+		font-size: 0.4rem;
+
+		.waiting_text_part { 
+			position: relative;
+			margin-right: 0.15rem;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
+		.waiting_text_dot { 
+			position: relative;
+			opacity: 0;
+		}
+	}
+}
+
+@keyframes dot_fade {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
 
 
 
@@ -540,7 +616,7 @@ svg {
 		transform:translate(-50%, -50%) scale(0.2);
 		opacity: 0;
 	}
-	10% {        
+	10% {
 		opacity: 0.5;
 	}
 	100% {
