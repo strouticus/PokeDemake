@@ -46,6 +46,8 @@ function Pokemon (species, specialization, moves, nickname) {
 		spd: this.info.stats.spd,
 	}
 
+	this.specialization = specialization;
+
 	for (var statName in specialization) {
 		this.stats[statName] += specialization[statName];
 	}
@@ -56,6 +58,24 @@ function Pokemon (species, specialization, moves, nickname) {
 
 	this.effects = [];
 	this.toxicCounter = 0;
+}
+
+Pokemon.prototype.export = function () {
+	return {
+		species: this.species,
+		specialization: this.specialization,
+		moves: this.moves,
+		nickname: this.nickname,
+	};
+}
+
+function importPokemon (pokemonData) {
+	return new Pokemon(
+		pokemonData.species,
+		pokemonData.specialization,
+		pokemonData.moves,
+		pokemonData.nickname,
+	);
 }
 
 Pokemon.prototype.adjustHP = function (hpDiff) {
@@ -108,8 +128,9 @@ Pokemon.prototype.handleTurnEnd = function () {
 }
 
 
-function Trainer (pokemonArray, userControl) {
+function Trainer (nickname, pokemonArray, userControl) {
 	this.id = undefined;
+	this.nickname = nickname;
 	this.pokemon = pokemonArray;
 	this.activePokemonIndex = undefined;
 	this.activePokemon = undefined;
@@ -177,7 +198,7 @@ function Action (actionType, actionInfo, trainerID) {
 	this.trainerID = trainerID;
 }
 
-function BattleState (trainerA, trainerB) {
+function BattleState (trainerA, trainerB, speedTieWinner) {
 	this.trainerA = trainerA;
 	this.trainerB = trainerB;
 
@@ -186,7 +207,8 @@ function BattleState (trainerA, trainerB) {
 
 	this.fieldState = "normal";
 
-	this.speedTieWinner = (Math.random() > 0.5) ? "trainerA" : "trainerB";
+	// this.speedTieWinner = (Math.random() > 0.5) ? "trainerA" : "trainerB";
+	this.speedTieWinner = speedTieWinner;
 
 	// this.trainerA.switchPokemon(0);
 	// this.trainerB.switchPokemon(0);
@@ -197,6 +219,24 @@ function BattleState (trainerA, trainerB) {
 
 	populatePokemonSwitchUI(this.getControlledTrainer());
 };
+
+function handleBattleInitData (battleData) {
+	var teamAPokemon = battleData.teamA.map(importPokemon);
+	var teamBPokemon = battleData.teamB.map(importPokemon);
+
+	var trainerAControl = battleData.myTrainer === "trainerA";
+	var trainerBControl = battleData.myTrainer === "trainerB";
+
+	var newTrainerA = new Trainer("Trainer A", teamAPokemon, trainerAControl);
+	var newTrainerB = new Trainer("Trainer B", teamBPokemon, trainerBControl);
+
+	curBattleState = new BattleState(newTrainerA, newTrainerB, battleData.speedTie);
+
+	// Start the battle!
+	nav.go(["battle_view"], "app");
+
+	curBattleState.setPhase("force_switch_pokemon");
+}
 
 BattleState.prototype.setPhase = function (phaseName) {
 	if (phaseName === "force_switch_pokemon") {
@@ -363,8 +403,9 @@ BattleState.prototype.handlePokemonSwitch = function () {
 	// updateUI(this);
 }
 
-
-
+var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
+var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
+var tempTeam = [testPokemon1, testPokemon2];
 
 var curBattleState;
 
@@ -372,20 +413,25 @@ function main () {
 
 	initUI();
 
-	var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
-	var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
+	initNetplay();
 
-	var testPokemon3 = new Pokemon("testA", {spd: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu C");
-	var testPokemon4 = new Pokemon("testA", {def: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu D");
+	nav.go(["netplay_lobby"], "app");
 
-	var testTrainerA = new Trainer([testPokemon1, testPokemon3], true);
-	var testTrainerB = new Trainer([testPokemon2, testPokemon4], false);
 
-	curBattleState = new BattleState(testTrainerA, testTrainerB);
+	// var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
+	// var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
 
-	nav.go(["battle_view"], "app");
+	// var testPokemon3 = new Pokemon("testA", {spd: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu C");
+	// var testPokemon4 = new Pokemon("testA", {def: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu D");
+
+	// var testTrainerA = new Trainer("Trainer A", [testPokemon1, testPokemon3], true);
+	// var testTrainerB = new Trainer("Trainer B", [testPokemon2, testPokemon4], false);
+
+	// curBattleState = new BattleState(testTrainerA, testTrainerB);
+
+	// nav.go(["battle_view"], "app");
     
-    curBattleState.setPhase("force_switch_pokemon");
+    // curBattleState.setPhase("force_switch_pokemon");
 
 	// testTrainerA.chooseAction(MOVE_ACTION, {moveID: "strong_atk_A"});
 	// testTrainerB.chooseAction(MOVE_ACTION, {moveID: "strong_atk_B"});

@@ -10,9 +10,21 @@
 		<script src="js/pokemon.js"></script>
 		<script src="js/moves.js"></script>
 		<script src="js/ui.js"></script>
+		<script src="js/netplay.js"></script>
 		<script src="js/game.js"></script>
 	</head>
 	<body id="body">
+		<div class="view_container" data-view="team_builder">
+			<div class="buttons_outer_container">
+				<div class="menu_button" data-js-nav="netplay_lobby"></div>
+			</div>
+		</div>
+		<div class="view_container" data-view="netplay_lobby">
+			<div class="buttons_outer_container">
+				<div class="make_room">MAKE ROOM</div>
+				<div class="room_list"></div>
+			</div>
+		</div>
 		<div class="view_container" data-view="battle_view">
 			<div class="battle_scene">
 				<div class="battle_side close_side" data-trainer="trainerA">

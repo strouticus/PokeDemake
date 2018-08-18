@@ -6,6 +6,8 @@ var pokemonSwitchBackEl;
 
 var uiTextboxEl;
 
+var roomListEl;
+
 function initUI () {
 	nav.getContexts();
 
@@ -13,13 +15,14 @@ function initUI () {
 	pokemonSwitchEls = $(".ui_scene .pokemon_switch_buttons .pokemon_switch_button");
 	pokemonSwitchBackEl = $(".ui_scene [data-view='choose_pokemon'] .menu_back");
 	uiTextboxEl = $(".ui_scene .text_box_text_area");
+	roomListEl = $(".room_list");
 
 	$("body").on("mousedown", ".touchable", function(e) {
 		$(this).addClass("touched");
 		setTimeout(function() {
 			$(this).removeClass("touched");
 		}.bind(this), 800);
-	})
+	});
 
 	$("body").on("click", ".pokemon_move_button", function (e) {
 		// var buttonTrainer = $(this).closest("[data-trainer]").data("trainer");
@@ -27,7 +30,7 @@ function initUI () {
 		var buttonTrainerObj = curBattleState.getControlledTrainer();
 		// curBattleState[buttonTrainer].chooseAction(MOVE_ACTION, {moveID: buttonMoveID});
 		buttonTrainerObj.chooseAction(MOVE_ACTION, {moveID: buttonMoveID}, buttonTrainerObj.id);
-	})
+	});
 
 	$("body").on("click", ".pokemon_switch_button", function (e) {
 		// var buttonTrainer = $(this).closest("[data-trainer]").data("trainer");
@@ -37,11 +40,11 @@ function initUI () {
 		if (newPokemonIndex !== buttonTrainerObj.activePokemonIndex && buttonTrainerObj.pokemon[newPokemonIndex].alive) {
 			buttonTrainerObj.chooseAction(SWITCH_ACTION, {newPokemonIndex: newPokemonIndex}, buttonTrainerObj.id);
 		}
-	})
+	});
 
 	$("body").on("click", ".slideout_toggle", function (e) {
 		$(this).closest(".pokemon_info_box_container").toggleClass("show_slideout");
-	})
+	});
 
 	$("body").on("click", "[data-js-nav]", function (e) {
 		var thisContext = $(this).data("js-nav-context");
@@ -49,7 +52,15 @@ function initUI () {
 			thisContext = $(this).closest("[data-nav-context]").data("nav-context");
 		}
 		nav.go($(this).data("js-nav"), thisContext);
-	})
+	});
+
+	$("body").on("click", ".make_room", function (e) {
+		createRoom();
+	});
+
+	$("body").on("click", ".room_list_option", function (e) {
+		joinRoom($(this).data("room-id"));
+	});
 
 	$(window).on("resize", function() {
 		clearTimeout(resizeTimer);
@@ -275,6 +286,16 @@ function endAnimationQueue () {
 		curBattleState.setPhase("choose_action");
 	}
 
+}
+
+
+
+function populateRoomList (roomData) {
+	roomListEl.empty();
+	roomData.map(function (roomInfo) {
+		var newRoomEl = $("<div class='room_list_option' data-room-id='" + roomInfo.roomID + "'>" + roomInfo.hostNickname + "</div>")
+		roomListEl.append(newRoomEl);
+	});
 }
 
 
