@@ -75,6 +75,26 @@ svg {
 	&.seq-after {
 		@include transform(translateX(100%));
 	}
+
+	&[data-view="choose_action"] {
+		&.transition-in {
+			@include transform(scale(0.5));
+
+			[data-view] {
+				@include transform(none !important);
+			}
+		}
+
+		&.transition-out {
+			@include transform(scale(0.5));
+		}
+	}
+
+	&.scale_in_out {
+		&.transition-in, &.transition-out {
+			@include transform(scale(0.5));
+		}
+	}
 }
 
 .battle_scene { 
@@ -123,6 +143,12 @@ svg {
 			position: absolute;
 			width: 5.2rem;
 			height: 2rem;
+			@include transtrans(", opacity 0.5s ease");
+
+			&.fainted {
+				opacity: 0;
+				@include transform(translateY(2rem));
+			}
 
 			&.show_slideout {
 				.stat_slideout {
@@ -170,6 +196,7 @@ svg {
 						background-color: green;
 						@include origin(left center);
 						@include transtrans("");
+						will-change: transform;
 					}
 				}
 
@@ -336,11 +363,19 @@ svg {
 	}
 }
 
-.buttons_container {
+.buttons_outer_container {
 	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
+	height: 100%;
+	@include flex();
+	@include row();
+}
+
+.buttons_container {
+	position: relative;
+	@include grow(1);
 	height: 100%;
 	box-sizing: border-box;
 	padding: 0.2rem;
@@ -426,13 +461,17 @@ svg {
 }
 
 .menu_back {
-	position: absolute;
-	left: 0.2rem;
-	top: 0.2rem;
+	position: relative;
+	margin-left: 0.2rem;
+	@include shrink(0);
 	width: 1rem;
 	height: calc(100% - 0.4rem);
 	background-color: rgb(32, 32, 32);
 	@include flex();
+
+	&.disabled {
+		display: none;
+	}
 
 	.icon {
 		position: relative;

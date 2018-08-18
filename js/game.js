@@ -25,12 +25,10 @@ function dealDamage (attacker, defender, type, bp) {
 	damage = Math.max(1, damage);
 	defender.adjustHP(-1 * damage);
 
-	if (LOGGING >= 3) {
-		if (moveEffectiveness === EFFECTIVE_SUPER) {
-			console.info("It's super effective!");
-		} else if (moveEffectiveness === EFFECTIVE_WEAK) {
-			console.info("It's not very effective...");
-		}
+	if (moveEffectiveness === EFFECTIVE_SUPER) {
+		new Animation("drawText", "It's super effective!");
+	} else if (moveEffectiveness === EFFECTIVE_WEAK) {
+		new Animation("drawText", "It's not very effective...");
 	}
 }
 
@@ -62,22 +60,26 @@ function Pokemon (species, specialization, moves, nickname) {
 
 Pokemon.prototype.adjustHP = function (hpDiff) {
 	this.curHP += Math.ceil(hpDiff);
-	if (this.curHP <= 0) {
-		this.curHP = 0;
-		this.alive = false;
-		return;
-	}
 	if (this.curHP > this.stats.hp) {
 		this.curHP = this.stats.hp;
 	}
+	if (this.curHP <= 0) {
+		this.curHP = 0;
+		this.alive = false;
+	}
+	var ownerTrainer = curBattleState.getTrainerFromPokemon(this);
+	new Animation("updateHP", {trainerObj: ownerTrainer, forceHPNum: this.curHP});
 	if (LOGGING >= 3) {
 		console.info("" + this.nickname + "'s HP is now " + this.curHP);
 	}
 }
 
 Pokemon.prototype.adjustStats = function (statAdj) {
+	var ownerTrainer = curBattleState.getTrainerFromPokemon(this);
 	for (var statName in statAdj) {
 		this.stats[statName] += statAdj[statName];
+		new Animation("updateStats", {trainerObj: ownerTrainer});
+		new Animation("drawText", "" + this.nickname + "'s " + statName.toUpperCase() + " was raised by " + statAdj[statName] + "!");
 	}
 }
 
@@ -86,9 +88,8 @@ Pokemon.prototype.useMove = function (moveID, defender) {
 		return;
 	}
 
-	if (LOGGING >= 3) {
-		console.info("" + this.nickname + " used " + moveInfo[moveID].displayName + "!");
-	}
+	new Animation("drawText", "" + this.nickname + " used " + moveInfo[moveID].displayName + "!");
+
 	moveInfo[moveID].moveFunc(this, defender);
 }
 
@@ -101,9 +102,8 @@ Pokemon.prototype.handleTurnEnd = function () {
 	}
 
 	if (!this.alive) {
-		if (LOGGING >= 3) {
-			console.info("" + this.nickname + " has fainted!");
-		}
+		new Animation("drawText", "" + this.nickname + " has fainted!");
+		new Animation("recallPokemon", {trainerObj: curBattleState.getTrainerFromPokemon(this)});
 	}
 }
 
@@ -111,11 +111,11 @@ Pokemon.prototype.handleTurnEnd = function () {
 function Trainer (pokemonArray, userControl) {
 	this.id = undefined;
 	this.pokemon = pokemonArray;
-	this.activePokemonIndex = 0;
+	this.activePokemonIndex = undefined;
 	this.activePokemon = undefined;
 	this.chosenAction = undefined;
 
-	this.mustSwitch = false;
+	this.mustSwitch = true;
 
 	this.sideState = "normal";
 
@@ -124,22 +124,25 @@ function Trainer (pokemonArray, userControl) {
 
 Trainer.prototype.switchPokemon = function (newPokemonID) {
 	var prevNickname;
+	var prevWasAlive = false;
 	if (this.activePokemon) {
 		prevNickname = this.activePokemon.nickname;
+		if (this.activePokemon.alive) {
+			prevWasAlive = true;
+		}
 	}
 
 	this.activePokemonIndex = newPokemonID;
 	this.activePokemon = this.pokemon[newPokemonID];
 
-	updatePokemonUI(this);
+	// updatePokemonUI(this);
 
-	if (LOGGING >= 3) {
-		if (prevNickname) {
-			console.info("" + prevNickname + " was swapped out for " + this.activePokemon.nickname + "!");
-		} else {
-			console.info("Go! " + this.activePokemon.nickname + "!");
-		}
+	if (prevNickname && prevWasAlive) {
+		new Animation("drawText", "Come back, " + prevNickname + "!");
+		new Animation("recallPokemon", {trainerObj: this});
 	}
+	new Animation("drawText", "Go! " + this.activePokemon.nickname + "!");
+	new Animation("updatePokemon", {trainerObj: this, forceHPNum: this.activePokemon.curHP});
 }
 
 Trainer.prototype.chooseAction = function (actionType, actionInfo) {
@@ -149,7 +152,7 @@ Trainer.prototype.chooseAction = function (actionType, actionInfo) {
 	if (this.mustSwitch) {
 		if (actionType === SWITCH_ACTION) {
 			var otherTrainerObj = curBattleState.getOtherTrainer(this);
-			if (!otherTrainerObj.mustSwitch || otherTrainerObj.chosenAction.actionType === SWITCH_ACTION) {
+			if (!otherTrainerObj.mustSwitch || (otherTrainerObj.chosenAction && otherTrainerObj.chosenAction.actionType === SWITCH_ACTION)) {
 				curBattleState.handlePokemonSwitch();
 			}
 		} else {
@@ -181,11 +184,33 @@ function BattleState (trainerA, trainerB) {
 
 	this.speedTieWinner = (Math.random() > 0.5) ? "trainerA" : "trainerB";
 
-	this.trainerA.switchPokemon(0);
-	this.trainerB.switchPokemon(0);
+	// this.trainerA.switchPokemon(0);
+	// this.trainerB.switchPokemon(0);
+	updatePokemonUI(this.trainerA);
+	updatePokemonUI(this.trainerB);
+
+	this.phase = "";
 
 	populatePokemonSwitchUI(this.getControlledTrainer());
 };
+
+BattleState.prototype.setPhase = function (phaseName) {
+	if (phaseName === "force_switch_pokemon") {
+		if (this.getControlledTrainer().mustSwitch) {
+			nav.go(["choose_action", "choose_pokemon"], "battle_ui");
+		} else {
+			nav.go(["wait_for_opponent"], "battle_ui");
+		}
+	} else if (phaseName === "handle_turn") {
+		nav.go(["text_box"], "battle_ui");
+	} else if (phaseName === "handle_force_switch_pokemon") {
+		nav.go(["text_box"], "battle_ui");
+	} else if (phaseName === "choose_action") {
+		nav.go(["choose_action", "choose_category"], "battle_ui");
+	}
+	
+	this.phase = phaseName;
+}
 
 BattleState.prototype.getControlledTrainer = function () {
 	if (this.trainerA.controlled) {
@@ -212,6 +237,14 @@ BattleState.prototype.getOtherTrainer = function (trainerIdentifier) {
 		} else {
 			console.info("Can't get other trainer; invalid trainer ID");
 		}
+	}
+}
+
+BattleState.prototype.getTrainerFromPokemon = function (pokemonObj) {
+	if (this.trainerA.pokemon.indexOf(pokemonObj) >= 0) {
+		return this.trainerA;
+	} else if (this.trainerB.pokemon.indexOf(pokemonObj) >= 0) {
+		return this.trainerB;
 	}
 }
 
@@ -299,6 +332,9 @@ BattleState.prototype.handleTurnEnd = function () {
 		this.trainerB.mustSwitch = true;
 	}
 
+	this.setPhase("handle_turn");
+	handleNextAnimation();
+
 	if (LOGGING >= 3) {
 		console.info("---TURN END---");
 	}
@@ -316,6 +352,9 @@ BattleState.prototype.handlePokemonSwitch = function () {
 
 	this.trainerA.chosenAction = undefined;
 	this.trainerB.chosenAction = undefined;
+
+	this.setPhase("handle_force_switch_pokemon");
+	handleNextAnimation();
 
 	// updateUI(this);
 }
@@ -339,6 +378,10 @@ function main () {
 	var testTrainerB = new Trainer([testPokemon2, testPokemon4], false);
 
 	curBattleState = new BattleState(testTrainerA, testTrainerB);
+
+	nav.go(["battle_view"], "app");
+    
+    curBattleState.setPhase("force_switch_pokemon");
 
 	// testTrainerA.chooseAction(MOVE_ACTION, {moveID: "strong_atk_A"});
 	// testTrainerB.chooseAction(MOVE_ACTION, {moveID: "strong_atk_B"});
