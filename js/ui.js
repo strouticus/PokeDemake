@@ -6,6 +6,8 @@ var pokemonSwitchBackEl;
 
 var uiTextboxEl;
 
+var nicknameInputEl;
+
 var roomListEl;
 
 function initUI () {
@@ -16,6 +18,7 @@ function initUI () {
 	pokemonSwitchBackEl = $(".ui_scene [data-view='choose_pokemon'] .menu_back");
 	uiTextboxEl = $(".ui_scene .text_box_text_area");
 	roomListEl = $(".room_list");
+	nicknameInputEl = $(".nickname_entry_input");
 
 	$("body").on("mousedown", ".touchable", function(e) {
 		$(this).addClass("touched");
@@ -48,6 +51,10 @@ function initUI () {
 			thisContext = $(this).closest("[data-nav-context]").data("nav-context");
 		}
 		nav.go($(this).data("js-nav"), thisContext);
+	});
+
+	$("body").on("click", ".update_nickname", function (e) {
+		updateNickname(nicknameInputEl.val());
 	});
 
 	$("body").on("click", ".make_room", function (e) {
@@ -92,6 +99,11 @@ function resize (count) {
 }
 
 
+var curNickname = "";
+function updateNickname (newNickname) {
+	curNickname = newNickname;
+	sendData("setNickname", newNickname);
+}
 
 function updatePokemonUI (trainerObj, forceHPNum) {
 	var trainerSideEl = $(".battle_side[data-trainer='" + trainerObj.id + "']");
@@ -289,7 +301,7 @@ function endAnimationQueue () {
 function populateRoomList (roomData) {
 	roomListEl.empty();
 	roomData.map(function (roomInfo) {
-		var newRoomEl = $("<div class='room_list_option' data-room-id='" + roomInfo.roomID + "'>" + roomInfo.hostNickname + "</div>")
+		var newRoomEl = $("<div class='room_list_option touchable large' data-room-id='" + roomInfo.roomID + "'>" + roomInfo.hostNickname + "</div>")
 		roomListEl.append(newRoomEl);
 	});
 }
@@ -300,6 +312,12 @@ function before_drawing_view (views, context) {
 	if (context === "battle_ui") {
 		if (views.indexOf("choose_pokemon") >= 0) {
 			updatePokemonSwitchUI(curBattleState.getControlledTrainer());
+		}
+	}
+
+	if (context === "app") {
+		if (views.indexOf("enter_nickname") >= 0) {
+			nicknameInputEl.val(curNickname);
 		}
 	}
 }

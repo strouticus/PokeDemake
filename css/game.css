@@ -859,13 +859,295 @@ svg {
     opacity: 0;
   }
 }
-/* line 565, ../scss/game.scss */
+/* line 564, ../scss/game.scss */
+.nickname_entry_outer_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* line 572, ../scss/game.scss */
+.nickname_entry_outer_container .nickname_entry_container {
+  position: relative;
+  width: 8rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -ms-align-items: flex-start;
+  align-items: flex-start;
+}
+/* line 578, ../scss/game.scss */
+.nickname_entry_outer_container .nickname_entry_container .nickname_entry_title {
+  position: relative;
+  font-size: 0.4rem;
+  margin-bottom: 0.1rem;
+}
+/* line 584, ../scss/game.scss */
+.nickname_entry_outer_container .nickname_entry_container .nickname_entry_row {
+  position: relative;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  height: 0.8rem;
+  width: 100%;
+}
+/* line 591, ../scss/game.scss */
+.nickname_entry_outer_container .nickname_entry_container .nickname_entry_row .nickname_entry_input {
+  position: relative;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+  height: 100%;
+  font-size: 0.4rem;
+  font-family: AppFont;
+  border: 0;
+  box-sizing: border-box;
+  padding: 0 0.1rem;
+  margin-right: 0.2rem;
+}
+/* line 603, ../scss/game.scss */
+.nickname_entry_outer_container .nickname_entry_container .nickname_entry_row .nickname_entry_done_button {
+  position: relative;
+  height: 100%;
+  width: 1.5rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #202020;
+  font-size: 0.4rem;
+}
+
+/* line 615, ../scss/game.scss */
+.netplay_lobby_outer_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+/* line 624, ../scss/game.scss */
+.netplay_lobby_outer_container .netplay_lobby_side {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -ms-align-items: flex-start;
+  align-items: flex-start;
+}
+/* line 633, ../scss/game.scss */
+.netplay_lobby_outer_container .netplay_lobby_side .room_list_container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-align-items: flex-start;
+  -moz-align-items: flex-start;
+  -ms-align-items: flex-start;
+  align-items: flex-start;
+}
+/* line 640, ../scss/game.scss */
+.netplay_lobby_outer_container .netplay_lobby_side .room_list_container .room_list_title {
+  position: relative;
+  font-size: 0.4rem;
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+  -webkit-flex-shrink: 0;
+  -moz-flex-shrink: 0;
+  -ms-flex-shrink: 0;
+  flex-shrink: 0;
+}
+/* line 648, ../scss/game.scss */
+.netplay_lobby_outer_container .netplay_lobby_side .room_list_container .room_list {
+  position: relative;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  border: 1px solid #404040;
+  margin-bottom: 0.2rem;
+  padding: 0.2rem;
+}
+/* line 658, ../scss/game.scss */
+.netplay_lobby_outer_container .netplay_lobby_side .room_list_container .room_list .room_list_option {
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  background-color: #202020;
+  font-size: 0.4rem;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.1rem;
+}
+/* line 669, ../scss/game.scss */
+.netplay_lobby_outer_container .netplay_lobby_side .room_list_container .make_room {
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  font-size: 0.4rem;
+  background-color: #202020;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: -moz-flex;
+  -moz-flex-direction: column;
+  -moz-justify-content: center;
+  -moz-align-items: center;
+  display: -ms-flex;
+  -ms-flex-direction: column;
+  -ms-justify-content: center;
+  -ms-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-shrink: 0;
+  -moz-flex-shrink: 0;
+  -ms-flex-shrink: 0;
+  flex-shrink: 0;
+}
+
+/* line 683, ../scss/game.scss */
 .touchable {
   overflow: hidden;
   cursor: pointer;
 }
 
-/* line 570, ../scss/game.scss */
+/* line 688, ../scss/game.scss */
 .touchable:not(.no_before):after,
 .touchable.no_before .touchable_circle {
   content: "";
@@ -881,34 +1163,34 @@ svg {
   display: none;
 }
 
-/* line 584, ../scss/game.scss */
+/* line 702, ../scss/game.scss */
 .touchable.small:not(.no_before):after,
 .touchable.small.no_before .touchable_circle {
   width: 1rem;
   height: 1rem;
 }
 
-/* line 590, ../scss/game.scss */
+/* line 708, ../scss/game.scss */
 .touchable.large:not(.no_before):after,
 .touchable.large.no_before .touchable_circle {
   width: 3rem;
   height: 3rem;
 }
 
-/* line 596, ../scss/game.scss */
+/* line 714, ../scss/game.scss */
 .touchable.huge:not(.no_before):after,
 .touchable.huge.no_before .touchable_circle {
   width: 5rem;
   height: 5rem;
 }
 
-/* line 602, ../scss/game.scss */
+/* line 720, ../scss/game.scss */
 .touchable.invert:not(.no_before):after,
 .touchable.invert.no_before .touchable_circle {
   background-color: black;
 }
 
-/* line 607, ../scss/game.scss */
+/* line 725, ../scss/game.scss */
 .touchable.touched:not(.no_before):after,
 .touchable.touched.no_before .touchable_circle {
   display: block;

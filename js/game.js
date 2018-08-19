@@ -443,30 +443,8 @@ function main () {
 
 	initNetplay();
 
-	nav.go(["netplay_lobby"], "app");
-
-
-	// var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
-	// var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
-
-	// var testPokemon3 = new Pokemon("testA", {spd: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu C");
-	// var testPokemon4 = new Pokemon("testA", {def: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu D");
-
-	// var testTrainerA = new Trainer("Trainer A", [testPokemon1, testPokemon3], true);
-	// var testTrainerB = new Trainer("Trainer B", [testPokemon2, testPokemon4], false);
-
-	// curBattleState = new BattleState(testTrainerA, testTrainerB);
-
-	// nav.go(["battle_view"], "app");
-    
-    // curBattleState.setPhase("force_switch_pokemon");
-
-	// testTrainerA.chooseAction(MOVE_ACTION, {moveID: "strong_atk_A"});
-	// testTrainerB.chooseAction(MOVE_ACTION, {moveID: "strong_atk_B"});
-
-	// testBattleState.handleTurnStart();
-
-	// updateUI(curBattleState);
+	// nav.go(["netplay_lobby"], "app");
+	nav.go(["enter_nickname"], "app");
 
 }
 

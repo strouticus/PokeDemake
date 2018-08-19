@@ -561,6 +561,124 @@ svg {
 
 
 
+.nickname_entry_outer_container { 
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	@include flex();
+
+	.nickname_entry_container { 
+		position: relative;
+		width: 8rem;
+		@include flex();
+		@include align(flex-start);
+
+		.nickname_entry_title { 
+			position: relative;
+			font-size: 0.4rem;
+			margin-bottom: 0.1rem;
+		}
+
+		.nickname_entry_row { 
+			position: relative;
+			@include flex();
+			@include row();
+			height: 0.8rem;
+			width: 100%;
+
+			.nickname_entry_input { 
+				position: relative;
+				@include grow(1);
+				height: 100%;
+				font-size: 0.4rem;
+				font-family: AppFont;
+				border: 0;
+				box-sizing: border-box;
+				padding: 0 0.1rem;
+				margin-right: 0.2rem;
+			}
+
+			.nickname_entry_done_button { 
+				position: relative;
+				height: 100%;
+				width: 1.5rem;
+				@include flex();
+				background-color: rgb(32, 32, 32);
+				font-size: 0.4rem;
+			}
+		}
+	}
+}
+
+.netplay_lobby_outer_container { 
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	@include flex();
+	@include row();
+
+	.netplay_lobby_side { 
+		position: relative;
+		width: 50%;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 0.4rem;
+		@include flex();
+		@include align(flex-start);
+
+		.room_list_container { 
+			position: relative;
+			width: 100%;
+			height: 100%;
+			@include flex();
+			@include align(flex-start);
+
+			.room_list_title { 
+				position: relative;
+				font-size: 0.4rem;
+				font-weight: bold;
+				margin-bottom: 0.2rem;
+				@include shrink(0);
+			}
+
+			.room_list { 
+				position: relative;
+				@include grow(1);
+				width: 100%;
+				overflow: auto;
+				box-sizing: border-box;
+				border: 1px solid rgb(64, 64, 64);
+				margin-bottom: 0.2rem;
+				padding: 0.2rem;
+
+				.room_list_option {
+					position: relative;
+					width: 100%;
+					height: 1rem;
+					background-color: rgb(32, 32, 32);
+					font-size: 0.4rem;
+					@include flex();
+					margin-bottom: 0.1rem;
+				}
+			}
+
+			.make_room { 
+				position: relative;
+				width: 100%;
+				height: 1rem;
+				font-size: 0.4rem;
+				background-color: rgb(32, 32, 32);
+				@include flex();
+				@include shrink(0);
+			}
+		}
+	}
+}
+
 
 .touchable {
 	overflow: hidden;

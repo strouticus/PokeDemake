@@ -14,15 +14,32 @@
 		<script src="js/game.js"></script>
 	</head>
 	<body id="body">
+		<div class="view_container" data-view="enter_nickname">
+			<div class="nickname_entry_outer_container">
+				<div class="nickname_entry_container">
+					<div class="nickname_entry_title">Enter your nickname:</div>
+					<div class="nickname_entry_row">
+						<input type="text" class="nickname_entry_input" id="nickname_entry">
+						<div class="nickname_entry_done_button touchable update_nickname" data-js-nav="netplay_lobby">DONE</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="view_container" data-view="team_builder">
 			<div class="buttons_outer_container">
 				<div class="menu_button" data-js-nav="netplay_lobby"></div>
 			</div>
 		</div>
 		<div class="view_container" data-view="netplay_lobby">
-			<div class="buttons_outer_container">
-				<div class="make_room">MAKE ROOM</div>
-				<div class="room_list"></div>
+			<div class="netplay_lobby_outer_container">
+				<div class="netplay_lobby_side"></div>
+				<div class="netplay_lobby_side">
+					<div class="room_list_container">
+						<div class="room_list_title">Room List:</div>
+						<div class="room_list"></div>
+						<div class="make_room touchable large">MAKE ROOM</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="view_container" data-view="battle_view">
