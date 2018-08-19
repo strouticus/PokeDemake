@@ -13,6 +13,8 @@ var roomListEl;
 function initUI () {
 	nav.getContexts();
 
+	closeSideEl = $(".battle_scene .battle_side.close_side");
+	farSideEl = $(".battle_scene .battle_side.far_side");
 	moveButtonEls = $(".ui_scene .pokemon_move_buttons .pokemon_move_button");
 	pokemonSwitchEls = $(".ui_scene .pokemon_switch_buttons .pokemon_switch_button");
 	pokemonSwitchBackEl = $(".ui_scene [data-view='choose_pokemon'] .menu_back");
@@ -103,6 +105,16 @@ var curNickname = "";
 function updateNickname (newNickname) {
 	curNickname = newNickname;
 	sendData("setNickname", newNickname);
+}
+
+function updateTrainerSides (battleState) {
+	if (battleState.trainerA.controlled) {
+		closeSideEl.data("trainer", "trainerA");
+		farSideEl.data("trainer", "trainerB");
+	} else if (battleState.trainerB.controlled) {
+		closeSideEl.data("trainer", "trainerB");
+		farSideEl.data("trainer", "trainerA");
+	}
 }
 
 function updatePokemonUI (trainerObj, forceHPNum) {

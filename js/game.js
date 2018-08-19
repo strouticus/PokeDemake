@@ -250,6 +250,8 @@ function handleBattleInitData (battleData) {
 
 	curBattleState = new BattleState(newTrainerA, newTrainerB, battleData.speedTie);
 
+	updateTrainerSides(curBattleState);
+
 	// Start the battle!
 	nav.go(["battle_view"], "app");
 
