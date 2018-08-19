@@ -41,6 +41,9 @@ function handleMessageData (type, data) {
 	if (type === "battleInitData") {
 		handleBattleInitData(data);
 	}
+	if (type === "otherActionData") {
+		handleOtherActionData(data);
+	}
 }
 
 // Messages to server
@@ -58,8 +61,21 @@ function joinRoom (roomID) {
 }
 
 function sendTeamData () {
-	var teamData = tempTeam.map(function (pokemon) {
-		return pokemon.export();
-	});
-	sendData("teamData", teamData);
+	if (connected) {
+		var teamData = tempTeam.map(function (pokemon) {
+			return pokemon.export();
+		});
+		sendData("teamData", teamData);
+	}
+}
+
+function sendActionData (actionType, actionInfo, trainerID) {
+	if (connected) {
+		var actionData = {
+			actionType: actionType,
+			actionInfo: actionInfo,
+			trainerID: trainerID,
+		}
+		sendData("actionData", actionData);
+	}
 }

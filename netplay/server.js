@@ -33,8 +33,6 @@ function Room (hostUser) {
 	this.waitingForGuest = true;
 	roomList.push(this);
 
-	this.hostTeam = undefined;
-	this.guestTeam = undefined;
 	this.waitingToStart = false;
 }
 
@@ -58,14 +56,21 @@ Room.prototype.startBattle = function() {
 
 Room.prototype.checkBothTeams = function () {
 	if (this.hostUser.teamData !== undefined && this.guestUser.teamData !== undefined) {
-		this.hostTeam = this.hostUser.teamData;
-		this.guestTeam = this.guestUser.teamData;
 
 		// Coinflip for speed ties
 		var speedTie = (Math.random() > 0.5) ? "trainerA" : "trainerB";
 
-		this.hostUser.sendBattleInitData(this.hostTeam, this.guestTeam, "trainerA", speedTie);
-		this.guestUser.sendBattleInitData(this.hostTeam, this.guestTeam, "trainerB", speedTie);
+		this.hostUser.sendBattleInitData(this.hostUser.teamData, this.guestUser.teamData, "trainerA", speedTie);
+		this.guestUser.sendBattleInitData(this.hostUser.teamData, this.guestUser.teamData, "trainerB", speedTie);
+	}
+}
+
+Room.prototype.checkBothActions = function() {
+	if (this.hostUser.actionData !== undefined && this.guestUser.actionData !== undefined) {
+		this.hostUser.sendOtherActionData(this.guestUser.actionData);
+		this.guestUser.sendOtherActionData(this.hostUser.actionData);
+		this.hostUser.actionData = undefined;
+		this.guestUser.actionData = undefined;
 	}
 }
 
@@ -76,6 +81,7 @@ function User (ws) {
 	this.nickname = "Noname";
 	userList.push(this);
 	this.teamData = undefined;
+	this.actionData = undefined;
 }
 
 User.prototype.disconnect = function () {
@@ -114,7 +120,7 @@ User.prototype.setTeamData = function (data) {
 	this.room.checkBothTeams();
 }
 
-User.prototype.sendBattleInitData = function(teamA, teamB, myTrainer, speedTie) {
+User.prototype.sendBattleInitData = function (teamA, teamB, myTrainer, speedTie) {
 	this.sendData("battleInitData", {
 		teamA: teamA,
 		teamB: teamB,
@@ -123,6 +129,14 @@ User.prototype.sendBattleInitData = function(teamA, teamB, myTrainer, speedTie) 
 	});
 }
 
+User.prototype.setActionData = function (data) {
+	this.actionData = data;
+	this.room.checkBothActions();
+}
+
+User.prototype.sendOtherActionData = function (actionData) {
+	this.sendData("otherActionData", actionData);
+}
 
 function sendAllUsersRoomList () {
 	userList.map(function (user) {
@@ -164,6 +178,9 @@ function handleMessageData (user, type, data) {
 	}
 	if (type === "teamData") {
 		user.setTeamData(data);
+	}
+	if (type === "actionData") {
+		user.setActionData(data);
 	}
 }
 

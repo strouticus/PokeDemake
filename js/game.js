@@ -6,6 +6,7 @@ var LOGGING = 3;
 
 var SWITCH_ACTION = "SWITCH_ACTION";
 var MOVE_ACTION = "MOVE_ACTION";
+var WAIT_ACTION = "WAIT_ACTION";
 
 var curPokemon;
 var curOpponent;
@@ -171,23 +172,35 @@ Trainer.prototype.chooseAction = function (actionType, actionInfo) {
 
 	if (this.controlled) {
 		nav.go(["wait_for_opponent"], "battle_ui");
+		sendActionData(actionType, actionInfo, this.trainerID);
 	}
 
-	// If this trainer needs to switch, and other trainer either: (doesn't need to switch) or (needs to switch and has chosen pokemon to switch to): Do mini switch turn
-	if (this.mustSwitch) {
-		if (actionType === SWITCH_ACTION) {
-			var otherTrainerObj = curBattleState.getOtherTrainer(this);
-			if (!otherTrainerObj.mustSwitch || (otherTrainerObj.chosenAction && otherTrainerObj.chosenAction.actionType === SWITCH_ACTION)) {
-				curBattleState.handlePokemonSwitch();
-			}
+
+	if (curBattleState.trainerA.chosenAction && curBattleState.trainerB.chosenAction) {
+		if (curBattleState.trainerA.mustSwitch || curBattleState.trainerB.mustSwitch) {
+			curBattleState.handlePokemonSwitch();
 		} else {
-			this.chosenAction = undefined;
-		}
-	} else {
-		if (curBattleState.trainerA.chosenAction && curBattleState.trainerB.chosenAction) {
 			curBattleState.handleTurnStart();
 		}
 	}
+
+	return;
+
+	// If this trainer needs to switch, and other trainer either: (doesn't need to switch) or (needs to switch and has chosen pokemon to switch to): Do mini switch turn
+	// if (this.mustSwitch) {
+	// 	if (actionType === SWITCH_ACTION) {
+	// 		var otherTrainerObj = curBattleState.getOtherTrainer(this);
+	// 		if (!otherTrainerObj.mustSwitch || (otherTrainerObj.chosenAction && otherTrainerObj.chosenAction.actionType === SWITCH_ACTION)) {
+	// 			curBattleState.handlePokemonSwitch();
+	// 		}
+	// 	} else {
+	// 		this.chosenAction = undefined;
+	// 	}
+	// } else {
+	// 	if (curBattleState.trainerA.chosenAction && curBattleState.trainerB.chosenAction) {
+	// 		curBattleState.handleTurnStart();
+	// 	}
+	// }
 
 }
 
@@ -196,6 +209,11 @@ function Action (actionType, actionInfo, trainerID) {
 	this.actionType = actionType;
 	this.actionInfo = actionInfo;
 	this.trainerID = trainerID;
+}
+
+function handleOtherActionData (data) {
+	var opponentTrainerObj = curBattleState.getOpponentTrainer();
+	opponentTrainerObj.chooseAction(data.actionType, data.actionInfo, opponentTrainerObj.id);
 }
 
 function BattleState (trainerA, trainerB, speedTieWinner) {
@@ -244,6 +262,8 @@ BattleState.prototype.setPhase = function (phaseName) {
 			nav.go(["choose_action", "choose_pokemon"], "battle_ui");
 		} else {
 			nav.go(["wait_for_opponent"], "battle_ui");
+			var controlledTrainer = this.getControlledTrainer();
+			controlledTrainer.chooseAction(WAIT_ACTION, {}, controlledTrainer.id);
 		}
 	} else if (phaseName === "handle_turn") {
 		nav.go(["text_box"], "battle_ui");
@@ -261,6 +281,14 @@ BattleState.prototype.getControlledTrainer = function () {
 		return this.trainerA;
 	} else if (this.trainerB.controlled) {
 		return this.trainerB;
+	}
+}
+
+BattleState.prototype.getOpponentTrainer = function () {
+	if (this.trainerA.controlled) {
+		return this.trainerB;
+	} else if (this.trainerB.controlled) {
+		return this.trainerA;
 	}
 }
 

@@ -25,16 +25,12 @@ function initUI () {
 	});
 
 	$("body").on("click", ".pokemon_move_button", function (e) {
-		// var buttonTrainer = $(this).closest("[data-trainer]").data("trainer");
 		var buttonMoveID = $(this).data("move-id");
 		var buttonTrainerObj = curBattleState.getControlledTrainer();
-		// curBattleState[buttonTrainer].chooseAction(MOVE_ACTION, {moveID: buttonMoveID});
 		buttonTrainerObj.chooseAction(MOVE_ACTION, {moveID: buttonMoveID}, buttonTrainerObj.id);
 	});
 
 	$("body").on("click", ".pokemon_switch_button", function (e) {
-		// var buttonTrainer = $(this).closest("[data-trainer]").data("trainer");
-		// var buttonTrainerObj = curBattleState[buttonTrainer];
 		var buttonTrainerObj = curBattleState.getControlledTrainer();
 		var newPokemonIndex = $(this).data("switch-index") * 1;
 		if (newPokemonIndex !== buttonTrainerObj.activePokemonIndex && buttonTrainerObj.pokemon[newPokemonIndex].alive) {
