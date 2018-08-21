@@ -26,8 +26,272 @@
 			</div>
 		</div>
 		<div class="view_container" data-view="team_builder">
-			<div class="buttons_outer_container">
-				<div class="menu_button" data-js-nav="netplay_lobby"></div>
+			<div class="team_builder_container">
+				<div class="info_window" data-nav-context="team_builder_info">
+					<div class="view_container" data-view="empty_screen">
+						<div class="centering_container">
+							<div class="prompt_text">Click on a Team Slot to edit...</div>
+						</div>
+					</div>
+					<div class="view_container" data-view="pokemon_list">
+						<div class="pokemon_list_container">
+							<!-- <div class="pokemon_option" data-pokemon="testA">
+								<div class="pokemon_picture_container">
+									<div class="pokemon_picture"></div>
+								</div>
+								<div class="pokemon_name"></div>
+								<div class="type_icon_container">
+									<div class="type_icon"></div>
+									<div class="type_name"></div>
+								</div>
+							</div> -->
+						</div>
+					</div>
+					<div class="view_container" data-view="edit_pokemon">
+						<div class="edit_pokemon_container">
+							<div class="top_row">
+								<!-- <div class="back_button touchable" data-js-nav="pokemon_list">
+									<div class="icon"></div>
+								</div> -->
+								<div class="pokemon_image_container">
+									<div class="pokemon_image"></div>
+								</div>
+								<div class="pokemon_name_container">
+									<div class="pokemon_name"></div>
+									<div class="pokemon_flavor_text"></div>
+								</div>
+								<div class="type_icon_container">
+									<div class="type_icon"></div>
+									<div class="type_name"></div>
+								</div>
+							</div>
+							<div class="moves_and_stats_container">
+								<div class="section_container moves_container">
+									<div class="section_header moves_header">Moves</div>
+									<div class="moves_buttons">
+										<div class="move_button touchable large" data-move="0">
+											<div class="move_name"></div>
+											<div class="move_description"></div>
+											<div class="move_type_container">
+												<div class="type_icon"></div>
+												<div class="type_name"></div>
+											</div>
+										</div>
+										<div class="move_button touchable large" data-move="1">
+											<div class="move_name"></div>
+											<div class="move_description"></div>
+											<div class="move_type_container">
+												<div class="type_icon"></div>
+												<div class="type_name"></div>
+											</div>
+										</div>
+										<div class="move_button touchable large" data-move="2">
+											<div class="move_name"></div>
+											<div class="move_description"></div>
+											<div class="move_type_container">
+												<div class="type_icon"></div>
+												<div class="type_name"></div>
+											</div>
+										</div>
+										<div class="move_button touchable large" data-move="3">
+											<div class="move_name"></div>
+											<div class="move_description"></div>
+											<div class="move_type_container">
+												<div class="type_icon"></div>
+												<div class="type_name"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="section_container stats_container">
+									<div class="section_header stats_header">Stats</div>
+									<div class="stat_rows">
+										<div class="stat_row" data-stat="hp">
+											<div class="stat_header">HP</div>
+											<div class="stat_bar_container">
+												<div class="bar_inner_container">
+													<div class="stat_bar"></div>
+													<div class="stat_bar_extra"></div>
+													<div class="stat_num">12</div>
+												</div>
+											</div>
+											<div class="specialize_button touchable">
+												<div class="plus_icon">
+													<div class="line_container">
+														<div class="line vertical"></div>
+													</div>
+													<div class="line_container">
+														<div class="line horizontal"></div>
+													</div>
+												</div>
+												<div class="selected_overlay"></div>
+											</div>
+										</div>
+										<div class="stat_row" data-stat="atk">
+											<div class="stat_header">ATK</div>
+											<div class="stat_bar_container">
+												<div class="bar_inner_container">
+													<div class="stat_bar"></div>
+													<div class="stat_bar_extra"></div>
+													<div class="stat_num">12</div>
+												</div>
+											</div>
+											<div class="specialize_button touchable">
+												<div class="plus_icon">
+													<div class="line_container">
+														<div class="line vertical"></div>
+													</div>
+													<div class="line_container">
+														<div class="line horizontal"></div>
+													</div>
+												</div>
+												<div class="selected_overlay"></div>
+											</div>
+										</div>
+										<div class="stat_row" data-stat="def">
+											<div class="stat_header">DEF</div>
+											<div class="stat_bar_container">
+												<div class="bar_inner_container">
+													<div class="stat_bar"></div>
+													<div class="stat_bar_extra"></div>
+													<div class="stat_num">12</div>
+												</div>
+											</div>
+											<div class="specialize_button touchable">
+												<div class="plus_icon">
+													<div class="line_container">
+														<div class="line vertical"></div>
+													</div>
+													<div class="line_container">
+														<div class="line horizontal"></div>
+													</div>
+												</div>
+												<div class="selected_overlay"></div>
+											</div>
+										</div>
+										<div class="stat_row" data-stat="spd">
+											<div class="stat_header">SPD</div>
+											<div class="stat_bar_container">
+												<div class="bar_inner_container">
+													<div class="stat_bar"></div>
+													<div class="stat_bar_extra"></div>
+													<div class="stat_num">12</div>
+												</div>
+											</div>
+											<div class="specialize_button touchable">
+												<div class="plus_icon">
+													<div class="line_container">
+														<div class="line vertical"></div>
+													</div>
+													<div class="line_container">
+														<div class="line horizontal"></div>
+													</div>
+												</div>
+												<div class="selected_overlay"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="lower_button_row">
+								<div class="add_pokemon_button touchable huge">DONE EDITING</div>
+								<div class="remove_pokemon_button touchable huge">REMOVE</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="team_window">
+					<div class="team_preview_windows">
+						<div class="pokemon_preview_window" data-pokemon="0">
+							<div class="pokemon_picture_area touchable large">
+								<div class="pokemon_picture_container">
+									<div class="pokemon_picture"></div>
+								</div>
+								<div class="type_icon_window">
+									<div class="type_icon"></div>
+								</div>
+							</div>
+							<div class="pokemon_name_text">Click to add</div>
+							<div class="selected_overlay"></div>
+						</div>
+						<div class="pokemon_preview_window" data-pokemon="1">
+							<div class="pokemon_picture_area touchable large">
+								<div class="pokemon_picture_container">
+									<div class="pokemon_picture"></div>
+								</div>
+								<div class="type_icon_window">
+									<div class="type_icon"></div>
+								</div>
+							</div>
+							<div class="pokemon_name_text">Click to add</div>
+							<div class="selected_overlay"></div>
+						</div>
+						<div class="pokemon_preview_window" data-pokemon="2">
+							<div class="pokemon_picture_area touchable large">
+								<div class="pokemon_picture_container">
+									<div class="pokemon_picture"></div>
+								</div>
+								<div class="type_icon_window">
+									<div class="type_icon"></div>
+								</div>
+							</div>
+							<div class="pokemon_name_text">Click to add</div>
+							<div class="selected_overlay"></div>
+						</div>
+						<div class="pokemon_preview_window" data-pokemon="3">
+							<div class="pokemon_picture_area touchable large">
+								<div class="pokemon_picture_container">
+									<div class="pokemon_picture"></div>
+								</div>
+								<div class="type_icon_window">
+									<div class="type_icon"></div>
+								</div>
+							</div>
+							<div class="pokemon_name_text">Click to add</div>
+							<div class="selected_overlay"></div>
+						</div>
+						<div class="pokemon_preview_window" data-pokemon="4">
+							<div class="pokemon_picture_area touchable large">
+								<div class="pokemon_picture_container">
+									<div class="pokemon_picture"></div>
+								</div>
+								<div class="type_icon_window">
+									<div class="type_icon"></div>
+								</div>
+							</div>
+							<div class="pokemon_name_text">Click to add</div>
+							<div class="selected_overlay"></div>
+						</div>
+						<div class="pokemon_preview_window" data-pokemon="5">
+							<div class="pokemon_picture_area touchable large">
+								<div class="pokemon_picture_container">
+									<div class="pokemon_picture"></div>
+								</div>
+								<div class="type_icon_window">
+									<div class="type_icon"></div>
+								</div>
+							</div>
+							<div class="pokemon_name_text">Click to add</div>
+							<div class="selected_overlay"></div>
+						</div>
+					</div>
+					<div class="done_button touchable large" data-js-nav="popup_active" data-js-nav-context="enter_team_name">SAVE</div>
+				</div>
+			</div>
+			<div class="popup_container" data-nav-context="enter_team_name">
+				<div class="view_container" data-view="popup_active">
+					<div class="darken_bg"></div>
+					<div class="prompt_outer_container">
+						<div class="prompt_container">
+							<div class="prompt_header">Enter your team name:</div>
+							<input type="text" class="team_name_entry_input" id="team_name_entry">
+							<div class="button_row">
+								<div class="button touchable large save">SAVE</div>
+								<div class="button touchable large cancel" data-js-close-context>CANCEL</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="view_container" data-view="netplay_lobby">

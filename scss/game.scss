@@ -62,6 +62,14 @@ svg {
 	height: 100%;
 }
 
+[data-nav-context] {
+	pointer-events: none;
+
+	&:not(.draw) {
+		display: none !important;
+	}
+}
+
 .view_container {
 	position: absolute;
 	left: 0;
@@ -90,11 +98,29 @@ svg {
 		}
 	}
 
+	&[data-view="edit_pokemon"].transition-in {
+		.edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .stat_bar_container .bar_inner_container {
+			.stat_bar, .stat_bar_extra {
+				@include transition(none !important);
+				width: 0 !important;
+			}
+		}
+	}
+
 	&.scale_in_out {
 		&.transition-in, &.transition-out {
 			@include transform(scale(0.5));
 		}
 	}
+}
+
+.centering_container {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	@include flex();
 }
 
 .battle_scene { 
@@ -674,6 +700,672 @@ svg {
 				background-color: rgb(32, 32, 32);
 				@include flex();
 				@include shrink(0);
+			}
+		}
+	}
+}
+
+.team_builder_container { 
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	@include flex();
+
+	.info_window { 
+		position: relative;
+		width: 100%;
+		@include grow(1);
+
+		.prompt_text {
+			position: relative;
+			font-size: 0.5rem;
+		}
+
+		.pokemon_list_container { 
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			bottom: 0.2rem;
+			box-sizing: border-box;
+			padding: 0.4rem;
+			overflow: auto;
+
+			.pokemon_option { 
+				position: relative;
+				width: 100%;
+				height: 2rem;
+				background-color: rgb(32, 32, 32);
+				@include flex();
+				@include row();
+				margin-bottom: 0.2rem;
+
+				.pokemon_picture_container { 
+					position: relative;
+					width: 2rem;
+					height: 2rem;
+					background-color: rgb(64, 64, 64);
+					margin-right: 0.3rem;
+					@include flex();
+					@include shrink(0);
+
+					.pokemon_picture { 
+						position: relative;
+						width: calc(100% - 0.2rem);
+						height: calc(100% - 0.2rem);
+						@include contain();
+					}
+				}
+
+				.pokemon_name { 
+					position: relative;
+					font-size: 0.5rem;
+					@include grow(1);
+				}
+
+				.type_icon_container { 
+					position: relative;
+					width: 2rem;
+					height: 2rem;
+					background-color: rgb(64, 64, 64);
+					@include flex();
+
+					.type_icon { 
+						position: relative;
+						width: 1rem;
+						height: 1rem;
+					}
+
+					.type_name { 
+						position: relative;
+						margin-top: 0.1rem;
+						font-size: 0.3rem;
+					}
+				}
+			}
+		}
+
+		.edit_pokemon_container {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			bottom: 0;
+			box-sizing: border-box;
+			padding: 0.4rem;
+			@include flex();
+			@include justify(flex-start);
+
+			.top_row { 
+				position: relative;
+				width: 100%;
+				height: 2rem;
+				@include flex();
+				@include row();
+				margin-bottom: 0.2rem;
+				@include shrink(0);
+
+				.back_button { 
+					position: relative;
+					width: 0.8rem;
+					height: 100%;
+					background-color: rgb(64, 64, 64);
+					@include flex();
+					margin-right: 0.4rem;
+					@include shrink(0);
+
+					.icon { 
+						position: relative;
+						border-top: 0.225rem solid transparent;
+						border-right: 0.3rem solid white;
+						border-bottom: 0.225rem solid transparent;
+					}
+				}
+
+				.pokemon_image_container { 
+					position: relative;
+					width: 2rem;
+					height: 2rem;
+					background-color: rgb(32, 32, 32);
+					@include flex();
+					margin-right: 0.4rem;
+					@include shrink(0);
+
+					.pokemon_image { 
+						position: relative;
+						width: calc(100% - 0.2rem);
+						height: calc(100% - 0.2rem);
+						@include contain();
+					}
+				}
+
+				.pokemon_name_container { 
+					position: relative;
+					@include grow(1);
+					@include flex();
+					@include align(flex-start);
+					margin-right: 0.4rem;
+
+					.pokemon_name {
+						position: relative;
+						font-size: 0.8rem;
+						margin-bottom: 0.2rem;
+					}
+
+					.pokemon_flavor_text {
+						position: relative;
+						font-size: 0.3rem;
+						max-width: 8rem;
+					}
+				}
+
+				.type_icon_container { 
+					position: relative;
+					width: 2rem;
+					height: 2rem;
+					background-color: rgb(32, 32, 32);
+					@include flex();
+					@include shrink(0);
+
+					.type_icon { 
+						position: relative;
+						width: 1rem;
+						height: 1rem;
+					}
+
+					.type_name { 
+						position: relative;
+						margin-top: 0.1rem;
+						font-size: 0.3rem;
+					}
+				}
+			}
+
+			.moves_and_stats_container { 
+				position: relative;
+				width: 100%;
+				@include flex();
+				@include row();
+				@include justify(space-between);
+				// @include grow(1);
+				height: calc(100% - 3.9rem);
+
+				.section_container { 
+					position: relative;
+					// width: calc(50% - 0.1rem);
+					@include grow(1);
+					flex-basis: 0;
+					height: 100%;
+					@include flex();
+					box-sizing: border-box;
+					background-color: rgb(32, 32, 32);
+					padding: 0.2rem;
+					margin-right: 0.2rem;
+
+					&:last-child {
+						margin-right: 0;
+					}
+
+					&.moves_container {
+						@include grow(3);
+					}
+					&.stats_container {
+						@include grow(2);
+					}
+
+					.section_header { 
+						position: relative;
+						font-size: 0.5rem;
+						margin-bottom: 0.2rem;
+						text-transform: uppercase;
+						@include shrink(0);
+					}
+
+					.moves_buttons { 
+						position: relative;
+						width: 100%;
+						@include grow(1);
+						@include flex();
+						@include justify(space-between);
+
+						.move_button { 
+							position: relative;
+							width: 100%;
+							@include grow(1);
+							margin-bottom: 0.1rem;
+							background-color: rgb(64, 64, 64);
+							box-sizing: border-box;
+							padding: 0.2rem;
+							@include flex();
+							@include align(flex-start);
+
+							&:last-child {
+								margin-bottom: 0;
+							}
+
+							.move_name { 
+								position: relative;
+								font-size: 0.4rem;
+							}
+
+							.move_description { 
+
+							}
+
+							.move_type_container { 
+
+								.type_icon { 
+
+								}
+
+								.type_name { 
+
+								}
+							}
+						}
+					}
+
+					.stat_rows {
+						position: relative;
+						width: 100%;
+						@include grow(1);
+						@include flex();
+						// @include justify(space-between);
+
+						.stat_row { 
+							position: relative;
+							width: 100%;
+							height: 1rem;
+							@include flex();
+							@include row();
+							@include justify(flex-start);
+							margin-bottom: 0.1rem;
+
+							&:last-child {
+								margin-bottom: 0;
+							}
+
+							&[data-stat="hp"] {
+								.stat_bar_container .bar_inner_container {
+									.stat_bar {
+										background-color: green;
+									}
+									.stat_bar_extra {
+										background-color: rgb(100, 255, 100);
+									}
+								}
+							}
+
+							.stat_header { 
+								position: relative;
+								width: 0.55rem;
+								margin-right: 0.2rem;
+								font-size: 0.3rem;
+								text-align: right;
+								@include shrink(0);
+							}
+
+							.stat_bar_container {
+								position: relative;
+								@include grow(1);
+								height: 0.8rem;
+								@include flex();
+								@include row();
+								@include justify(flex-start);
+
+								.bar_inner_container {
+									position: relative;
+									width: calc(100% - 0.5rem);
+									height: 0.6rem;
+									@include flex();
+									@include row();
+									@include justify(flex-start);
+
+									.stat_bar { 
+										position: relative;
+										height: 100%;
+										background-color: yellow;
+										@include shrink(0);
+										@include transition(width 0.5s ease);
+									}
+
+									.stat_bar_extra {
+										position: relative;
+										height: 100%;
+										background-color: rgb(255, 255, 220);
+										@include shrink(0);
+										@include transition(width 0.25s ease);
+									}
+
+									.stat_num {
+										position: relative;
+										margin-left: 0.1rem;
+										font-size: 0.3rem;
+										width: 0.4rem;
+										text-align: left;
+										@include shrink(0);
+									}
+								}
+
+							}
+
+
+							.specialize_button { 
+								position: relative;
+								width: 0.8rem;
+								height: 0.8rem;
+								background-color: rgb(64, 64, 64);
+								margin-left: 0.2rem;
+								@include shrink(0);
+								@include flex();
+
+								.plus_icon { 
+									position: relative;
+									width: 0.4rem;
+									height: 0.4rem;
+
+									.line_container {
+										position: absolute;
+										left: 0;
+										top: 0;
+										width: 100%;
+										height: 100%;
+										@include flex();
+									}
+
+									.line { 
+										position: relative;
+										background-color: white;
+
+										&.horizontal {
+											width: 100%;
+											height: 2px;
+										}
+										&.vertical {
+											width: 2px;
+											height: 100%;
+										}
+									}
+								}
+
+								&.active {
+									.selected_overlay {
+										opacity: 1;
+									}
+								}
+
+								.selected_overlay { 
+									position: absolute;
+									left: 0;
+									top: 0;
+									width: 100%;
+									height: 100%;
+									box-sizing: border-box;
+									border: 0.02rem solid white;
+									pointer-events: none;
+									opacity: 0;
+									@include transition(opacity 0.25s ease);
+								}
+							}
+						}
+					}
+
+				}
+			}
+
+			.lower_button_row {
+				position: relative;
+				width: 100%;
+				height: 1.5rem;
+				margin-top: 0.2rem;
+				@include shrink(0);
+				@include flex();
+				@include row();
+
+				.add_pokemon_button {
+					position: relative;
+					@include grow(1);
+					height: 100%;
+					background-color: rgb(64, 64, 64);
+					// @include shrink(0);
+					@include flex();
+					font-size: 0.5rem;
+				}
+
+				.remove_pokemon_button {
+					position: relative;
+					@include shrink(0);
+					height: 100%;
+					background-color: rgb(32, 32, 32);
+					@include flex();
+					font-size: 0.5rem;
+					width: 3rem;
+					margin-left: 0.2rem;
+				}
+			}
+
+		}
+	}
+
+	.team_window { 
+		position: relative;
+		width: 100%;
+		height: 4rem;
+		min-height: 30%;
+		@include shrink(0);
+		@include flex();
+		@include row();
+		box-sizing: border-box;
+		padding: 0.2rem;
+		background-color: rgb(32, 32, 32);
+
+		.team_preview_windows { 
+			position: relative;
+			@include grow(1);
+			height: 100%;
+			@include flex();
+			@include row();
+			flex-wrap: wrap;
+			@include justify(space-between);
+			align-content: space-between;
+
+			.pokemon_preview_window { 
+				position: relative;
+				width: calc(33% - 0.1rem);
+				height: calc(50% - 0.1rem);
+				@include flex();
+
+				&.selected {
+					.selected_overlay {
+						opacity: 1;
+					}
+				}
+
+				.pokemon_picture_area { 
+					position: relative;
+					width: 100%;
+					@include grow(1);
+
+					.pokemon_picture_container { 
+						position: absolute;
+						left: 0;
+						top: 0;
+						width: 100%;
+						height: 100%;
+						background-color: rgb(64, 64, 64);
+						@include flex();
+
+						.pokemon_picture {
+							position: relative;
+							width: calc(100% - 0.2rem);
+							height: calc(100% - 0.2rem);
+							@include contain();
+						}
+					}
+
+					.type_icon_window { 
+						position: absolute;
+						right: 0;
+						top: 0;
+						width: 0.8rem;
+						height: 0.8rem;
+						background-color: rgba(128, 128, 128, 0.7);
+						@include flex();
+
+						.type_icon { 
+
+						}
+					}
+				}
+
+				.pokemon_name_text { 
+					position: relative;
+					font-size: 0.3rem;
+					margin-top: 0.1rem;
+					@include shrink(0);
+				}
+
+				.selected_overlay {
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					box-sizing: border-box;
+					border: 0.02rem solid white;
+					pointer-events: none;
+					opacity: 0;
+					@include transition(opacity 0.25s ease);
+				}
+			}
+		}
+
+		.done_button { 
+			position: relative;
+			width: 3rem;
+			height: 100%;
+			margin-left: 0.2rem;
+			@include flex();
+			font-size: 0.5rem;
+			background-color: rgb(64, 64, 64);
+		}
+	}
+}
+
+.popup_container { 
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+
+	.darken_bg { 
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.9);
+	}
+
+	.prompt_outer_container {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		@include flex();
+	}
+
+	.prompt_container { 
+		position: relative;
+		width: 8rem;
+		@include flex();
+		@include align(flex-start);
+
+		.prompt_header {
+			position: relative;
+			font-size: 0.4rem;
+			margin-bottom: 0.1rem;
+		}
+
+		.team_name_entry_input { 
+			position: relative;
+			width: 100%;
+			height: 0.8rem;
+			font-size: 0.4rem;
+			font-family: AppFont;
+			border: 0;
+			box-sizing: border-box;
+			padding: 0 0.1rem;
+		}
+
+		.button_row { 
+			position: relative;
+			margin-top: 0.2rem;
+			width: 100%;
+			height: 1rem;
+			@include flex();
+			@include row();
+
+			.button { 
+				position: relative;
+				height: 100%;
+				background-color: rgb(64, 64, 64);
+				font-size: 0.5rem;
+				margin-right: 0.2rem;
+				@include flex();
+
+				&.save {
+					@include grow(2);
+				}
+				&.cancel {
+					@include grow(1);
+					background-color: rgb(32, 32, 32);
+				}
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+
+
+#body.landscape {
+
+	.team_builder_container {
+		flex-direction: row-reverse;
+
+		.info_window {
+			height: 100%;
+			width: auto;
+
+			.pokemon_list_container {
+				bottom: 0;
+			}
+		}
+
+		.team_window {
+			width: 4.2rem;
+			height: 100%;
+			flex-direction: column;
+
+			.team_preview_windows {
+				.pokemon_preview_window {
+					width: calc(50% - 0.1rem);
+					height: calc(33% - 0.1rem);
+				}
+			}
+
+			.done_button {
+				width: 100%;
+				height: 3rem;
+				margin-left: 0;
+				margin-top: 0.2rem;
 			}
 		}
 	}

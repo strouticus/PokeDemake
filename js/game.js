@@ -13,6 +13,8 @@ var curOpponent;
 
 var animationQueue = [];
 
+var clientTeams = {};
+
 function dealDamage (attacker, defender, type, bp) {
 	var isStab = (attacker.info.type === type);
 	var moveEffectiveness = (typeInfo[type][defender.info.type]);
@@ -445,8 +447,8 @@ function main () {
 
 	initNetplay();
 
-	// nav.go(["netplay_lobby"], "app");
-	nav.go(["enter_nickname"], "app");
+	// nav.go(["enter_nickname"], "app");
+	enterTeamBuilderUI();
 
 }
 
