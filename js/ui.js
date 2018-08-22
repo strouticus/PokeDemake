@@ -259,8 +259,31 @@ function updatePokemonMovesUI (trainerObj) {
 
 	for (var i = 0; i < trainerPokemon.moves.length; i++) {
 		var moveButtonEl = moveButtonEls.eq(i);
-		moveButtonEl.data("move-id", trainerPokemon.moves[i]);
-		moveButtonEl.find(".pokemon_move_name_text").empty().append(moveInfo[trainerPokemon.moves[i]].displayName);
+		if (trainerPokemon.moves[i]) {
+			moveButtonEl.removeClass("disabled");
+			var thisMoveInfo = moveInfo[trainerPokemon.moves[i]];
+			moveButtonEl.data("move-id", trainerPokemon.moves[i]);
+			moveButtonEl.find(".pokemon_move_name_text").empty().append(thisMoveInfo.displayName);
+			moveButtonEl.find(".type_name").empty().append(typeInfo[thisMoveInfo.type].displayName);
+			if (thisMoveInfo.bp) {
+				moveButtonEl.find(".stat_section.pow").removeClass("disabled");
+				moveButtonEl.find(".stat_num.pow").empty().append(thisMoveInfo.bp);
+			} else {
+				moveButtonEl.find(".stat_section.pow").addClass("disabled");
+			}
+
+			if (thisMoveInfo.priority !== undefined && thisMoveInfo.priority !== 0) {
+				moveButtonEl.find(".stat_section.prio").removeClass("disabled");
+				moveButtonEl.find(".stat_num.prio").empty().append(thisMoveInfo.priority);
+			} else {
+				moveButtonEl.find(".stat_section.prio").addClass("disabled");
+			}
+
+			moveButtonEl.find(".move_description").empty().append(thisMoveInfo.description);
+
+		} else {
+			moveButtonEl.addClass("disabled");
+		}
 	}
 }
 
