@@ -259,7 +259,7 @@ var moveInfo = {
 
 		moveFunc: function (attacker, defender) {
 			attacker.adjustStats({spd: -1});
-			new Animation("drawText", "" + defender.nickname " is getting petrified!");
+			new Animation("drawText", "" + defender.nickname + " is getting petrified!");
 			defender.adjustHP(-1);
 		},
 	},
@@ -270,7 +270,7 @@ var moveInfo = {
 		moveType: MOVETYPE_SUPPORT,
 
 		moveFunc: function (attacker, defender) {
-			new Animation("drawText", "" + defender.nickname " cannot use the same move twice in a row!");
+			new Animation("drawText", "" + defender.nickname + " cannot use the same move twice in a row!");
 		},
 	},
 	"doppelganger": {
@@ -280,7 +280,7 @@ var moveInfo = {
 		moveType: MOVETYPE_SUPPORT,
 
 		moveFunc: function (attacker, defender) {
-			new Animation("drawText", "" + attacker.nickname " changes into a copy of " + defender.nickname + "!");
+			new Animation("drawText", "" + attacker.nickname + " changes into a copy of " + defender.nickname + "!");
 		},
 	},
 	"flyingstrike": {
