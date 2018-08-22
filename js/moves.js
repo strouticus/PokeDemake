@@ -318,8 +318,8 @@ var moveInfo = {
 			new Animation("drawText", "A slowing cobweb was set up on the opponent's field!");
 		},
 	},
-	"firespinner": {
-		displayName: "Fire Spinner",
+	"featherduster": {
+		displayName: "Featherduster",
 		description: "Reduce enemy defense and clears entry hazards and field effects.",
 		type: TYPE_AIR,
 		moveType: MOVETYPE_SUPPORT,
