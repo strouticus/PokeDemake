@@ -234,6 +234,7 @@ var moveInfo = {
 		description: "Strong void attack, but reduces own defense by 1.",
 		type: TYPE_VOID,
 		moveType: MOVETYPE_ATTACK,
+		bp: 5,
 
 		moveFunc: function (attacker, defender) {
 			dealDamage(attacker, defender, this.type, this.bp);
