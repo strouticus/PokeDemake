@@ -242,7 +242,7 @@ var moveInfo = {
 	},
 	"radiation": {
 		displayName: "Radiation",
-		description: "Deals increasing damage for each consecutive use, starting at 1."
+		description: "Deals increasing damage for each consecutive use, starting at 1.",
 		type: TYPE_VOID,
 		moveType: MOVETYPE_ATTACK,
 
