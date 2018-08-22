@@ -80,7 +80,7 @@ var pokemonInfo = {
 			"strong_atk_A",
 			"strong_atk_B",
 			"atk_boost",
-			"big_strong_atk_A"
+			"big_strong_atk_A",
 		],
 		flavor: "Wait a second, this is just a temporary placeholder!",
 	},
@@ -98,7 +98,7 @@ var pokemonInfo = {
 			"waterblast",
 			"airshot",
 			"combust",
-			"poisonspray"
+			"poisonspray",
 		],
 		flavor: "This squid's gun was purchased illegally.",
 	},
@@ -113,10 +113,10 @@ var pokemonInfo = {
 			spd: 2
 		},
 		moves: [
-			"strong_atk_A",
-			"strong_atk_B",
-			"atk_boost",
-			"big_strong_atk_A"
+			"digstrike",
+			"rockpunch",
+			"gravity",
+			"ghostguard",
 		],
 		flavor: "Full name Rockamillion Daniel James. Hates fragile things and fragile people.",
 	},
@@ -131,10 +131,10 @@ var pokemonInfo = {
 			spd: 6
 		},
 		moves: [
-			"strong_atk_A",
-			"strong_atk_B",
-			"atk_boost",
-			"big_strong_atk_A"
+			"combust",
+			"firespinner",
+			"negation",
+			"backwind",
 		],
 		flavor: "Sparky wanted to join the police, but failed the entrance exam. Now he lives to fight to the death.",
 	},
@@ -149,10 +149,11 @@ var pokemonInfo = {
 			spd: 6
 		},
 		moves: [
-			"strong_atk_A",
-			"strong_atk_B",
-			"atk_boost",
-			"big_strong_atk_A"
+			"airshot",
+			"backwind",
+			"ghostpunch",
+			"ghostguard",
+			"cloudbarrier",
 		],
 		flavor: "A cloud who passed away long ago, but lives on as a cloud ghost.",
 	},
@@ -167,10 +168,10 @@ var pokemonInfo = {
 			spd: 7
 		},
 		moves: [
-			"strong_atk_A",
-			"strong_atk_B",
-			"atk_boost",
-			"big_strong_atk_A"
+			"spiketrap",
+			"drain",
+			"poisonspray",
+			"inverttempo",
 		],
 		flavor: "He dreamed of becoming a ghost. He's achieved that, but he doesn't know what to do now.",
 	},
@@ -185,11 +186,86 @@ var pokemonInfo = {
 			spd: 5
 		},
 		moves: [
-			"strong_atk_A",
-			"strong_atk_B",
-			"atk_boost",
-			"big_strong_atk_A"
+			"gravity",
+			"negation",
+			"eventhorizon",
+			"radiation",
 		],
 		flavor: "A living black hole that can obey basic commands. Keep it on a tight leash.",
+	},
+
+	"doublemedusa": {
+		displayName: "Double Medusa",
+		type: TYPE_EARTH,
+		stats: {
+			hp: 12,
+			atk: 3,
+			def: 3,
+			spd: 5
+		},
+		moves: [
+			"petrify",
+			"digstrike",
+			"poisonspray",
+			"doublejeopardy",
+			"panicbite",
+		],
+		flavor: "The body of a snake with the head of a snake. Has snakes for hair and a deadly gaze.",
+	},
+
+	"airachnid": {
+		displayName: "Airachnid",
+		type: TYPE_AIR,
+		stats: {
+			hp: 11,
+			atk: 5,
+			def: 2,
+			spd: 7
+		},
+		moves: [
+			"airshot",
+			"backwind",
+			"panicbite",
+			"flyingstrike",
+			"cobweb",
+			"featherduster",
+		],
+		flavor: "After wishing for the ability to fly, this spider became a horrible abomination that should not exist.",
+	},
+
+	"sameguy": {
+		displayName: "Sameguy",
+		type: TYPE_VOID,
+		stats: {
+			hp: 14,
+			atk: 5,
+			def: 3,
+			spd: 5
+		},
+		moves: [
+			"doppelganger",
+			"gravity",
+			"ghostpunch",
+			"digstrike",
+		],
+		flavor: "We didn't write a description for this creature. Click here to edit.",
+	},
+
+	"harmlessjoe": {
+		displayName: "Harmless Joe",
+		type: TYPE_WATER,
+		stats: {
+			hp: 14,
+			atk: 3,
+			def: 3,
+			spd: 6
+		},
+		moves: [
+			"panicbite",
+			"waterblast",
+			"lure",
+			"featherduster",
+		],
+		flavor: "Harmless Joe is a nice fish who doesn't hurt anyone... usually.",
 	},
 }
