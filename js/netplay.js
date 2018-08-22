@@ -62,7 +62,14 @@ function joinRoom (roomID) {
 
 function sendTeamData () {
 	if (connected) {
-		var teamData = tempTeam.map(function (pokemon) {
+		var pokemonArray = [];
+		for (var i = 0; i < clientTeams[curSelectedTeam].length; i++) {
+			if (clientTeams[curSelectedTeam][i]) {
+				var curPokemonInfo = clientTeams[curSelectedTeam][i];
+				pokemonArray.push(new Pokemon(curPokemonInfo.species, curPokemonInfo.specialization, curPokemonInfo.moves));
+			}
+		}
+		var teamData = pokemonArray.map(function (pokemon) {
 			return pokemon.export();
 		});
 		sendData("teamData", teamData);

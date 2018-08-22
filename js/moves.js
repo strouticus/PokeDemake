@@ -38,6 +38,7 @@ var moveInfo = {
 	"atk_boost": {
 		displayName: "Attack Boost",
 		moveType: MOVETYPE_SUPPORT,
+		type: TYPE_SPIRIT,
 
 		moveFunc: function (attacker, defender) {
 			attacker.adjustStats({atk: 2});
@@ -46,6 +47,7 @@ var moveInfo = {
 	"def_boost": {
 		displayName: "Defense Boost",
 		moveType: MOVETYPE_SUPPORT,
+		type: TYPE_VOID,
 
 		moveFunc: function (attacker, defender) {
 			attacker.adjustStats({def: 2});

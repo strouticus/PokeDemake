@@ -8,11 +8,18 @@ var uiTextboxEl;
 
 var nicknameInputEl;
 
+var nicknameEl;
+
 var pokemonListEl;
 var teamPreviewEl;
 var pokemonEditEl;
 
+var movesListEl;
+
 var roomListEl;
+
+var teamNameEl;
+var teamSelectDropdownEl;
 
 function initUI () {
 	nav.getContexts();
@@ -25,9 +32,13 @@ function initUI () {
 	uiTextboxEl = $(".ui_scene .text_box_text_area");
 	roomListEl = $(".room_list");
 	nicknameInputEl = $(".nickname_entry_input");
+	nicknameEl = $(".player_info_container .nickname");
 	pokemonListEl = $(".team_builder_container .pokemon_list_container");
 	teamPreviewEl = $(".team_builder_container .team_preview_windows");
 	pokemonEditEl = $(".team_builder_container .edit_pokemon_container");
+	movesListEl = $(".moves_list_container");
+	teamNameEl = $(".team_name_entry_input");
+	teamSelectDropdownEl = $(".team_select_dropdown");
 
 	$("body").on("mousedown", ".touchable", function(e) {
 		$(this).addClass("touched");
@@ -54,6 +65,10 @@ function initUI () {
 		$(this).closest(".pokemon_info_box_container").toggleClass("show_slideout");
 	});
 
+	$("body").on("click", ".update_nickname", function (e) {
+		updateNickname(nicknameInputEl.val());
+	});
+
 	$("body").on("click", "[data-js-nav]", function (e) {
 		var thisContext = $(this).data("js-nav-context");
 		if (!thisContext) {
@@ -68,10 +83,6 @@ function initUI () {
 			thisContext = $(this).closest("[data-nav-context]").data("nav-context");
 		}
 		nav.closeContext(thisContext);
-	});
-
-	$("body").on("click", ".update_nickname", function (e) {
-		updateNickname(nicknameInputEl.val());
 	});
 
 	$("body").on("click", ".make_room", function (e) {
@@ -105,6 +116,32 @@ function initUI () {
 		updatePokemonPreview(editingIndex);
 		nav.go(["empty_screen"], "team_builder_info");
 	});
+
+	$("body").on("click", ".moves_container .move_button .move_name", function (e) {
+		var moveButtonEl = $(this).closest(".move_button");
+		moveIndexToEdit = moveButtonEl.data("move") * 1;
+		nav.go(["edit_pokemon", "moves_list"], "team_builder_info");
+	});
+
+	$("body").on("click", ".moves_list_container .move_list_option", function (e) {
+		teamToEdit[editingIndex].moves[moveIndexToEdit] = $(this).data("move");
+		nav.go(["edit_pokemon", "current_moves"], "team_builder_info");
+	})
+
+	$("body").on("click", ".save_team", function (e) {
+		saveTeam();
+		nav.go(["netplay_lobby"], "app");
+		nav.closeContext("enter_team_name");
+	})
+
+	$("body").on("click", ".team_edit_button.new_team", function (e) {
+		enterTeamBuilderUI();
+	})
+
+	$("body").on("input", ".team_select_dropdown", function (e) {
+		console.info("selecting " + $(this).val());
+		curSelectedTeam = $(this).val();
+	})
 
 
 	$(window).on("resize", function() {
@@ -373,11 +410,20 @@ function populateRoomList (roomData) {
 
 
 var teamToEdit = [];
-function enterTeamBuilderUI (teamArrToEdit) {
-	if (!teamArrToEdit) {
-		teamArrToEdit = [undefined, undefined, undefined, undefined, undefined, undefined]; 
+function enterTeamBuilderUI (curTeamNameToEdit) {
+	var teamArrToEdit = [];
+	if (!curTeamNameToEdit) {
+		teamArrToEdit = [undefined, undefined, undefined, undefined, undefined, undefined];
+		curTeamNameToEdit = "";
+	} else {
+		teamArrToEdit = clientTeams[curTeamNameToEdit];
 	}
 	teamToEdit = teamArrToEdit;
+	teamNameToEdit = curTeamNameToEdit;
+
+	for (var i = 0; i < 6; i++) {
+		updatePokemonPreview(i);
+	}
 
 	nav.go(["team_builder"], "app");
 	nav.go(["empty_screen"], "team_builder_info");
@@ -448,6 +494,8 @@ function updatePokemonEditUI (pokeInfo) {
 
 	updatePokemonEditMovesUI(pokeInfo);
 	updatePokemonEditStatsUI(pokeInfo);
+
+	buildMoveListUI(speciesInfo.moves);
 }
 
 function updatePokemonEditMovesUI (pokeInfo) {
@@ -456,9 +504,14 @@ function updatePokemonEditMovesUI (pokeInfo) {
 		var curMoveID = pokeInfo.moves[i];
 		var curMoveButtonEl = moveButtonsEls.eq(i);
 		curMoveButtonEl.find(".move_name").empty();
+		curMoveButtonEl.find(".type_name").empty();
 
 		if (curMoveID) {
+			curMoveButtonEl.removeClass("empty");
 			curMoveButtonEl.find(".move_name").append(moveInfo[curMoveID].displayName);
+			curMoveButtonEl.find(".type_name").append(typeInfo[moveInfo[curMoveID].type].displayName);
+		} else {
+			curMoveButtonEl.addClass("empty");
 		}
 	}
 }
@@ -499,6 +552,69 @@ function setPokemonSpecialization (statName) {
 	updatePokemonEditStatsUI(teamToEdit[editingIndex]);
 }
 
+var moveIndexToEdit;
+
+function buildMoveListUI (moveNameList) {
+	movesListEl.empty();
+	for (var i = 0; i < moveNameList.length; i++) {
+		var newMoveEl = createMoveListElement(moveNameList[i]);
+		movesListEl.append(newMoveEl);
+	}
+}
+
+function createMoveListElement (moveName) {
+	var newMoveInfo = moveInfo[moveName];
+	var powSection = "";
+	if (newMoveInfo.bp) {
+		powSection = '<div class="stat_section pow">' +
+			'<div class="stat_header pow">POW</div>' +
+			'<div class="stat_num pow">' + newMoveInfo.bp + '</div>' +
+		'</div>';
+	}
+	var prioSection = "";
+	if (newMoveInfo.priority !== undefined && newMoveInfo.priority !== 0) {
+		prioSection = '<div class="stat_section prio">' +
+			'<div class="stat_header prio">PRIO</div>' +
+			'<div class="stat_num prio">' + newMoveInfo.priority + '</div>' +
+		'</div>';
+	}
+	var newMoveEl = $('<div class="move_list_option touchable large" data-move="' + moveName + '">' +
+						'<div class="top_area">' +
+							'<div class="move_type_container">' +
+								'<div class="type_icon"></div>' +
+								'<div class="type_name">' + typeInfo[newMoveInfo.type].displayName + '</div>' +
+							'</div>' +
+							'<div class="move_title">' + newMoveInfo.displayName + '</div>' +
+							'<div class="stats">' +
+								prioSection +
+								powSection +
+							'</div>' +
+						'</div>' +
+						'<div class="lower_area">' +
+							'<div class="move_description">' + newMoveInfo.description + '</div>' +
+						'</div>' +
+						'<div class="selected_border"></div>' +
+					'</div>');
+
+	return newMoveEl;
+}
+
+var curSelectedTeam;
+
+function saveTeam () {
+	var newTeamName = teamNameEl.val();
+	curSelectedTeam = newTeamName;
+	clientTeams[newTeamName] = JSON.parse(JSON.stringify(teamToEdit));
+}
+
+function updateTeamListDropdown () {
+	teamSelectDropdownEl.empty();
+	for (var teamName in clientTeams) {
+		teamSelectDropdownEl.append($("<option value='" + teamName + "'>" + teamName + "</option>"));
+	}
+	teamSelectDropdownEl.val(curSelectedTeam);
+}
+
 
 function before_drawing_view (views, context) {
 	if (context === "battle_ui") {
@@ -510,6 +626,22 @@ function before_drawing_view (views, context) {
 	if (context === "app") {
 		if (views.indexOf("enter_nickname") >= 0) {
 			nicknameInputEl.val(curNickname);
+		}
+
+		if (views.indexOf("netplay_lobby") >= 0) {
+			nicknameEl.empty().append(curNickname);
+			updateTeamListDropdown();
+		}
+	}
+
+	if (context === "team_builder_info") {
+		if (views.indexOf("current_moves") >= 0) {
+			updatePokemonEditMovesUI(teamToEdit[editingIndex]);
+		} else if (views.indexOf("moves_list") >= 0) {
+			movesListEl.find(".selected").removeClass("selected");
+			if (teamToEdit[editingIndex].moves[moveIndexToEdit]) {
+				movesListEl.find("[data-move='" + teamToEdit[editingIndex].moves[moveIndexToEdit] + "']").addClass("selected");
+			}
 		}
 	}
 }

@@ -435,9 +435,9 @@ BattleState.prototype.handlePokemonSwitch = function () {
 	// updateUI(this);
 }
 
-var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
-var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
-var tempTeam = [testPokemon1, testPokemon2];
+// var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
+// var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
+// var tempTeam = [testPokemon1, testPokemon2];
 
 var curBattleState;
 
@@ -447,8 +447,8 @@ function main () {
 
 	initNetplay();
 
-	// nav.go(["enter_nickname"], "app");
-	enterTeamBuilderUI();
+	nav.go(["enter_nickname"], "app");
+	// enterTeamBuilderUI();
 
 }
 
