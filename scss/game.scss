@@ -646,15 +646,17 @@ svg {
 	height: 100%;
 	@include flex();
 	@include row();
+	box-sizing: border-box;
+	padding: 0.2rem;
 
 	.netplay_lobby_side { 
 		position: relative;
 		width: 50%;
 		height: 100%;
 		box-sizing: border-box;
-		padding: 0.4rem;
 		@include flex();
 		@include align(flex-start);
+		padding: 0.2rem;
 
 		.room_list_container { 
 			position: relative;
@@ -700,6 +702,100 @@ svg {
 				background-color: rgb(32, 32, 32);
 				@include flex();
 				@include shrink(0);
+			}
+		}
+
+		.player_info_container { 
+			position: relative;
+			width: 100%;
+			height: 100%;
+			@include flex();
+			@include align(flex-start);
+
+			.nickname_info { 
+				position: relative;
+				width: 100%;
+				margin-bottom: 0.2rem;
+
+				.nickname_header { 
+					position: relative;
+					font-size: 0.4rem;
+					margin-bottom: 0.1rem;
+				}
+
+				.nickname_row { 
+					position: relative;
+					width: 100%;
+					@include flex();
+					@include row();
+					@include justify(flex-start);
+
+					.nickname { 
+						position: relative;
+						font-size: 0.5rem;
+						@include grow(1);
+						margin-right: 0.2rem;
+					}
+
+					.edit_button { 
+						position: relative;
+						width: 1.2rem;
+						background-color: rgb(32, 32, 32);
+						height: 0.7rem;
+						@include flex();
+						font-size: 0.4rem;
+					}
+				}
+			}
+
+			.team_selected_info { 
+				position: relative;
+				width: 100%;
+
+				.team_selected_header { 
+					position: relative;
+					font-size: 0.4rem;
+					margin-bottom: 0.1rem;
+
+				}
+
+				.team_select_dropdown { 
+					display: block;
+					position: relative;
+					-webkit-appearance: none;
+					width: 100%;
+					height: 1rem;
+					box-sizing: border-box;
+					border: 0.02rem solid white;
+					background-color: transparent;
+					font-size: 0.5rem;
+					color: white;
+					font-family: AppFont;
+					padding: 0 0.2rem;
+				}
+
+				.team_edit_button_row { 
+					position: relative;
+					margin-top: 0.1rem;
+					width: 100%;
+					height: 1rem;
+					@include flex();
+					@include row();
+
+					.team_edit_button { 
+						position: relative;
+						height: 100%;
+						@include grow(1);
+						background-color: rgb(32, 32, 32);
+						margin-right: 0.2rem;
+						font-size: 0.4rem;
+						@include flex();
+
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -898,10 +994,7 @@ svg {
 					@include grow(1);
 					flex-basis: 0;
 					height: 100%;
-					@include flex();
-					box-sizing: border-box;
 					background-color: rgb(32, 32, 32);
-					padding: 0.2rem;
 					margin-right: 0.2rem;
 
 					&:last-child {
@@ -913,6 +1006,17 @@ svg {
 					}
 					&.stats_container {
 						@include grow(2);
+					}
+
+					.section_view {
+						position: absolute;
+						left: 0;
+						top: 0;
+						right: 0;
+						bottom: 0;
+						@include flex();
+						box-sizing: border-box;
+						padding: 0.2rem;
 					}
 
 					.section_header { 
@@ -933,13 +1037,25 @@ svg {
 						.move_button { 
 							position: relative;
 							width: 100%;
+							height: 25%;
 							@include grow(1);
+							flex-basis: 0;
 							margin-bottom: 0.1rem;
 							background-color: rgb(64, 64, 64);
 							box-sizing: border-box;
-							padding: 0.2rem;
+							// padding: 0.2rem;
 							@include flex();
-							@include align(flex-start);
+							@include row();
+							@include align(stretch);
+
+							&.empty {
+								.move_info_button {
+									display: none;
+								}
+								.move_type_container {
+									display: none;
+								}
+							}
 
 							&:last-child {
 								margin-bottom: 0;
@@ -948,19 +1064,52 @@ svg {
 							.move_name { 
 								position: relative;
 								font-size: 0.4rem;
+								margin-left: 0.2rem;
+								margin-right: 0.2rem;
+								@include grow(1);
+								@include flex();
+								@include row();
+								@include justify(flex-start);
 							}
 
-							.move_description { 
+							.move_info_button {
+								position: relative;
+								width: 1rem;
+								height: auto;
+								@include flex();
+								@include shrink(0);
 
+								.move_info_icon {
+									position: relative;
+									width: 0.5rem;
+									height: 0.5rem;
+									box-sizing: border-box;
+									border-radius: 50%;
+									border: 0.04rem solid white;
+									@include flex();
+									font-size: 0.35rem;
+									line-height: 1;
+								}
 							}
 
 							.move_type_container { 
+								position: relative;
+								width: 1.2rem;
+								height: auto;
+								@include flex();
+								@include shrink(0);
+								background-color: rgb(128, 128, 128);
 
 								.type_icon { 
-
+									position: relative;
+									width: 0.6rem;
+									height: 0.6rem;
 								}
 
 								.type_name { 
+									position: relative;
+									font-size: 0.3rem;
+									margin-top: 0.1rem;
 
 								}
 							}
@@ -1107,6 +1256,130 @@ svg {
 									pointer-events: none;
 									opacity: 0;
 									@include transition(opacity 0.25s ease);
+								}
+							}
+						}
+					}
+
+					.moves_list_container { 
+						position: absolute;
+						left: 0;
+						top: 0;
+						width: 100%;
+						height: 100%;
+						box-sizing: border-box;
+						padding: 0.2rem;
+						overflow: auto;
+
+						.move_list_option { 
+							position: relative;
+							width: 100%;
+							background-color: rgb(64, 64, 64);
+							box-sizing: border-box;
+							// padding: 0.1rem 0;
+							margin-bottom: 0.1rem;
+
+							&:last-child {
+								margin-bottom: 0;
+							}
+
+							.selected_border {
+								position: absolute;
+								left: 0;
+								top: 0;
+								width: 100%;
+								height: 100%;
+								pointer-events: none;
+								box-sizing: border-box;
+								border: 0.02rem solid white;
+								@include transition(opacity 0.25s ease);
+								opacity: 0;
+							}
+
+							&.selected {
+								.selected_border {
+									opacity: 1;
+								}
+							}
+
+							.top_area { 
+								position: relative;
+								width: 100%;
+								height: 1.2rem;
+								@include flex();
+								@include row();
+
+								.move_type_container { 
+									position: relative;
+									width: 1.2rem;
+									height: 1.2rem;
+									background-color: rgb(128, 128, 128);
+									@include shrink(0);
+									@include flex();
+
+									.type_icon { 
+										position: relative;
+										width: 0.6rem;
+										height: 0.6rem;
+									}
+
+									.type_name { 
+										position: relative;
+										margin-top: 0.1rem;
+										font-size: 0.3rem;
+
+									}
+								}
+
+								.move_title { 
+									position: relative;
+									@include grow(1);
+									margin-left: 0.2rem;
+									margin-right: 0.2rem;
+									font-size: 0.4rem;
+								}
+
+								.stats {
+									position: relative;
+									@include flex();
+									@include row();
+
+									.stat_section { 
+										position: relative;
+										@include flex();
+										margin-right: 0.1rem;
+
+										.stat_header { 
+											position: relative;
+											width: 0.8rem;
+											height: 0.5rem;
+											background-color: rgb(128, 128, 128);
+											@include flex();
+											margin-bottom: 0.05rem;
+											font-size: 0.3rem;
+										}
+
+										.stat_num { 
+											position: relative;
+											font-size: 0.4rem;
+											line-height: 1;
+										}
+									}
+								}
+							}
+
+							.lower_area { 
+								position: relative;
+								width: 100%;
+								box-sizing: border-box;
+								padding: 0.2rem;
+								@include flex();
+								@include row();
+								@include justify(flex-start);
+
+								.move_description { 
+									position: relative;
+									font-size: 0.3rem;
 								}
 							}
 						}

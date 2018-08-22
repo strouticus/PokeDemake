@@ -30,7 +30,7 @@
 				<div class="info_window" data-nav-context="team_builder_info">
 					<div class="view_container" data-view="empty_screen">
 						<div class="centering_container">
-							<div class="prompt_text">Click on a Team Slot to edit...</div>
+							<div class="prompt_text">Click on a Team Slot to edit</div>
 						</div>
 					</div>
 					<div class="view_container" data-view="pokemon_list">
@@ -47,7 +47,7 @@
 							</div> -->
 						</div>
 					</div>
-					<div class="view_container" data-view="edit_pokemon">
+					<div class="view_container" data-view="edit_pokemon" data-auto-view="current_moves">
 						<div class="edit_pokemon_container">
 							<div class="top_row">
 								<!-- <div class="back_button touchable" data-js-nav="pokemon_list">
@@ -65,129 +65,171 @@
 									<div class="type_name"></div>
 								</div>
 							</div>
+							<!-- <div class="ability_container">
+								<div class="ability_header">ABILITY</div>
+								<div class="ability_text"></div>
+							</div> -->
 							<div class="moves_and_stats_container">
 								<div class="section_container moves_container">
-									<div class="section_header moves_header">Moves</div>
-									<div class="moves_buttons">
-										<div class="move_button touchable large" data-move="0">
-											<div class="move_name"></div>
-											<div class="move_description"></div>
-											<div class="move_type_container">
-												<div class="type_icon"></div>
-												<div class="type_name"></div>
+									<div class="view_container section_view" data-view="current_moves">
+										<div class="section_header moves_header">Moves</div>
+										<div class="moves_buttons">
+											<div class="move_button" data-move="0">
+												<div class="move_type_container">
+													<div class="type_icon"></div>
+													<div class="type_name"></div>
+												</div>
+												<div class="move_name touchable large"></div>
+												<div class="move_info_button touchable">
+													<div class="move_info_icon">i</div>
+												</div>
+											</div>
+											<div class="move_button" data-move="1">
+												<div class="move_type_container">
+													<div class="type_icon"></div>
+													<div class="type_name"></div>
+												</div>
+												<div class="move_name touchable large"></div>
+												<div class="move_info_button touchable">
+													<div class="move_info_icon">i</div>
+												</div>
+											</div>
+											<div class="move_button" data-move="2">
+												<div class="move_type_container">
+													<div class="type_icon"></div>
+													<div class="type_name"></div>
+												</div>
+												<div class="move_name touchable large"></div>
+												<div class="move_info_button touchable">
+													<div class="move_info_icon">i</div>
+												</div>
+											</div>
+											<div class="move_button" data-move="3">
+												<div class="move_type_container">
+													<div class="type_icon"></div>
+													<div class="type_name"></div>
+												</div>
+												<div class="move_name touchable large"></div>
+												<div class="move_info_button touchable">
+													<div class="move_info_icon">i</div>
+												</div>
 											</div>
 										</div>
-										<div class="move_button touchable large" data-move="1">
-											<div class="move_name"></div>
-											<div class="move_description"></div>
-											<div class="move_type_container">
-												<div class="type_icon"></div>
-												<div class="type_name"></div>
-											</div>
-										</div>
-										<div class="move_button touchable large" data-move="2">
-											<div class="move_name"></div>
-											<div class="move_description"></div>
-											<div class="move_type_container">
-												<div class="type_icon"></div>
-												<div class="type_name"></div>
-											</div>
-										</div>
-										<div class="move_button touchable large" data-move="3">
-											<div class="move_name"></div>
-											<div class="move_description"></div>
-											<div class="move_type_container">
-												<div class="type_icon"></div>
-												<div class="type_name"></div>
+									</div>
+									<div class="view_container section_view" data-view="moves_list">
+										<div class="moves_list_container">
+											<div class="move_list_option touchable large" data-move="atk_boost">
+												<div class="top_area">
+													<div class="move_type_container">
+														<div class="type_icon"></div>
+														<div class="type_name">Water</div>
+													</div>
+													<div class="move_title">Aqua Blast</div>
+													<div class="stats">
+														<div class="stat_section pow">
+															<div class="stat_header pow">POW</div>
+															<div class="stat_num pow">3</div>
+														</div>
+														<div class="stat_section prio">
+															<div class="stat_header prio">PRIO</div>
+															<div class="stat_num prio">0</div>
+														</div>
+													</div>
+												</div>
+												<div class="lower_area">
+													<div class="move_description">A powerful jet of water.</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="section_container stats_container">
-									<div class="section_header stats_header">Stats</div>
-									<div class="stat_rows">
-										<div class="stat_row" data-stat="hp">
-											<div class="stat_header">HP</div>
-											<div class="stat_bar_container">
-												<div class="bar_inner_container">
-													<div class="stat_bar"></div>
-													<div class="stat_bar_extra"></div>
-													<div class="stat_num">12</div>
+									<div class="section_view">
+										<div class="section_header stats_header">Stats</div>
+										<div class="stat_rows">
+											<div class="stat_row" data-stat="hp">
+												<div class="stat_header">HP</div>
+												<div class="stat_bar_container">
+													<div class="bar_inner_container">
+														<div class="stat_bar"></div>
+														<div class="stat_bar_extra"></div>
+														<div class="stat_num"></div>
+													</div>
+												</div>
+												<div class="specialize_button touchable">
+													<div class="plus_icon">
+														<div class="line_container">
+															<div class="line vertical"></div>
+														</div>
+														<div class="line_container">
+															<div class="line horizontal"></div>
+														</div>
+													</div>
+													<div class="selected_overlay"></div>
 												</div>
 											</div>
-											<div class="specialize_button touchable">
-												<div class="plus_icon">
-													<div class="line_container">
-														<div class="line vertical"></div>
-													</div>
-													<div class="line_container">
-														<div class="line horizontal"></div>
-													</div>
-												</div>
-												<div class="selected_overlay"></div>
-											</div>
-										</div>
-										<div class="stat_row" data-stat="atk">
-											<div class="stat_header">ATK</div>
-											<div class="stat_bar_container">
-												<div class="bar_inner_container">
-													<div class="stat_bar"></div>
-													<div class="stat_bar_extra"></div>
-													<div class="stat_num">12</div>
-												</div>
-											</div>
-											<div class="specialize_button touchable">
-												<div class="plus_icon">
-													<div class="line_container">
-														<div class="line vertical"></div>
-													</div>
-													<div class="line_container">
-														<div class="line horizontal"></div>
+											<div class="stat_row" data-stat="atk">
+												<div class="stat_header">ATK</div>
+												<div class="stat_bar_container">
+													<div class="bar_inner_container">
+														<div class="stat_bar"></div>
+														<div class="stat_bar_extra"></div>
+														<div class="stat_num"></div>
 													</div>
 												</div>
-												<div class="selected_overlay"></div>
-											</div>
-										</div>
-										<div class="stat_row" data-stat="def">
-											<div class="stat_header">DEF</div>
-											<div class="stat_bar_container">
-												<div class="bar_inner_container">
-													<div class="stat_bar"></div>
-													<div class="stat_bar_extra"></div>
-													<div class="stat_num">12</div>
+												<div class="specialize_button touchable">
+													<div class="plus_icon">
+														<div class="line_container">
+															<div class="line vertical"></div>
+														</div>
+														<div class="line_container">
+															<div class="line horizontal"></div>
+														</div>
+													</div>
+													<div class="selected_overlay"></div>
 												</div>
 											</div>
-											<div class="specialize_button touchable">
-												<div class="plus_icon">
-													<div class="line_container">
-														<div class="line vertical"></div>
-													</div>
-													<div class="line_container">
-														<div class="line horizontal"></div>
+											<div class="stat_row" data-stat="def">
+												<div class="stat_header">DEF</div>
+												<div class="stat_bar_container">
+													<div class="bar_inner_container">
+														<div class="stat_bar"></div>
+														<div class="stat_bar_extra"></div>
+														<div class="stat_num"></div>
 													</div>
 												</div>
-												<div class="selected_overlay"></div>
+												<div class="specialize_button touchable">
+													<div class="plus_icon">
+														<div class="line_container">
+															<div class="line vertical"></div>
+														</div>
+														<div class="line_container">
+															<div class="line horizontal"></div>
+														</div>
+													</div>
+													<div class="selected_overlay"></div>
+												</div>
 											</div>
-										</div>
-										<div class="stat_row" data-stat="spd">
-											<div class="stat_header">SPD</div>
-											<div class="stat_bar_container">
-												<div class="bar_inner_container">
-													<div class="stat_bar"></div>
-													<div class="stat_bar_extra"></div>
-													<div class="stat_num">12</div>
-												</div>
-											</div>
-											<div class="specialize_button touchable">
-												<div class="plus_icon">
-													<div class="line_container">
-														<div class="line vertical"></div>
-													</div>
-													<div class="line_container">
-														<div class="line horizontal"></div>
+											<div class="stat_row" data-stat="spd">
+												<div class="stat_header">SPD</div>
+												<div class="stat_bar_container">
+													<div class="bar_inner_container">
+														<div class="stat_bar"></div>
+														<div class="stat_bar_extra"></div>
+														<div class="stat_num"></div>
 													</div>
 												</div>
-												<div class="selected_overlay"></div>
+												<div class="specialize_button touchable">
+													<div class="plus_icon">
+														<div class="line_container">
+															<div class="line vertical"></div>
+														</div>
+														<div class="line_container">
+															<div class="line horizontal"></div>
+														</div>
+													</div>
+													<div class="selected_overlay"></div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -286,7 +328,7 @@
 							<div class="prompt_header">Enter your team name:</div>
 							<input type="text" class="team_name_entry_input" id="team_name_entry">
 							<div class="button_row">
-								<div class="button touchable large save">SAVE</div>
+								<div class="button touchable large save save_team">SAVE</div>
 								<div class="button touchable large cancel" data-js-close-context>CANCEL</div>
 							</div>
 						</div>
@@ -296,7 +338,27 @@
 		</div>
 		<div class="view_container" data-view="netplay_lobby">
 			<div class="netplay_lobby_outer_container">
-				<div class="netplay_lobby_side"></div>
+				<div class="netplay_lobby_side">
+					<div class="player_info_container">
+						<div class="nickname_info">
+							<div class="nickname_header">Nickname:</div>
+							<div class="nickname_row">
+								<div class="nickname"></div>
+								<div class="edit_button touchable" data-js-nav="enter_nickname">EDIT</div>
+							</div>
+						</div>
+						<div class="team_selected_info">
+							<div class="team_selected_header">Current Team:</div>
+							<select class="team_select_dropdown">
+								<!-- <option value=""></option> -->
+							</select>
+							<div class="team_edit_button_row">
+								<div class="team_edit_button touchable large edit">EDIT</div>
+								<div class="team_edit_button touchable large new_team">NEW TEAM</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="netplay_lobby_side">
 					<div class="room_list_container">
 						<div class="room_list_title">Room List:</div>
