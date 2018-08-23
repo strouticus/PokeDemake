@@ -21,6 +21,10 @@ function initNetplay () {
 	ws.addEventListener("open", function connection (event) {
 		connected = true;
 		sendData("getRoomList", "");
+
+		if (curNickname) {
+			sendData("setNickname", newNickname);
+		}
 	});
 }
 

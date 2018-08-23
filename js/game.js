@@ -450,7 +450,7 @@ function checkLocalStorage () {
 
 	var storedNickname = localStorage.getItem("pokedemake__nickname");
 	if (storedNickname) {
-		curNickname = storedNickname;
+		updateNickname(storedNickname);
 	}
 }
 
@@ -472,11 +472,11 @@ var curBattleState;
 
 function main () {
 
-	checkLocalStorage();
-
 	initUI();
 
 	initNetplay();
+
+	checkLocalStorage();
 
 	if (curNickname) {
 		nav.go(["netplay_lobby"], "app");

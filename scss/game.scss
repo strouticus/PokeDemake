@@ -1097,6 +1097,7 @@ svg {
 
 					&.moves_container {
 						@include grow(3);
+						overflow: hidden;
 					}
 					&.stats_container {
 						@include grow(2);
@@ -1111,6 +1112,13 @@ svg {
 						@include flex();
 						box-sizing: border-box;
 						padding: 0.2rem;
+
+						&.seq-before {
+							@include transform(translateX(-100%));
+						}
+						&.seq-after {
+							@include transform(translateX(100%));
+						}
 					}
 
 					.section_header { 
