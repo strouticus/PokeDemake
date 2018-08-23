@@ -199,12 +199,30 @@ svg {
 				@include align(flex-start);
 				z-index: 10;
 
-				.pokemon_name { 
+				.pokemon_name_row {
 					position: relative;
-					font-size: 0.4rem;
-					font-weight: bold;
+					width: 100%;
+					@include flex();
+					@include row();
+					@include justify(space-between);
 					margin-bottom: 0.1rem;
+
+					.pokemon_name { 
+						position: relative;
+						font-size: 0.4rem;
+						font-weight: bold;
+					}
+
+					.pokemon_type {
+						position: relative;
+						width: 1.2rem;
+						height: 0.45rem;
+						@include flex();
+						font-size: 0.3rem;
+						text-transform: uppercase;
+					}
 				}
+
 
 				.pokemon_hp_bar_container { 
 					position: relative;
@@ -491,7 +509,25 @@ svg {
 					position: relative;
 					margin-top: 0.1rem;
 					font-size: 0.3rem;
+				}
 
+				.multiplier_container {
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					width: 100%;
+					height: 0.3rem;
+					display: none;
+					font-size: 0.26rem;
+
+					&[data-effectiveness="weak"] {
+						@include flex();
+						background-color: rgb(16, 16, 16);
+					}
+					&[data-effectiveness="super"] {
+						@include flex();
+						background-color: rgb(186, 138, 33);
+					}
 				}
 			}
 
@@ -531,6 +567,16 @@ svg {
 						position: relative;
 						font-size: 0.4rem;
 						line-height: 1;
+						@include flex();
+						@include row();
+
+						.stab_bonus {
+							position: relative;
+							font-size: 0.25rem;
+							opacity: 0.5;
+							margin-left: 0.05rem;
+							margin-top: 0.05rem;
+						}
 					}
 				}
 			}
@@ -1566,9 +1612,10 @@ svg {
 					.pokemon_picture_container { 
 						position: absolute;
 						left: 0;
-						top: 0;
+						top: 0.3rem;
 						width: 100%;
-						height: 100%;
+						// height: 100%;
+						bottom: 0;
 						background-color: rgb(64, 64, 64);
 						@include flex();
 
@@ -1584,8 +1631,10 @@ svg {
 						position: absolute;
 						right: 0;
 						top: 0;
-						width: 0.8rem;
-						height: 0.8rem;
+						// width: 0.8rem;
+						width: 100%;
+						// height: 0.8rem;
+						height: 0.3rem;
 						background-color: rgba(128, 128, 128, 0.7);
 						@include flex();
 
@@ -1707,6 +1756,33 @@ svg {
 			}
 		}
 	}
+}
+
+.type_icon {
+	display: none !important;
+}
+.type_name {
+	margin-top: 0 !important;
+	text-transform: uppercase;
+}
+
+[data-type="water"] {
+	background-color: rgb(89, 126, 161) !important;
+}
+[data-type="earth"] {
+	background-color: rgb(140, 130, 81) !important;
+}
+[data-type="fire"] {
+	background-color: rgb(214, 113, 59) !important;
+}
+[data-type="air"] {
+	background-color: rgb(153, 153, 153) !important;
+}
+[data-type="spirit"] {
+	background-color: rgb(71, 158, 100) !important;
+}
+[data-type="void"] {
+	background-color: rgb(59, 32, 79) !important;
 }
 
 
