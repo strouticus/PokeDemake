@@ -21,6 +21,8 @@ var roomListEl;
 var teamNameEl;
 var teamSelectDropdownEl;
 
+var enterTeamNamePromptEl;
+
 function initUI () {
 	nav.getContexts();
 
@@ -39,6 +41,7 @@ function initUI () {
 	movesListEl = $(".moves_list_container");
 	teamNameEl = $(".team_name_entry_input");
 	teamSelectDropdownEl = $(".team_select_dropdown");
+	enterTeamNamePromptEl = $(".enter_team_name_prompt");
 
 	$("body").on("mousedown", ".touchable", function(e) {
 		$(this).addClass("touched");
@@ -126,21 +129,28 @@ function initUI () {
 	$("body").on("click", ".moves_list_container .move_list_option", function (e) {
 		teamToEdit[editingIndex].moves[moveIndexToEdit] = $(this).data("move");
 		nav.go(["edit_pokemon", "current_moves"], "team_builder_info");
-	})
+	});
 
 	$("body").on("click", ".save_team", function (e) {
 		saveTeam();
 		nav.go(["netplay_lobby"], "app");
 		nav.closeContext("enter_team_name");
-	})
+	});
 
 	$("body").on("click", ".team_edit_button.new_team", function (e) {
 		enterTeamBuilderUI();
-	})
+	});
 
 	$("body").on("input", ".team_select_dropdown", function (e) {
 		console.info("selecting " + $(this).val());
 		curSelectedTeam = $(this).val();
+		updateLocalStorageSelectedTeam();
+	});
+
+	$("body").on("click", ".team_edit_button.edit_team", function (e) {
+		if (curSelectedTeam) {
+			enterTeamBuilderUI(curSelectedTeam);
+		}
 	})
 
 
@@ -195,6 +205,7 @@ var curNickname = "";
 function updateNickname (newNickname) {
 	curNickname = newNickname;
 	sendData("setNickname", newNickname);
+	updateLocalStorageNickname(newNickname);
 }
 
 function updateTrainerSides (battleState) {
@@ -433,6 +444,9 @@ function populateRoomList (roomData) {
 
 
 var teamToEdit = [];
+var editingIndex;
+var curSelectedTeam;
+
 function enterTeamBuilderUI (curTeamNameToEdit) {
 	var teamArrToEdit = [];
 	if (!curTeamNameToEdit) {
@@ -470,7 +484,7 @@ function populatePokemonListUI () {
 	};
 }
 
-var editingIndex;
+
 function editTeamPokemon (pokemonIndex) {
 	var pokeInfo = teamToEdit[pokemonIndex];
 	editingIndex = pokemonIndex;
@@ -622,12 +636,12 @@ function createMoveListElement (moveName) {
 	return newMoveEl;
 }
 
-var curSelectedTeam;
-
 function saveTeam () {
 	var newTeamName = teamNameEl.val();
 	curSelectedTeam = newTeamName;
 	clientTeams[newTeamName] = JSON.parse(JSON.stringify(teamToEdit));
+	updateLocalStorageTeams();
+	updateLocalStorageSelectedTeam();
 }
 
 function updateTeamListDropdown () {
@@ -665,6 +679,12 @@ function before_drawing_view (views, context) {
 			if (teamToEdit[editingIndex].moves[moveIndexToEdit]) {
 				movesListEl.find("[data-move='" + teamToEdit[editingIndex].moves[moveIndexToEdit] + "']").addClass("selected");
 			}
+		}
+	}
+
+	if (context === "enter_team_name") {
+		if (views.indexOf("popup_active") >= 0) {
+			enterTeamNamePromptEl.val(teamNameToEdit);
 		}
 	}
 }

@@ -435,6 +435,35 @@ BattleState.prototype.handlePokemonSwitch = function () {
 	// updateUI(this);
 }
 
+
+function checkLocalStorage () {
+	var storedTeams = localStorage.getItem("pokedemake__stored_teams");
+	if (storedTeams) {
+		clientTeams = JSON.parse(storedTeams);
+		var storedSelectedTeam = localStorage.getItem("pokedemake__selected_team");
+		if (storedSelectedTeam) {
+			curSelectedTeam = storedSelectedTeam;
+		} else {
+			curSelectedTeam = Object.keys(clientTeams)[0];
+		}
+	}
+
+	var storedNickname = localStorage.getItem("pokedemake__nickname");
+	if (storedNickname) {
+		curNickname = storedNickname;
+	}
+}
+
+function updateLocalStorageTeams () {
+	localStorage.setItem("pokedemake__stored_teams", JSON.stringify(clientTeams));
+}
+function updateLocalStorageSelectedTeam () {
+	localStorage.setItem("pokedemake__selected_team", curSelectedTeam);
+}
+function updateLocalStorageNickname (newNickname) {
+	localStorage.setItem("pokedemake__nickname", newNickname);
+}
+
 // var testPokemon1 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu A");
 // var testPokemon2 = new Pokemon("testA", {atk: 1}, ["strong_atk_A", "strong_atk_B", "atk_boost", "big_strong_atk_A"], "Pikachu B");
 // var tempTeam = [testPokemon1, testPokemon2];
@@ -443,11 +472,18 @@ var curBattleState;
 
 function main () {
 
+	checkLocalStorage();
+
 	initUI();
 
 	initNetplay();
 
-	nav.go(["enter_nickname"], "app");
+	if (curNickname) {
+		nav.go(["netplay_lobby"], "app");
+	} else {
+		nav.go(["enter_nickname"], "app");
+	}
+
 	// enterTeamBuilderUI();
 
 }
