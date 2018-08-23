@@ -204,7 +204,9 @@ function resize (count) {
 var curNickname = "";
 function updateNickname (newNickname) {
 	curNickname = newNickname;
-	sendData("setNickname", newNickname);
+	if (connected) {
+		sendData("setNickname", newNickname);
+	}
 	updateLocalStorageNickname(newNickname);
 }
 

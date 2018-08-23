@@ -23,7 +23,7 @@ function initNetplay () {
 		sendData("getRoomList", "");
 
 		if (curNickname) {
-			sendData("setNickname", newNickname);
+			sendData("setNickname", curNickname);
 		}
 	});
 }
