@@ -684,7 +684,7 @@ function before_drawing_view (views, context) {
 
 	if (context === "enter_team_name") {
 		if (views.indexOf("popup_active") >= 0) {
-			enterTeamNamePromptEl.val(teamNameToEdit);
+			teamNameEl.val(teamNameToEdit);
 		}
 	}
 }
