@@ -64,7 +64,7 @@ var typeInfo = {
 		spirit: EFFECTIVE_WEAK,
 		void: EFFECTIVE_NEUTRAL,
 	},
-}
+};
 
 var pokemonInfo = {
 	"testA": {
@@ -74,7 +74,7 @@ var pokemonInfo = {
 			hp: 12,
 			atk: 4,
 			def: 3,
-			spd: 4
+			spd: 4,
 		},
 		moves: [
 			"strong_atk_A",
@@ -92,7 +92,7 @@ var pokemonInfo = {
 			hp: 12,
 			atk: 4,
 			def: 2,
-			spd: 8
+			spd: 8,
 		},
 		moves: [
 			"waterblast",
@@ -110,7 +110,7 @@ var pokemonInfo = {
 			hp: 15,
 			atk: 2,
 			def: 5,
-			spd: 2
+			spd: 2,
 		},
 		moves: [
 			"digstrike",
@@ -128,7 +128,7 @@ var pokemonInfo = {
 			hp: 10,
 			atk: 6,
 			def: 1,
-			spd: 6
+			spd: 6,
 		},
 		moves: [
 			"combust",
@@ -146,7 +146,7 @@ var pokemonInfo = {
 			hp: 13,
 			atk: 4,
 			def: 4,
-			spd: 6
+			spd: 6,
 		},
 		moves: [
 			"airshot",
@@ -165,7 +165,7 @@ var pokemonInfo = {
 			hp: 11,
 			atk: 3,
 			def: 3,
-			spd: 7
+			spd: 7,
 		},
 		moves: [
 			"spiketrap",
@@ -183,7 +183,7 @@ var pokemonInfo = {
 			hp: 14,
 			atk: 5,
 			def: 3,
-			spd: 5
+			spd: 5,
 		},
 		moves: [
 			"gravity",
@@ -201,7 +201,7 @@ var pokemonInfo = {
 			hp: 12,
 			atk: 3,
 			def: 3,
-			spd: 5
+			spd: 5,
 		},
 		moves: [
 			"petrify",
@@ -220,7 +220,7 @@ var pokemonInfo = {
 			hp: 11,
 			atk: 5,
 			def: 2,
-			spd: 7
+			spd: 7,
 		},
 		moves: [
 			"airshot",
@@ -240,7 +240,7 @@ var pokemonInfo = {
 			hp: 14,
 			atk: 5,
 			def: 3,
-			spd: 5
+			spd: 5,
 		},
 		moves: [
 			"doppelganger",
@@ -258,7 +258,7 @@ var pokemonInfo = {
 			hp: 14,
 			atk: 3,
 			def: 3,
-			spd: 6
+			spd: 6,
 		},
 		moves: [
 			"panicbite",
@@ -268,4 +268,4 @@ var pokemonInfo = {
 		],
 		flavor: "Harmless Joe is a nice fish who doesn't hurt anyone... usually.",
 	},
-}
+};

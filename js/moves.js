@@ -231,14 +231,14 @@ var moveInfo = {
 	},
 	"eventhorizon": {
 		displayName: "Event Horizon",
-		description: "Strong void attack, but reduces own defense by 1.",
+		description: "Strong void attack, but reduces own defense by 2.",
 		type: TYPE_VOID,
 		moveType: MOVETYPE_ATTACK,
 		bp: 5,
 
 		moveFunc: function (attacker, defender) {
 			dealDamage(attacker, defender, this.type, this.bp);
-			attacker.adjustStats({def: -1});
+			attacker.adjustStats({def: -2});
 		},
 	},
 	"radiation": {
@@ -301,7 +301,7 @@ var moveInfo = {
 		description: "Strong spirit attack, but fails if the opponent doesn't attack.",
 		type: TYPE_SPIRIT,
 		moveType: MOVETYPE_ATTACK,
-		bp: 5,
+		bp: 3,
 		priority: 1,
 
 		moveFunc: function (attacker, defender) {
@@ -351,4 +351,73 @@ var moveInfo = {
 			new Animation("drawText", "" + attacker.nickname + " lured " + defender.nickname + "! Support moves are prevented for 3 turns!");
 		},
 	},
-}
+	"rinse": {
+		displayName: "Rinse",
+		description: "Remove negative effects from the user.",
+		type: TYPE_WATER,
+		moveType: MOVETYPE_SUPPORT,
+
+		moveFunc: function (attacker, defender) {
+			new Animation("drawText", "" + attacker.nickname + " removed their negative effects!");
+		},
+	},
+	"punish_swap_in": {
+		displayName: "PUnishSwapIn",
+		description: "Weak air attack, but deals high damage to an opponent that just swapped in.",
+		type: TYPE_AIR,
+		moveType: MOVETYPE_ATTACK,
+		bp: 2,
+
+		moveFunc: function (attacker, defender) {
+			dealDamage(attacker, defender, this.type, this.bp); 
+		},
+	},
+	"ignitioncharge": {
+		displayName: "Ignition Charge",
+		description: "Somewhat weak fire attack, but adds 2 fixed damage to the user's next move.",
+		type: TYPE_FIRE,
+		moveType: MOVETYPE_ATTACK,
+		bp: 2,
+
+		moveFunc: function (attacker, defender) {
+			dealDamage(attacker, defender, this.type, this.bp); 
+		},
+	},
+	"torrent": {
+		displayName: "Torrent",
+		description: "Weak water attack, but reduces the opponent's defense by 1.",
+		type: TYPE_WATER,
+		moveType: MOVETYPE_ATTACK,
+		bp: 1,
+
+		moveFunc: function (attacker, defender) {
+			dealDamage(attacker, defender, this.type, this.bp); 
+			defender.adjustStats({def: -1});
+		},
+	},
+};
+
+var STATE_HIDDEN = "hidden";
+
+var effectsInfo = {
+	"poison": {
+		displayName: "Poison",
+		endOfTurnFunc: function (pokemon) {
+			pokemon.adjustHP(-1);
+			new Animation("drawText", "" + pokemon.nickname + " takes damage from its poison!");
+		},
+	},
+	"digstriking": {
+		displayName: "Dig Striking",
+		specialState: STATE_HIDDEN,
+		replaceAttack: function (attacker, defender) {
+			dealDamage(attacker, defender, TYPE_EARTH, 3);
+			// endEffect(attacker, "digstriking");
+		},
+	},
+
+};
+
+var fieldEffectsInfo = {
+
+};
