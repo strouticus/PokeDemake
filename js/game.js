@@ -16,23 +16,30 @@ var animationQueue = [];
 var clientTeams = {};
 
 function dealDamage (attacker, defender, type, bp) {
-	var isStab = (attacker.info.type === type);
-	var moveEffectiveness = (typeInfo[type][defender.info.type]);
-	var damage = (attacker.stats.atk + bp + (isStab ? 2 : 0)) - defender.stats.def;
-	if (moveEffectiveness === EFFECTIVE_SUPER) {
-		damage *= 2;
-	} else if (moveEffectiveness === EFFECTIVE_WEAK) {
-		damage *= 0.5;
-	}
-	damage = Math.ceil(damage);
-	damage = Math.max(1, damage);
-	defender.adjustHP(-1 * damage);
+	if (defender.hasEffect("hidden")) {
+		new Animation("drawText", "But it missed!");
+	} else if (defender.hasEffect("protected")) {
+		new Animation("drawText", "" + defender.nickname + " protected itself!");
+	} else {
+		var isStab = (attacker.type === type);
+		var moveEffectiveness = (typeInfo[type][defender.type]);
+		var damage = (attacker.stats.atk + bp + (isStab ? 2 : 0)) - defender.stats.def;
+		if (moveEffectiveness === EFFECTIVE_SUPER) {
+			damage *= 2;
+		} else if (moveEffectiveness === EFFECTIVE_WEAK) {
+			damage *= 0.5;
+		}
+		damage = Math.ceil(damage);
+		damage = Math.max(1, damage);
+		defender.adjustHP(-1 * damage);
 
-	if (moveEffectiveness === EFFECTIVE_SUPER) {
-		new Animation("drawText", "It's super effective!");
-	} else if (moveEffectiveness === EFFECTIVE_WEAK) {
-		new Animation("drawText", "It's not very effective...");
+		if (moveEffectiveness === EFFECTIVE_SUPER) {
+			new Animation("drawText", "It's super effective!");
+		} else if (moveEffectiveness === EFFECTIVE_WEAK) {
+			new Animation("drawText", "It's not very effective...");
+		}
 	}
+
 }
 
 function Pokemon (species, specialization, moves, nickname) {
@@ -41,6 +48,8 @@ function Pokemon (species, specialization, moves, nickname) {
 	this.nickname = nickname || this.info.displayName;
 
 	this.alive = true;
+
+	this.type = this.info.type;
 
 	this.stats = {
 		hp: this.info.stats.hp,
@@ -61,6 +70,8 @@ function Pokemon (species, specialization, moves, nickname) {
 
 	this.effects = [];
 	this.toxicCounter = 0;
+
+	this.lockInNextMove = undefined;
 }
 
 Pokemon.prototype.export = function () {
@@ -81,6 +92,46 @@ function importPokemon (pokemonData) {
 	);
 }
 
+Pokemon.prototype.addEffect = function (effectName) {
+	if (this.effects.indexOf(effectName) === -1) {
+		this.effects.push(effectName);
+		var effectInfo = effectsInfo[effectName];
+		if (typeof effectInfo.initFunc === "function") {
+			effectInfo.initFunc(this);
+		}
+	}
+}
+
+Pokemon.prototype.hasEffect = function (effectName) {
+	return (this.effects.indexOf(effectName) >= 0);
+}
+
+Pokemon.prototype.removeEffect = function (effectName) {
+	var effectIndex = this.effects.indexOf(effectName);
+	if (effectIndex >= 0) {
+		this.effects.splice(effectIndex, 1);
+		if (typeof effectsInfo[effectName].removeFunc === "function") {
+			effectsInfo[effectName].removeFunc(this);
+		}
+	}
+}
+
+Pokemon.prototype.removeNegativeEffects = function () {
+	for (var i = this.effects.length - 1; i >= 0; i--) {
+		if (effectsInfo[this.effects[i]].negativeEffect) {
+			this.removeEffect(this.effects[i]);
+		}
+	}
+}
+
+Pokemon.prototype.removeSwitchEffects = function () {
+	for (var i = this.effects.length - 1; i >= 0; i--) {
+		if (effectsInfo[this.effects[i]].removeOnSwitch) {
+			this.removeEffect(this.effects[i]);
+		}
+	}
+}
+
 Pokemon.prototype.adjustHP = function (hpDiff) {
 	this.curHP += Math.ceil(hpDiff);
 	if (this.curHP > this.stats.hp) {
@@ -99,10 +150,19 @@ Pokemon.prototype.adjustHP = function (hpDiff) {
 
 Pokemon.prototype.adjustStats = function (statAdj) {
 	var ownerTrainer = curBattleState.getTrainerFromPokemon(this);
+	var displayedProtectMessage = false;
 	for (var statName in statAdj) {
-		this.stats[statName] += statAdj[statName];
-		new Animation("updateStats", {trainerObj: ownerTrainer, curAtk: this.stats.atk, curDef: this.stats.def, curSpd: this.stats.spd});
-		new Animation("drawText", "" + this.nickname + "'s " + statName.toUpperCase() + " was raised by " + statAdj[statName] + "!");
+		if (statAdj[statName] < 0 && this.hasEffect("protected")) {
+			if (!displayedProtectMessage) {
+				new Animation("drawText", "" + this.nickname + " protected itself!");
+				displayedProtectMessage = true;
+			}
+		} else {
+			this.stats[statName] += statAdj[statName];
+			new Animation("updateStats", {trainerObj: ownerTrainer, curAtk: this.stats.atk, curDef: this.stats.def, curSpd: this.stats.spd});
+			var raisedOrLowered = ((statAdj[statName] >= 0) ? "raised" : "lowered");
+			new Animation("drawText", "" + this.nickname + "'s " + statName.toUpperCase() + " was " + raisedOrLowered + " by " + statAdj[statName] + "!");
+		}
 	}
 }
 
@@ -119,21 +179,38 @@ Pokemon.prototype.resetStats = function () {
 	}
 }
 
+Pokemon.prototype.removeStatBoosts = function () {
+	for (var statName in this.stats) {
+		var statDiff = this.stats[statName] - (this.info.stats[statName] + (this.specialization[statName] || 0));
+		if (statDiff > 0) {
+			this.stats[statName] = this.info.stats[statName] + (this.specialization[statName] || 0);
+		}
+	}
+}
+
 Pokemon.prototype.useMove = function (moveID, defender) {
 	if (!this.alive) {
 		return;
 	}
 
-	new Animation("drawText", "" + this.nickname + " used " + moveInfo[moveID].displayName + "!");
+	if (!moveInfo[moveID].noDisplayMoveName) {
+		new Animation("drawText", "" + this.nickname + " used " + moveInfo[moveID].displayName + "!");
+	}
 
 	moveInfo[moveID].moveFunc(this, defender);
 }
 
+Pokemon.prototype.lockInMove = function (nextMoveName) {
+	this.lockInNextMove = nextMoveName;
+}
+
 Pokemon.prototype.handleTurnEnd = function () {
 	if (this.alive) {
-		if (this.effects.indexOf("toxic") >= 0) {
-			this.adjustHP(-1 * this.toxicCounter);
-			this.toxicCounter += 1;
+		// Run through effects, and run any handleTurnEnd functions there
+		for (var i = this.effects.length - 1; i >= 0; i--) {
+			if (typeof effectsInfo[this.effects[i]].turnEndFunc === "function") {
+				effectsInfo[this.effects[i]].turnEndFunc(this);
+			}
 		}
 	}
 
@@ -141,6 +218,10 @@ Pokemon.prototype.handleTurnEnd = function () {
 		new Animation("drawText", "" + this.nickname + " has fainted!");
 		new Animation("recallPokemon", {trainerObj: curBattleState.getTrainerFromPokemon(this)});
 	}
+}
+
+Pokemon.prototype.getTrainer = function () {
+	return curBattleState.getTrainerFromPokemon(this);
 }
 
 
@@ -154,9 +235,14 @@ function Trainer (nickname, pokemonArray, userControl) {
 
 	this.mustSwitch = true;
 
-	this.sideState = "normal";
+	this.effects = [];
 
 	this.controlled = userControl;
+
+	this.lastUsedMove = undefined;
+
+	this.invertTempoCounter = 0;
+	this.barrierCounter = 0;
 }
 
 Trainer.prototype.switchPokemon = function (newPokemonID) {
@@ -167,6 +253,7 @@ Trainer.prototype.switchPokemon = function (newPokemonID) {
 		if (this.activePokemon.alive) {
 			prevWasAlive = true;
 		}
+		this.activePokemon.removeSwitchEffects();
 	}
 
 	this.activePokemonIndex = newPokemonID;
@@ -182,6 +269,12 @@ Trainer.prototype.switchPokemon = function (newPokemonID) {
 	}
 	new Animation("drawText", "Go! " + this.activePokemon.nickname + "!");
 	new Animation("updatePokemon", {trainerObj: this, forceHPNum: this.activePokemon.curHP});
+
+	for (var i = this.effects.length - 1; i >= 0; i--) {
+		if (typeof this.effects[i].switchInFunc === "function") {
+			this.effects[i].switchInFunc(this);
+		}
+	}
 }
 
 Trainer.prototype.chooseAction = function (actionType, actionInfo) {
@@ -199,6 +292,10 @@ Trainer.prototype.chooseAction = function (actionType, actionInfo) {
 		} else {
 			curBattleState.handleTurnStart();
 		}
+	}
+
+	if (actionType === MOVE_ACTION) {
+		this.lastUsedMove = actionInfo.moveID;
 	}
 
 	return;
@@ -219,6 +316,44 @@ Trainer.prototype.chooseAction = function (actionType, actionInfo) {
 	// 	}
 	// }
 
+}
+
+Trainer.prototype.handleTurnEnd = function () {
+	this.activePokemon.handleTurnEnd();
+
+	for (var i = this.effects.length - 1; i >= 0; i--) {
+		if (typeof effectsInfo[this.effects[i]].turnEndFunc === "function") {
+			effectsInfo[this.effects[i]].turnEndFunc(this);
+		}
+	}
+}
+
+Trainer.prototype.addEffect = function (effectName) {
+	if (this.effects.indexOf(effectName) === -1) {
+		this.effects.push(effectName);
+		var effectInfo = effectsInfo[effectName];
+		if (typeof effectInfo.initFunc === "function") {
+			effectInfo.initFunc(this);
+		}
+	}
+}
+
+Trainer.prototype.hasEffect = function (effectName) {
+	return (this.effects.indexOf(effectName) >= 0);
+}
+
+Trainer.prototype.removeEffect = function (effectName) {
+	var effectIndex = this.effects.indexOf(effectName);
+	if (effectIndex >= 0) {
+		this.effects.splice(effectIndex, 1);
+		if (typeof effectsInfo[effectName].removeFunc === "function") {
+			effectsInfo[effectName].removeFunc(this);
+		}
+	}
+}
+
+Trainer.prototype.removeAllEffects = function () {
+	this.effects = [];
 }
 
 
@@ -290,6 +425,13 @@ BattleState.prototype.setPhase = function (phaseName) {
 		nav.go(["text_box"], "battle_ui");
 	} else if (phaseName === "choose_action") {
 		nav.go(["choose_action", "choose_category"], "battle_ui");
+		var controlledTrainer = this.getControlledTrainer();
+		if (controlledTrainer.activePokemon.lockInNextMove) {
+			var storeLastMove = controlledTrainer.lastUsedMove;
+			controlledTrainer.chooseAction(MOVE_ACTION, {moveID: controlledTrainer.activePokemon.lockInNextMove}, controlledTrainer.id);
+			controlledTrainer.activePokemon.lockInNextMove = false;
+			controlledTrainer.lastUsedMove = storeLastMove;
+		}
 	}
 	
 	this.phase = phaseName;
@@ -364,25 +506,23 @@ BattleState.prototype.handleTurnStart = function () {
 		} else {
 			var trainerASpeed = this.trainerA.activePokemon.stats.spd;
 			var trainerBSpeed = this.trainerB.activePokemon.stats.spd;
+			var invertedSpeed = this.trainerA.hasEffect("invert_tempo");
+			if (invertedSpeed) {
+				var swap = trainerASpeed;
+				trainerASpeed = trainerBSpeed;
+				trainerBSpeed = swap;
+			}
 			if (trainerASpeed > trainerBSpeed) {
 				trainerAFirst = true;
 			} else if (trainerASpeed < trainerBSpeed) {
 				trainerAFirst = false;
 			} else {
-				var trainerABaseSpeed = this.trainerA.activePokemon.info.stats.spd;
-				var trainerBBaseSpeed = this.trainerB.activePokemon.info.stats.spd;
-				if (trainerABaseSpeed > trainerBBaseSpeed) {
+				if (this.speedTieWinner === "trainerA") {
 					trainerAFirst = true;
-				} else if (trainerABaseSpeed < trainerBBaseSpeed) {
-					trainerAFirst = false;
+					this.speedTieWinner = "trainerB";
 				} else {
-					if (this.speedTieWinner === "trainerA") {
-						trainerAFirst = true;
-						this.speedTieWinner = "trainerB";
-					} else {
-						trainerAFirst = false;
-						this.speedTieWinner = "trainerA";
-					}
+					trainerAFirst = false;
+					this.speedTieWinner = "trainerA";
 				}
 			}
 		}
@@ -410,8 +550,17 @@ BattleState.prototype.handleAction = function (actionToHandle, trainerID) {
 }
 
 BattleState.prototype.handleTurnEnd = function () {
-	this.trainerA.activePokemon.handleTurnEnd();
-	this.trainerB.activePokemon.handleTurnEnd();
+	// this.trainerA.activePokemon.handleTurnEnd();
+	// this.trainerB.activePokemon.handleTurnEnd();
+
+	this.trainerA.handleTurnEnd();
+	this.trainerB.handleTurnEnd();
+
+	if (this.trainerA.invertTempoCounter >= 6) {
+		new Animation("drawText", "Tempo has returned to normal!");
+		this.trainerA.removeEffect("invert_tempo");
+		this.trainerB.removeEffect("invert_tempo");
+	}
 
 	this.trainerA.chosenAction = undefined;
 	this.trainerB.chosenAction = undefined;

@@ -746,6 +746,11 @@ svg {
   display: none;
 }
 /* line 486, ../scss/game.scss */
+.buttons_container .pokemon_move_button.locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+/* line 491, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area {
   position: relative;
   width: 100%;
@@ -775,7 +780,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 494, ../scss/game.scss */
+/* line 499, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .move_type_container {
   position: relative;
   width: 1.2rem;
@@ -802,19 +807,19 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 502, ../scss/game.scss */
+/* line 507, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .move_type_container .type_icon {
   position: relative;
   width: 0.6rem;
   height: 0.6rem;
 }
-/* line 508, ../scss/game.scss */
+/* line 513, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .move_type_container .type_name {
   position: relative;
   margin-top: 0.1rem;
   font-size: 0.3rem;
 }
-/* line 514, ../scss/game.scss */
+/* line 519, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .move_type_container .multiplier_container {
   position: absolute;
   left: 0;
@@ -824,7 +829,7 @@ svg {
   display: none;
   font-size: 0.26rem;
 }
-/* line 523, ../scss/game.scss */
+/* line 528, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .move_type_container .multiplier_container[data-effectiveness="weak"] {
   display: -webkit-flex;
   -webkit-flex-direction: column;
@@ -844,7 +849,7 @@ svg {
   align-items: center;
   background-color: #101010;
 }
-/* line 527, ../scss/game.scss */
+/* line 532, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .move_type_container .multiplier_container[data-effectiveness="super"] {
   display: -webkit-flex;
   -webkit-flex-direction: column;
@@ -864,7 +869,7 @@ svg {
   align-items: center;
   background-color: #ba8a21;
 }
-/* line 534, ../scss/game.scss */
+/* line 539, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .pokemon_move_name_text {
   position: relative;
   -webkit-flex-grow: 1;
@@ -875,7 +880,7 @@ svg {
   margin-right: 0.2rem;
   font-size: 0.45rem;
 }
-/* line 542, ../scss/game.scss */
+/* line 547, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .stats {
   position: relative;
   display: -webkit-flex;
@@ -899,7 +904,7 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 547, ../scss/game.scss */
+/* line 552, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .stats .stat_section {
   position: relative;
   display: -webkit-flex;
@@ -920,11 +925,11 @@ svg {
   align-items: center;
   margin-right: 0.1rem;
 }
-/* line 552, ../scss/game.scss */
+/* line 557, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .stats .stat_section.disabled {
   display: none;
 }
-/* line 556, ../scss/game.scss */
+/* line 561, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .stats .stat_section .stat_header {
   position: relative;
   width: 0.8rem;
@@ -949,7 +954,7 @@ svg {
   margin-bottom: 0.05rem;
   font-size: 0.3rem;
 }
-/* line 566, ../scss/game.scss */
+/* line 571, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .stats .stat_section .stat_num {
   position: relative;
   font-size: 0.4rem;
@@ -975,7 +980,7 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 573, ../scss/game.scss */
+/* line 578, ../scss/game.scss */
 .buttons_container .pokemon_move_button .top_area .stats .stat_section .stat_num .stab_bonus {
   position: relative;
   font-size: 0.25rem;
@@ -983,7 +988,7 @@ svg {
   margin-left: 0.05rem;
   margin-top: 0.05rem;
 }
-/* line 585, ../scss/game.scss */
+/* line 590, ../scss/game.scss */
 .buttons_container .pokemon_move_button .lower_area {
   position: relative;
   width: 100%;
@@ -1018,12 +1023,12 @@ svg {
   -ms-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 595, ../scss/game.scss */
+/* line 600, ../scss/game.scss */
 .buttons_container .pokemon_move_button .lower_area .move_description {
   position: relative;
   font-size: 0.3rem;
 }
-/* line 602, ../scss/game.scss */
+/* line 607, ../scss/game.scss */
 .buttons_container .pokemon_switch_button {
   position: relative;
   height: calc(50% - 0.1rem);
@@ -1052,19 +1057,19 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 612, ../scss/game.scss */
+/* line 617, ../scss/game.scss */
 .buttons_container .pokemon_switch_button.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
-/* line 617, ../scss/game.scss */
+/* line 622, ../scss/game.scss */
 .buttons_container .pokemon_switch_button .pokemon_switch_name_text {
   position: relative;
   font-size: 0.4rem;
   font-weight: bold;
 }
 
-/* line 625, ../scss/game.scss */
+/* line 630, ../scss/game.scss */
 .menu_back {
   position: relative;
   margin-left: 0.2rem;
@@ -1092,11 +1097,11 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 634, ../scss/game.scss */
+/* line 639, ../scss/game.scss */
 .menu_back.disabled {
   display: none;
 }
-/* line 638, ../scss/game.scss */
+/* line 643, ../scss/game.scss */
 .menu_back .icon {
   position: relative;
   width: 0;
@@ -1106,7 +1111,7 @@ svg {
   border-bottom: 0.225rem solid transparent;
 }
 
-/* line 648, ../scss/game.scss */
+/* line 653, ../scss/game.scss */
 .waiting_text_view {
   position: absolute;
   left: 0;
@@ -1130,30 +1135,30 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 659, ../scss/game.scss */
+/* line 664, ../scss/game.scss */
 .waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot {
   animation: dot_fade 2s ease infinite;
 }
-/* line 662, ../scss/game.scss */
+/* line 667, ../scss/game.scss */
 .waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot.one {
   -webkit-animation-delay: 0.25s;
   -moz-animation-delay: 0.25s;
   animation-delay: 0.25s;
 }
-/* line 665, ../scss/game.scss */
+/* line 670, ../scss/game.scss */
 .waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot.two {
   -webkit-animation-delay: 0.5s;
   -moz-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
-/* line 668, ../scss/game.scss */
+/* line 673, ../scss/game.scss */
 .waiting_text_view.draw .waiting_text_container .waiting_text .waiting_text_dot.three {
   -webkit-animation-delay: 0.75s;
   -moz-animation-delay: 0.75s;
   animation-delay: 0.75s;
 }
 
-/* line 677, ../scss/game.scss */
+/* line 682, ../scss/game.scss */
 .waiting_text_container {
   position: relative;
   height: 2rem;
@@ -1176,7 +1181,7 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 684, ../scss/game.scss */
+/* line 689, ../scss/game.scss */
 .waiting_text_container .waiting_text {
   position: relative;
   display: -webkit-flex;
@@ -1201,16 +1206,16 @@ svg {
   flex-direction: row;
   font-size: 0.4rem;
 }
-/* line 690, ../scss/game.scss */
+/* line 695, ../scss/game.scss */
 .waiting_text_container .waiting_text .waiting_text_part {
   position: relative;
   margin-right: 0.15rem;
 }
-/* line 694, ../scss/game.scss */
+/* line 699, ../scss/game.scss */
 .waiting_text_container .waiting_text .waiting_text_part:last-child {
   margin-right: 0;
 }
-/* line 699, ../scss/game.scss */
+/* line 704, ../scss/game.scss */
 .waiting_text_container .waiting_text .waiting_text_dot {
   position: relative;
   opacity: 0;
@@ -1233,7 +1238,7 @@ svg {
     opacity: 0;
   }
 }
-/* line 726, ../scss/game.scss */
+/* line 731, ../scss/game.scss */
 .nickname_entry_outer_container {
   position: absolute;
   left: 0;
@@ -1257,7 +1262,7 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 734, ../scss/game.scss */
+/* line 739, ../scss/game.scss */
 .nickname_entry_outer_container .nickname_entry_container {
   position: relative;
   width: 8rem;
@@ -1282,13 +1287,13 @@ svg {
   -ms-align-items: flex-start;
   align-items: flex-start;
 }
-/* line 740, ../scss/game.scss */
+/* line 745, ../scss/game.scss */
 .nickname_entry_outer_container .nickname_entry_container .nickname_entry_title {
   position: relative;
   font-size: 0.4rem;
   margin-bottom: 0.1rem;
 }
-/* line 746, ../scss/game.scss */
+/* line 751, ../scss/game.scss */
 .nickname_entry_outer_container .nickname_entry_container .nickname_entry_row {
   position: relative;
   display: -webkit-flex;
@@ -1314,7 +1319,7 @@ svg {
   height: 0.8rem;
   width: 100%;
 }
-/* line 753, ../scss/game.scss */
+/* line 758, ../scss/game.scss */
 .nickname_entry_outer_container .nickname_entry_container .nickname_entry_row .nickname_entry_input {
   position: relative;
   -webkit-flex-grow: 1;
@@ -1329,7 +1334,7 @@ svg {
   padding: 0 0.1rem;
   margin-right: 0.2rem;
 }
-/* line 765, ../scss/game.scss */
+/* line 770, ../scss/game.scss */
 .nickname_entry_outer_container .nickname_entry_container .nickname_entry_row .nickname_entry_done_button {
   position: relative;
   height: 100%;
@@ -1354,7 +1359,7 @@ svg {
   font-size: 0.4rem;
 }
 
-/* line 777, ../scss/game.scss */
+/* line 782, ../scss/game.scss */
 .netplay_lobby_outer_container {
   position: absolute;
   left: 0;
@@ -1384,7 +1389,7 @@ svg {
   box-sizing: border-box;
   padding: 0.2rem;
 }
-/* line 788, ../scss/game.scss */
+/* line 793, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side {
   position: relative;
   width: 50%;
@@ -1412,7 +1417,7 @@ svg {
   align-items: flex-start;
   padding: 0.2rem;
 }
-/* line 797, ../scss/game.scss */
+/* line 802, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .room_list_container {
   position: relative;
   width: 100%;
@@ -1438,7 +1443,7 @@ svg {
   -ms-align-items: flex-start;
   align-items: flex-start;
 }
-/* line 804, ../scss/game.scss */
+/* line 809, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .room_list_container .room_list_title {
   position: relative;
   font-size: 0.4rem;
@@ -1449,7 +1454,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 812, ../scss/game.scss */
+/* line 817, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .room_list_container .room_list {
   position: relative;
   -webkit-flex-grow: 1;
@@ -1463,7 +1468,7 @@ svg {
   margin-bottom: 0.2rem;
   padding: 0.2rem;
 }
-/* line 822, ../scss/game.scss */
+/* line 827, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .room_list_container .room_list .room_list_option {
   position: relative;
   width: 100%;
@@ -1488,7 +1493,7 @@ svg {
   align-items: center;
   margin-bottom: 0.1rem;
 }
-/* line 833, ../scss/game.scss */
+/* line 838, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .room_list_container .make_room {
   position: relative;
   width: 100%;
@@ -1516,7 +1521,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 844, ../scss/game.scss */
+/* line 849, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container {
   position: relative;
   width: 100%;
@@ -1542,19 +1547,19 @@ svg {
   -ms-align-items: flex-start;
   align-items: flex-start;
 }
-/* line 851, ../scss/game.scss */
+/* line 856, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .nickname_info {
   position: relative;
   width: 100%;
   margin-bottom: 0.2rem;
 }
-/* line 856, ../scss/game.scss */
+/* line 861, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .nickname_info .nickname_header {
   position: relative;
   font-size: 0.4rem;
   margin-bottom: 0.1rem;
 }
-/* line 862, ../scss/game.scss */
+/* line 867, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .nickname_info .nickname_row {
   position: relative;
   width: 100%;
@@ -1583,7 +1588,7 @@ svg {
   -ms-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 869, ../scss/game.scss */
+/* line 874, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .nickname_info .nickname_row .nickname {
   position: relative;
   font-size: 0.5rem;
@@ -1593,7 +1598,7 @@ svg {
   flex-grow: 1;
   margin-right: 0.2rem;
 }
-/* line 876, ../scss/game.scss */
+/* line 881, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .nickname_info .nickname_row .edit_button {
   position: relative;
   width: 1.2rem;
@@ -1617,18 +1622,18 @@ svg {
   align-items: center;
   font-size: 0.4rem;
 }
-/* line 887, ../scss/game.scss */
+/* line 892, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .team_selected_info {
   position: relative;
   width: 100%;
 }
-/* line 891, ../scss/game.scss */
+/* line 896, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .team_selected_info .team_selected_header {
   position: relative;
   font-size: 0.4rem;
   margin-bottom: 0.1rem;
 }
-/* line 898, ../scss/game.scss */
+/* line 903, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .team_selected_info .team_select_dropdown {
   display: block;
   position: relative;
@@ -1643,11 +1648,11 @@ svg {
   font-family: AppFont;
   padding: 0 0.2rem;
 }
-/* line 912, ../scss/game.scss */
+/* line 917, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .team_selected_info .team_select_dropdown option {
   background-color: black;
 }
-/* line 917, ../scss/game.scss */
+/* line 922, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .team_selected_info .team_edit_button_row {
   position: relative;
   margin-top: 0.1rem;
@@ -1674,7 +1679,7 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 925, ../scss/game.scss */
+/* line 930, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .team_selected_info .team_edit_button_row .team_edit_button {
   position: relative;
   height: 100%;
@@ -1702,12 +1707,12 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 934, ../scss/game.scss */
+/* line 939, ../scss/game.scss */
 .netplay_lobby_outer_container .netplay_lobby_side .player_info_container .team_selected_info .team_edit_button_row .team_edit_button:last-child {
   margin-right: 0;
 }
 
-/* line 944, ../scss/game.scss */
+/* line 949, ../scss/game.scss */
 .team_builder_container {
   position: absolute;
   left: 0;
@@ -1731,7 +1736,7 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 952, ../scss/game.scss */
+/* line 957, ../scss/game.scss */
 .team_builder_container .info_window {
   position: relative;
   width: 100%;
@@ -1740,12 +1745,12 @@ svg {
   -ms-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 957, ../scss/game.scss */
+/* line 962, ../scss/game.scss */
 .team_builder_container .info_window .prompt_text {
   position: relative;
   font-size: 0.5rem;
 }
-/* line 962, ../scss/game.scss */
+/* line 967, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container {
   position: absolute;
   left: 0;
@@ -1756,7 +1761,7 @@ svg {
   padding: 0.4rem;
   overflow: auto;
 }
-/* line 972, ../scss/game.scss */
+/* line 977, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container .pokemon_option {
   position: relative;
   width: 100%;
@@ -1784,7 +1789,7 @@ svg {
   flex-direction: row;
   margin-bottom: 0.2rem;
 }
-/* line 981, ../scss/game.scss */
+/* line 986, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container .pokemon_option .pokemon_picture_container {
   position: relative;
   width: 2rem;
@@ -1812,7 +1817,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 990, ../scss/game.scss */
+/* line 995, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container .pokemon_option .pokemon_picture_container .pokemon_picture {
   position: relative;
   width: calc(100% - 0.2rem);
@@ -1821,7 +1826,7 @@ svg {
   background-repeat: no-repeat;
   background-position: center;
 }
-/* line 998, ../scss/game.scss */
+/* line 1003, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container .pokemon_option .pokemon_name {
   position: relative;
   font-size: 0.5rem;
@@ -1830,7 +1835,7 @@ svg {
   -ms-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 1004, ../scss/game.scss */
+/* line 1009, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container .pokemon_option .type_icon_container {
   position: relative;
   width: 2rem;
@@ -1853,19 +1858,19 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1011, ../scss/game.scss */
+/* line 1016, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container .pokemon_option .type_icon_container .type_icon {
   position: relative;
   width: 1rem;
   height: 1rem;
 }
-/* line 1017, ../scss/game.scss */
+/* line 1022, ../scss/game.scss */
 .team_builder_container .info_window .pokemon_list_container .pokemon_option .type_icon_container .type_name {
   position: relative;
   margin-top: 0.1rem;
   font-size: 0.3rem;
 }
-/* line 1026, ../scss/game.scss */
+/* line 1031, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container {
   position: absolute;
   left: 0;
@@ -1895,7 +1900,7 @@ svg {
   -ms-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 1037, ../scss/game.scss */
+/* line 1042, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row {
   position: relative;
   width: 100%;
@@ -1926,7 +1931,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1046, ../scss/game.scss */
+/* line 1051, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .back_button {
   position: relative;
   width: 0.8rem;
@@ -1954,14 +1959,14 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1055, ../scss/game.scss */
+/* line 1060, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .back_button .icon {
   position: relative;
   border-top: 0.225rem solid transparent;
   border-right: 0.3rem solid white;
   border-bottom: 0.225rem solid transparent;
 }
-/* line 1063, ../scss/game.scss */
+/* line 1068, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .pokemon_image_container {
   position: relative;
   width: 2rem;
@@ -1989,7 +1994,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1072, ../scss/game.scss */
+/* line 1077, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .pokemon_image_container .pokemon_image {
   position: relative;
   width: calc(100% - 0.2rem);
@@ -1998,7 +2003,7 @@ svg {
   background-repeat: no-repeat;
   background-position: center;
 }
-/* line 1080, ../scss/game.scss */
+/* line 1085, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .pokemon_name_container {
   position: relative;
   -webkit-flex-grow: 1;
@@ -2027,19 +2032,19 @@ svg {
   align-items: flex-start;
   margin-right: 0.4rem;
 }
-/* line 1087, ../scss/game.scss */
+/* line 1092, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .pokemon_name_container .pokemon_name {
   position: relative;
   font-size: 0.8rem;
   margin-bottom: 0.2rem;
 }
-/* line 1093, ../scss/game.scss */
+/* line 1098, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .pokemon_name_container .pokemon_flavor_text {
   position: relative;
   font-size: 0.3rem;
   max-width: 8rem;
 }
-/* line 1100, ../scss/game.scss */
+/* line 1105, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .type_icon_container {
   position: relative;
   width: 2rem;
@@ -2066,19 +2071,19 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1108, ../scss/game.scss */
+/* line 1113, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .type_icon_container .type_icon {
   position: relative;
   width: 1rem;
   height: 1rem;
 }
-/* line 1114, ../scss/game.scss */
+/* line 1119, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .top_row .type_icon_container .type_name {
   position: relative;
   margin-top: 0.1rem;
   font-size: 0.3rem;
 }
-/* line 1122, ../scss/game.scss */
+/* line 1127, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container {
   position: relative;
   width: 100%;
@@ -2108,7 +2113,7 @@ svg {
   justify-content: space-between;
   height: calc(100% - 3.9rem);
 }
-/* line 1131, ../scss/game.scss */
+/* line 1136, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container {
   position: relative;
   -webkit-flex-grow: 1;
@@ -2120,11 +2125,11 @@ svg {
   background-color: #202020;
   margin-right: 0.2rem;
 }
-/* line 1140, ../scss/game.scss */
+/* line 1145, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container:last-child {
   margin-right: 0;
 }
-/* line 1144, ../scss/game.scss */
+/* line 1149, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container.moves_container {
   -webkit-flex-grow: 3;
   -moz-flex-grow: 3;
@@ -2132,14 +2137,14 @@ svg {
   flex-grow: 3;
   overflow: hidden;
 }
-/* line 1148, ../scss/game.scss */
+/* line 1153, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container.stats_container {
   -webkit-flex-grow: 2;
   -moz-flex-grow: 2;
   -ms-flex-grow: 2;
   flex-grow: 2;
 }
-/* line 1152, ../scss/game.scss */
+/* line 1157, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .section_view {
   position: absolute;
   left: 0;
@@ -2165,19 +2170,19 @@ svg {
   box-sizing: border-box;
   padding: 0.2rem;
 }
-/* line 1162, ../scss/game.scss */
+/* line 1167, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .section_view.seq-before {
   -webkit-transform: translateX(-100%);
   -moz-transform: translateX(-100%);
   transform: translateX(-100%);
 }
-/* line 1165, ../scss/game.scss */
+/* line 1170, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .section_view.seq-after {
   -webkit-transform: translateX(100%);
   -moz-transform: translateX(100%);
   transform: translateX(100%);
 }
-/* line 1170, ../scss/game.scss */
+/* line 1175, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .section_header {
   position: relative;
   font-size: 0.5rem;
@@ -2188,7 +2193,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1178, ../scss/game.scss */
+/* line 1183, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons {
   position: relative;
   width: 100%;
@@ -2217,7 +2222,7 @@ svg {
   -ms-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 1185, ../scss/game.scss */
+/* line 1190, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button {
   position: relative;
   width: 100%;
@@ -2255,19 +2260,19 @@ svg {
   -ms-align-items: stretch;
   align-items: stretch;
 }
-/* line 1200, ../scss/game.scss */
+/* line 1205, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button.empty .move_info_button {
   display: none;
 }
-/* line 1203, ../scss/game.scss */
+/* line 1208, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button.empty .move_type_container {
   display: none;
 }
-/* line 1208, ../scss/game.scss */
+/* line 1213, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button:last-child {
   margin-bottom: 0;
 }
-/* line 1212, ../scss/game.scss */
+/* line 1217, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button .move_name {
   position: relative;
   font-size: 0.4rem;
@@ -2302,7 +2307,7 @@ svg {
   -ms-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 1223, ../scss/game.scss */
+/* line 1228, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button .move_info_button {
   position: relative;
   width: 1rem;
@@ -2328,7 +2333,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1230, ../scss/game.scss */
+/* line 1235, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button .move_info_button .move_info_icon {
   position: relative;
   width: 0.5rem;
@@ -2355,7 +2360,7 @@ svg {
   font-size: 0.35rem;
   line-height: 1;
 }
-/* line 1243, ../scss/game.scss */
+/* line 1248, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button .move_type_container {
   position: relative;
   width: 1.2rem;
@@ -2382,19 +2387,19 @@ svg {
   flex-shrink: 0;
   background-color: gray;
 }
-/* line 1251, ../scss/game.scss */
+/* line 1256, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button .move_type_container .type_icon {
   position: relative;
   width: 0.6rem;
   height: 0.6rem;
 }
-/* line 1257, ../scss/game.scss */
+/* line 1262, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_buttons .move_button .move_type_container .type_name {
   position: relative;
   font-size: 0.3rem;
   margin-top: 0.1rem;
 }
-/* line 1267, ../scss/game.scss */
+/* line 1272, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows {
   position: relative;
   width: 100%;
@@ -2419,7 +2424,7 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1274, ../scss/game.scss */
+/* line 1279, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row {
   position: relative;
   width: 100%;
@@ -2450,19 +2455,19 @@ svg {
   justify-content: flex-start;
   margin-bottom: 0.1rem;
 }
-/* line 1283, ../scss/game.scss */
+/* line 1288, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row:last-child {
   margin-bottom: 0;
 }
-/* line 1289, ../scss/game.scss */
+/* line 1294, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row[data-stat="hp"] .stat_bar_container .bar_inner_container .stat_bar {
   background-color: green;
 }
-/* line 1292, ../scss/game.scss */
+/* line 1297, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row[data-stat="hp"] .stat_bar_container .bar_inner_container .stat_bar_extra {
   background-color: #64ff64;
 }
-/* line 1298, ../scss/game.scss */
+/* line 1303, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .stat_header {
   position: relative;
   width: 0.55rem;
@@ -2474,7 +2479,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1307, ../scss/game.scss */
+/* line 1312, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .stat_bar_container {
   position: relative;
   -webkit-flex-grow: 1;
@@ -2507,7 +2512,7 @@ svg {
   -ms-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 1315, ../scss/game.scss */
+/* line 1320, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .stat_bar_container .bar_inner_container {
   position: relative;
   width: calc(100% - 0.5rem);
@@ -2537,7 +2542,7 @@ svg {
   -ms-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 1323, ../scss/game.scss */
+/* line 1328, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .stat_bar_container .bar_inner_container .stat_bar {
   position: relative;
   height: 100%;
@@ -2550,7 +2555,7 @@ svg {
   -moz-transition: width 0.5s ease;
   transition: width 0.5s ease;
 }
-/* line 1331, ../scss/game.scss */
+/* line 1336, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .stat_bar_container .bar_inner_container .stat_bar_extra {
   position: relative;
   height: 100%;
@@ -2563,7 +2568,7 @@ svg {
   -moz-transition: width 0.25s ease;
   transition: width 0.25s ease;
 }
-/* line 1339, ../scss/game.scss */
+/* line 1344, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .stat_bar_container .bar_inner_container .stat_num {
   position: relative;
   margin-left: 0.1rem;
@@ -2575,7 +2580,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1352, ../scss/game.scss */
+/* line 1357, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button {
   position: relative;
   width: 0.8rem;
@@ -2603,13 +2608,13 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1361, ../scss/game.scss */
+/* line 1366, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button .plus_icon {
   position: relative;
   width: 0.4rem;
   height: 0.4rem;
 }
-/* line 1366, ../scss/game.scss */
+/* line 1371, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button .plus_icon .line_container {
   position: absolute;
   left: 0;
@@ -2633,26 +2638,26 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1375, ../scss/game.scss */
+/* line 1380, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button .plus_icon .line {
   position: relative;
   background-color: white;
 }
-/* line 1379, ../scss/game.scss */
+/* line 1384, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button .plus_icon .line.horizontal {
   width: 100%;
   height: 2px;
 }
-/* line 1383, ../scss/game.scss */
+/* line 1388, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button .plus_icon .line.vertical {
   width: 2px;
   height: 100%;
 }
-/* line 1391, ../scss/game.scss */
+/* line 1396, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button.active .selected_overlay {
   opacity: 1;
 }
-/* line 1396, ../scss/game.scss */
+/* line 1401, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .stat_rows .stat_row .specialize_button .selected_overlay {
   position: absolute;
   left: 0;
@@ -2667,7 +2672,7 @@ svg {
   -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
-/* line 1412, ../scss/game.scss */
+/* line 1417, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container {
   position: absolute;
   left: 0;
@@ -2678,7 +2683,7 @@ svg {
   padding: 0.2rem;
   overflow: auto;
 }
-/* line 1422, ../scss/game.scss */
+/* line 1427, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option {
   position: relative;
   width: 100%;
@@ -2686,11 +2691,11 @@ svg {
   box-sizing: border-box;
   margin-bottom: 0.1rem;
 }
-/* line 1430, ../scss/game.scss */
+/* line 1435, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option:last-child {
   margin-bottom: 0;
 }
-/* line 1434, ../scss/game.scss */
+/* line 1439, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .selected_border {
   position: absolute;
   left: 0;
@@ -2705,11 +2710,11 @@ svg {
   transition: opacity 0.25s ease;
   opacity: 0;
 }
-/* line 1448, ../scss/game.scss */
+/* line 1453, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option.selected .selected_border {
   opacity: 1;
 }
-/* line 1453, ../scss/game.scss */
+/* line 1458, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area {
   position: relative;
   width: 100%;
@@ -2735,7 +2740,7 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 1460, ../scss/game.scss */
+/* line 1465, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .move_type_container {
   position: relative;
   width: 1.2rem;
@@ -2762,19 +2767,19 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1468, ../scss/game.scss */
+/* line 1473, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .move_type_container .type_icon {
   position: relative;
   width: 0.6rem;
   height: 0.6rem;
 }
-/* line 1474, ../scss/game.scss */
+/* line 1479, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .move_type_container .type_name {
   position: relative;
   margin-top: 0.1rem;
   font-size: 0.3rem;
 }
-/* line 1482, ../scss/game.scss */
+/* line 1487, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .move_title {
   position: relative;
   -webkit-flex-grow: 1;
@@ -2785,7 +2790,7 @@ svg {
   margin-right: 0.2rem;
   font-size: 0.4rem;
 }
-/* line 1490, ../scss/game.scss */
+/* line 1495, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .stats {
   position: relative;
   display: -webkit-flex;
@@ -2809,7 +2814,7 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 1495, ../scss/game.scss */
+/* line 1500, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .stats .stat_section {
   position: relative;
   display: -webkit-flex;
@@ -2830,7 +2835,7 @@ svg {
   align-items: center;
   margin-right: 0.1rem;
 }
-/* line 1500, ../scss/game.scss */
+/* line 1505, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .stats .stat_section .stat_header {
   position: relative;
   width: 0.8rem;
@@ -2855,13 +2860,13 @@ svg {
   margin-bottom: 0.05rem;
   font-size: 0.3rem;
 }
-/* line 1510, ../scss/game.scss */
+/* line 1515, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .top_area .stats .stat_section .stat_num {
   position: relative;
   font-size: 0.4rem;
   line-height: 1;
 }
-/* line 1519, ../scss/game.scss */
+/* line 1524, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .lower_area {
   position: relative;
   width: 100%;
@@ -2892,12 +2897,12 @@ svg {
   -ms-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 1528, ../scss/game.scss */
+/* line 1533, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .moves_and_stats_container .section_container .moves_list_container .move_list_option .lower_area .move_description {
   position: relative;
   font-size: 0.3rem;
 }
-/* line 1539, ../scss/game.scss */
+/* line 1544, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .lower_button_row {
   position: relative;
   width: 100%;
@@ -2928,7 +2933,7 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 1548, ../scss/game.scss */
+/* line 1553, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .lower_button_row .add_pokemon_button {
   position: relative;
   -webkit-flex-grow: 1;
@@ -2955,7 +2960,7 @@ svg {
   align-items: center;
   font-size: 0.5rem;
 }
-/* line 1558, ../scss/game.scss */
+/* line 1563, ../scss/game.scss */
 .team_builder_container .info_window .edit_pokemon_container .lower_button_row .remove_pokemon_button {
   position: relative;
   -webkit-flex-shrink: 0;
@@ -2984,7 +2989,7 @@ svg {
   width: 3rem;
   margin-left: 0.2rem;
 }
-/* line 1573, ../scss/game.scss */
+/* line 1578, ../scss/game.scss */
 .team_builder_container .team_window {
   position: relative;
   width: 100%;
@@ -3018,7 +3023,7 @@ svg {
   padding: 0.2rem;
   background-color: #202020;
 }
-/* line 1585, ../scss/game.scss */
+/* line 1590, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows {
   position: relative;
   -webkit-flex-grow: 1;
@@ -3053,7 +3058,7 @@ svg {
   justify-content: space-between;
   align-content: space-between;
 }
-/* line 1595, ../scss/game.scss */
+/* line 1600, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window {
   position: relative;
   width: calc(33% - 0.1rem);
@@ -3075,11 +3080,11 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1602, ../scss/game.scss */
+/* line 1607, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window.selected .selected_overlay {
   opacity: 1;
 }
-/* line 1607, ../scss/game.scss */
+/* line 1612, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window .pokemon_picture_area {
   position: relative;
   width: 100%;
@@ -3088,7 +3093,7 @@ svg {
   -ms-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 1612, ../scss/game.scss */
+/* line 1617, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window .pokemon_picture_area .pokemon_picture_container {
   position: absolute;
   left: 0;
@@ -3113,7 +3118,7 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1622, ../scss/game.scss */
+/* line 1627, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window .pokemon_picture_area .pokemon_picture_container .pokemon_picture {
   position: relative;
   width: calc(100% - 0.2rem);
@@ -3122,7 +3127,7 @@ svg {
   background-repeat: no-repeat;
   background-position: center;
 }
-/* line 1630, ../scss/game.scss */
+/* line 1635, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window .pokemon_picture_area .type_icon_window {
   position: absolute;
   right: 0;
@@ -3147,7 +3152,7 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1647, ../scss/game.scss */
+/* line 1652, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window .pokemon_name_text {
   position: relative;
   font-size: 0.3rem;
@@ -3157,7 +3162,7 @@ svg {
   -ms-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 1654, ../scss/game.scss */
+/* line 1659, ../scss/game.scss */
 .team_builder_container .team_window .team_preview_windows .pokemon_preview_window .selected_overlay {
   position: absolute;
   left: 0;
@@ -3172,7 +3177,7 @@ svg {
   -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
-/* line 1669, ../scss/game.scss */
+/* line 1674, ../scss/game.scss */
 .team_builder_container .team_window .done_button {
   position: relative;
   width: 3rem;
@@ -3198,7 +3203,7 @@ svg {
   background-color: #404040;
 }
 
-/* line 1681, ../scss/game.scss */
+/* line 1686, ../scss/game.scss */
 .popup_container {
   position: absolute;
   left: 0;
@@ -3206,7 +3211,7 @@ svg {
   width: 100%;
   height: 100%;
 }
-/* line 1688, ../scss/game.scss */
+/* line 1693, ../scss/game.scss */
 .popup_container .darken_bg {
   position: absolute;
   left: 0;
@@ -3215,7 +3220,7 @@ svg {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
 }
-/* line 1697, ../scss/game.scss */
+/* line 1702, ../scss/game.scss */
 .popup_container .prompt_outer_container {
   position: absolute;
   left: 0;
@@ -3239,7 +3244,7 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1706, ../scss/game.scss */
+/* line 1711, ../scss/game.scss */
 .popup_container .prompt_container {
   position: relative;
   width: 8rem;
@@ -3264,13 +3269,13 @@ svg {
   -ms-align-items: flex-start;
   align-items: flex-start;
 }
-/* line 1712, ../scss/game.scss */
+/* line 1717, ../scss/game.scss */
 .popup_container .prompt_container .prompt_header {
   position: relative;
   font-size: 0.4rem;
   margin-bottom: 0.1rem;
 }
-/* line 1718, ../scss/game.scss */
+/* line 1723, ../scss/game.scss */
 .popup_container .prompt_container .team_name_entry_input {
   position: relative;
   width: 100%;
@@ -3281,7 +3286,7 @@ svg {
   box-sizing: border-box;
   padding: 0 0.1rem;
 }
-/* line 1729, ../scss/game.scss */
+/* line 1734, ../scss/game.scss */
 .popup_container .prompt_container .button_row {
   position: relative;
   margin-top: 0.2rem;
@@ -3308,7 +3313,7 @@ svg {
   -ms-flex-direction: row;
   flex-direction: row;
 }
-/* line 1737, ../scss/game.scss */
+/* line 1742, ../scss/game.scss */
 .popup_container .prompt_container .button_row .button {
   position: relative;
   height: 100%;
@@ -3332,14 +3337,14 @@ svg {
   justify-content: center;
   align-items: center;
 }
-/* line 1745, ../scss/game.scss */
+/* line 1750, ../scss/game.scss */
 .popup_container .prompt_container .button_row .button.save {
   -webkit-flex-grow: 2;
   -moz-flex-grow: 2;
   -ms-flex-grow: 2;
   flex-grow: 2;
 }
-/* line 1748, ../scss/game.scss */
+/* line 1753, ../scss/game.scss */
 .popup_container .prompt_container .button_row .button.cancel {
   -webkit-flex-grow: 1;
   -moz-flex-grow: 1;
@@ -3347,77 +3352,77 @@ svg {
   flex-grow: 1;
   background-color: #202020;
 }
-/* line 1753, ../scss/game.scss */
+/* line 1758, ../scss/game.scss */
 .popup_container .prompt_container .button_row .button:last-child {
   margin-right: 0;
 }
 
-/* line 1761, ../scss/game.scss */
+/* line 1766, ../scss/game.scss */
 .type_icon {
   display: none !important;
 }
 
-/* line 1764, ../scss/game.scss */
+/* line 1769, ../scss/game.scss */
 .type_name {
   margin-top: 0 !important;
   text-transform: uppercase;
 }
 
-/* line 1769, ../scss/game.scss */
+/* line 1774, ../scss/game.scss */
 [data-type="water"] {
   background-color: #597ea1 !important;
 }
 
-/* line 1772, ../scss/game.scss */
+/* line 1777, ../scss/game.scss */
 [data-type="earth"] {
   background-color: #8c8251 !important;
 }
 
-/* line 1775, ../scss/game.scss */
+/* line 1780, ../scss/game.scss */
 [data-type="fire"] {
   background-color: #d6713b !important;
 }
 
-/* line 1778, ../scss/game.scss */
+/* line 1783, ../scss/game.scss */
 [data-type="air"] {
   background-color: #999999 !important;
 }
 
-/* line 1781, ../scss/game.scss */
+/* line 1786, ../scss/game.scss */
 [data-type="spirit"] {
   background-color: #479e64 !important;
 }
 
-/* line 1784, ../scss/game.scss */
+/* line 1789, ../scss/game.scss */
 [data-type="void"] {
   background-color: #3b204f !important;
 }
 
-/* line 1791, ../scss/game.scss */
+/* line 1796, ../scss/game.scss */
 #body.landscape .team_builder_container {
   flex-direction: row-reverse;
 }
-/* line 1794, ../scss/game.scss */
+/* line 1799, ../scss/game.scss */
 #body.landscape .team_builder_container .info_window {
   height: 100%;
   width: auto;
 }
-/* line 1798, ../scss/game.scss */
+/* line 1803, ../scss/game.scss */
 #body.landscape .team_builder_container .info_window .pokemon_list_container {
   bottom: 0;
 }
-/* line 1803, ../scss/game.scss */
+/* line 1808, ../scss/game.scss */
 #body.landscape .team_builder_container .team_window {
   width: 4.2rem;
   height: 100%;
   flex-direction: column;
 }
-/* line 1809, ../scss/game.scss */
+/* line 1814, ../scss/game.scss */
 #body.landscape .team_builder_container .team_window .team_preview_windows .pokemon_preview_window {
   width: calc(50% - 0.1rem);
   height: calc(33% - 0.1rem);
 }
-/* line 1815, ../scss/game.scss */
+/* line 1820, ../scss/game.scss */
 #body.landscape .team_builder_container .team_window .done_button {
   width: 100%;
   height: 3rem;
@@ -3425,13 +3430,13 @@ svg {
   margin-top: 0.2rem;
 }
 
-/* line 1826, ../scss/game.scss */
+/* line 1831, ../scss/game.scss */
 .touchable {
   overflow: hidden;
   cursor: pointer;
 }
 
-/* line 1831, ../scss/game.scss */
+/* line 1836, ../scss/game.scss */
 .touchable:not(.no_before):after,
 .touchable.no_before .touchable_circle {
   content: "";
@@ -3447,34 +3452,34 @@ svg {
   display: none;
 }
 
-/* line 1845, ../scss/game.scss */
+/* line 1850, ../scss/game.scss */
 .touchable.small:not(.no_before):after,
 .touchable.small.no_before .touchable_circle {
   width: 1rem;
   height: 1rem;
 }
 
-/* line 1851, ../scss/game.scss */
+/* line 1856, ../scss/game.scss */
 .touchable.large:not(.no_before):after,
 .touchable.large.no_before .touchable_circle {
   width: 3rem;
   height: 3rem;
 }
 
-/* line 1857, ../scss/game.scss */
+/* line 1862, ../scss/game.scss */
 .touchable.huge:not(.no_before):after,
 .touchable.huge.no_before .touchable_circle {
   width: 5rem;
   height: 5rem;
 }
 
-/* line 1863, ../scss/game.scss */
+/* line 1868, ../scss/game.scss */
 .touchable.invert:not(.no_before):after,
 .touchable.invert.no_before .touchable_circle {
   background-color: black;
 }
 
-/* line 1868, ../scss/game.scss */
+/* line 1873, ../scss/game.scss */
 .touchable.touched:not(.no_before):after,
 .touchable.touched.no_before .touchable_circle {
   display: block;

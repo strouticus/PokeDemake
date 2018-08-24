@@ -483,6 +483,11 @@ svg {
 			}
 		}
 
+		&.locked {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
 		.top_area { 
 			position: relative;
 			width: 100%;
