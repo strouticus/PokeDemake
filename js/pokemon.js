@@ -268,4 +268,44 @@ var pokemonInfo = {
 		],
 		flavor: "Harmless Joe is a nice fish who doesn't hurt anyone... usually.",
 	},
+
+	"catfirewall": {
+		displayName: "Catfirewall",
+		type: TYPE_FIRE,
+		stats: {
+			hp: 12,
+			atk: 3,
+			def: 5,
+			spd: 3,
+		},
+		moves: [
+			"airshot",
+			"combust",
+			"firespinner",
+			"ghostguard",
+			"inverttempo",
+			"radiation",
+		],
+		flavor: "A bizzare creature. 50% cat, 50% fire, 50% wall. Hates water immensely.",
+	},
+
+	"ghostpuncher": {
+		displayName: "Ghostpuncher",
+		type: TYPE_SPIRIT,
+		stats: {
+			hp: 13,
+			atk: 4,
+			def: 3,
+			spd: 6,
+		},
+		moves: [
+			"ghostpunch",
+			"ghostguard",
+			"drain",
+			"airshot",
+			"backwind",
+			"flyingstrike",
+		],
+		flavor: "He doesn't discriminate between ghosts and non-ghosts. Anyone can be a recipient of The Fist.",
+	},
 };
