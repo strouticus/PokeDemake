@@ -227,6 +227,7 @@ function updatePokemonUI (trainerObj, forceHPNum) {
 	if (trainerPokemon && trainerPokemon.alive) {
 		trainerSideEl.find(".pokemon_info_box_container").removeClass("fainted");
 		trainerSideEl.find(".pokemon_name").empty().append(trainerPokemon.nickname);
+		trainerSideEl.find(".pokemon_type").data("type", trainerPokemon.info.type).empty().append(typeInfo[trainerPokemon.info.type].displayName);
 		updatePokemonHPUI(trainerObj, forceHPNum);
 		updatePokemonStatsUI(trainerObj);
 
@@ -255,16 +256,25 @@ function updatePokemonHPUI (trainerObj, forceHPNum) {
 	trainerSideEl.find(".pokemon_hp_num").empty().append("" + hpCurVal + " / " + trainerPokemon.stats.hp);
 }
 
-function updatePokemonStatsUI (trainerObj) {
+function updatePokemonStatsUI (trainerObj, curAtk, curDef, curSpd) {
 	var trainerSideEl = $(".battle_side[data-trainer='" + trainerObj.id + "']");
 	var trainerPokemon = trainerObj.activePokemon;
+	if (curAtk === undefined) {
+		curAtk = trainerPokemon.stats.atk;
+	}
+	if (curDef === undefined) {
+		curDef = trainerPokemon.stats.def;
+	}
+	if (curSpd === undefined) {
+		curSpd = trainerPokemon.stats.spd;
+	}
 
-	trainerSideEl.find(".pokemon_atk .stat_num").empty().append(trainerPokemon.stats.atk);
-	trainerSideEl.find(".pokemon_atk .stat_bar").css("width", (trainerPokemon.stats.atk * 0.15) + "rem");
-	trainerSideEl.find(".pokemon_def .stat_num").empty().append(trainerPokemon.stats.def);
-	trainerSideEl.find(".pokemon_def .stat_bar").css("width", (trainerPokemon.stats.def * 0.15) + "rem");
-	trainerSideEl.find(".pokemon_spd .stat_num").empty().append(trainerPokemon.stats.spd);
-	trainerSideEl.find(".pokemon_spd .stat_bar").css("width", (trainerPokemon.stats.spd * 0.15) + "rem");
+	trainerSideEl.find(".pokemon_atk .stat_num").empty().append(curAtk);
+	trainerSideEl.find(".pokemon_atk .stat_bar").css("width", (curAtk * 0.15) + "rem");
+	trainerSideEl.find(".pokemon_def .stat_num").empty().append(curDef);
+	trainerSideEl.find(".pokemon_def .stat_bar").css("width", (curDef * 0.15) + "rem");
+	trainerSideEl.find(".pokemon_spd .stat_num").empty().append(curSpd);
+	trainerSideEl.find(".pokemon_spd .stat_bar").css("width", (curSpd * 0.15) + "rem");
 }
 
 function updatePokemonMovesUI (trainerObj) {
@@ -277,10 +287,14 @@ function updatePokemonMovesUI (trainerObj) {
 			var thisMoveInfo = moveInfo[trainerPokemon.moves[i]];
 			moveButtonEl.data("move-id", trainerPokemon.moves[i]);
 			moveButtonEl.find(".pokemon_move_name_text").empty().append(thisMoveInfo.displayName);
+			moveButtonEl.find(".move_type_container").data("type", thisMoveInfo.type);
 			moveButtonEl.find(".type_name").empty().append(typeInfo[thisMoveInfo.type].displayName);
 			if (thisMoveInfo.bp) {
 				moveButtonEl.find(".stat_section.pow").removeClass("disabled");
-				moveButtonEl.find(".stat_num.pow").empty().append(thisMoveInfo.bp);
+				moveButtonEl.find(".stat_num.pow").empty().append("<div>" + thisMoveInfo.bp + "</div>");
+				if (thisMoveInfo.type === trainerPokemon.info.type) {
+					moveButtonEl.find(".stat_num.pow").append("<div class='stab_bonus'>+2</div>");
+				}
 			} else {
 				moveButtonEl.find(".stat_section.pow").addClass("disabled");
 			}
@@ -290,6 +304,18 @@ function updatePokemonMovesUI (trainerObj) {
 				moveButtonEl.find(".stat_num.prio").empty().append(thisMoveInfo.priority);
 			} else {
 				moveButtonEl.find(".stat_section.prio").addClass("disabled");
+			}
+
+			var effectiveness = typeInfo[thisMoveInfo.type][curBattleState.getOtherTrainer(trainerObj.id).activePokemon.info.type];
+			if (thisMoveInfo.moveType !== MOVETYPE_ATTACK) {
+				effectiveness = EFFECTIVE_NEUTRAL;
+			}
+			if (effectiveness === EFFECTIVE_WEAK) {
+				moveButtonEl.find(".multiplier_container").data("effectiveness", "weak").empty().append("x0.5");
+			} else if (effectiveness === EFFECTIVE_SUPER) {
+				moveButtonEl.find(".multiplier_container").data("effectiveness", "super").empty().append("x2");
+			} else {
+				moveButtonEl.find(".multiplier_container").data("effectiveness", "hide")
 			}
 
 			moveButtonEl.find(".move_description").empty().append(thisMoveInfo.description);
@@ -407,7 +433,7 @@ Animation.prototype.execute = function () {
 			handleNextAnimation();
 		}, 750);
 	} else if (this.animType === "updateStats") {
-		updatePokemonStatsUI(this.animInfo.trainerObj);
+		updatePokemonStatsUI(this.animInfo.trainerObj, this.animInfo.curAtk, this.animInfo.curDef, this.animInfo.curSpd);
 		handleNextAnimation();
 	}
 }
@@ -477,7 +503,7 @@ function populatePokemonListUI () {
 					'<div class="pokemon_picture" style=""></div>' +
 				'</div>' +
 				'<div class="pokemon_name">' + pokeInfo.displayName + '</div>' +
-				'<div class="type_icon_container">' +
+				'<div class="type_icon_container" data-type="' + pokeInfo.type + '">' +
 					'<div class="type_icon"></div>' +
 					'<div class="type_name">' + typeInfo[pokeInfo.type].displayName + '</div>' +
 				'</div>' +
@@ -506,8 +532,10 @@ function updatePokemonPreview (index) {
 	var previewEl = teamPreviewEl.find("[data-pokemon='" + index + "']");
 	if (pokeInfo) {
 		previewEl.find(".pokemon_name_text").empty().append(pokemonInfo[pokeInfo.species].displayName);
+		previewEl.find(".type_icon_window").data("type", pokemonInfo[pokeInfo.species].type);
 	} else {
 		previewEl.find(".pokemon_name_text").empty().append("Click to add");
+		previewEl.find(".type_icon_window").data("type", undefined);
 	}
 }
 
@@ -528,7 +556,7 @@ function updatePokemonEditUI (pokeInfo) {
 	pokemonEditEl.find(".pokemon_name").empty().append(speciesInfo.displayName);
 	pokemonEditEl.find(".pokemon_flavor_text").empty().append(speciesInfo.flavor);
 	// TODO: Set bg img of portrait
-	// TODO: Set bg img of type icon
+	pokemonEditEl.find(".top_row .type_icon_container").data("type", speciesInfo.type);
 	pokemonEditEl.find(".top_row .type_name").empty().append(typeInfo[speciesInfo.type].displayName);
 
 	updatePokemonEditMovesUI(pokeInfo);
@@ -544,11 +572,13 @@ function updatePokemonEditMovesUI (pokeInfo) {
 		var curMoveButtonEl = moveButtonsEls.eq(i);
 		curMoveButtonEl.find(".move_name").empty();
 		curMoveButtonEl.find(".type_name").empty();
+		curMoveButtonEl.find(".move_type_container").data("type", undefined);
 
 		if (curMoveID) {
 			curMoveButtonEl.removeClass("empty");
 			curMoveButtonEl.find(".move_name").append(moveInfo[curMoveID].displayName);
 			curMoveButtonEl.find(".type_name").append(typeInfo[moveInfo[curMoveID].type].displayName);
+			curMoveButtonEl.find(".move_type_container").data("type", moveInfo[curMoveID].type);
 		} else {
 			curMoveButtonEl.addClass("empty");
 		}
@@ -619,7 +649,7 @@ function createMoveListElement (moveName) {
 	}
 	var newMoveEl = $('<div class="move_list_option touchable large" data-move="' + moveName + '">' +
 						'<div class="top_area">' +
-							'<div class="move_type_container">' +
+							'<div class="move_type_container" data-type="' + newMoveInfo.type + '"">' +
 								'<div class="type_icon"></div>' +
 								'<div class="type_name">' + typeInfo[newMoveInfo.type].displayName + '</div>' +
 							'</div>' +

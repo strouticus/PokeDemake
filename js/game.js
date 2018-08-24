@@ -101,8 +101,21 @@ Pokemon.prototype.adjustStats = function (statAdj) {
 	var ownerTrainer = curBattleState.getTrainerFromPokemon(this);
 	for (var statName in statAdj) {
 		this.stats[statName] += statAdj[statName];
-		new Animation("updateStats", {trainerObj: ownerTrainer});
+		new Animation("updateStats", {trainerObj: ownerTrainer, curAtk: this.stats.atk, curDef: this.stats.def, curSpd: this.stats.spd});
 		new Animation("drawText", "" + this.nickname + "'s " + statName.toUpperCase() + " was raised by " + statAdj[statName] + "!");
+	}
+}
+
+Pokemon.prototype.resetStats = function () {
+	this.stats = {
+		hp: this.info.stats.hp,
+		atk: this.info.stats.atk,
+		def: this.info.stats.def,
+		spd: this.info.stats.spd,
+	}
+
+	for (var statName in this.specialization) {
+		this.stats[statName] += this.specialization[statName];
 	}
 }
 
@@ -158,6 +171,8 @@ Trainer.prototype.switchPokemon = function (newPokemonID) {
 
 	this.activePokemonIndex = newPokemonID;
 	this.activePokemon = this.pokemon[newPokemonID];
+
+	this.activePokemon.resetStats();
 
 	// updatePokemonUI(this);
 
