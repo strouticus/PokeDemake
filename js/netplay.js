@@ -9,7 +9,7 @@ function initNetplay () {
 	if (location.href.indexOf("localhost") >= 0) {
 		wsAddr = "ws://localhost:8100";
 	} else {
-		wsAddr = "ws://bine.nfshost.com/PokeDemake/";
+		wsAddr = "wss://bine.nfshost.com/PokeDemake/";
 	}
 	ws = new WebSocket(wsAddr);
 
